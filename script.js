@@ -258,19 +258,32 @@ function initContactForm() {
             method: 'POST',
             body: formData
         })
-            .then((res) => res.json())
+            .then(async (res) => {
+                const text = await res.text();
+                try {
+                    return JSON.parse(text);
+                } catch (err) {
+                    if (text.includes('Script function not found: doPost')) {
+                        throw new Error('Google Apps Script is missing doPost(e) or needs to be re-deployed as a New Version.');
+                    }
+                    if (text.includes('Script function not found')) {
+                        throw new Error('Google Apps Script function error. Please check your Apps Script deployment.');
+                    }
+                    throw new Error('Unexpected response format from Google Apps Script.');
+                }
+            })
             .then((data) => {
                 if (data && data.result === 'success') {
                     showMessage(responseMsg, 'Thank you! Your message has been sent.', 'success');
                     form.reset();
                 } else {
                     const errorDetails = data && data.message ? `: ${data.message}` : '';
-                    showMessage(responseMsg, `Error submitting form. Please try again${errorDetails}.`, 'error');
+                    showMessage(responseMsg, `Error submitting form${errorDetails}.`, 'error');
                 }
             })
             .catch((error) => {
-                showMessage(responseMsg, 'Submission failed. Please check your connection.', 'error');
-                console.error('Error:', error);
+                showMessage(responseMsg, error.message || 'Submission failed. Please check your connection.', 'error');
+                console.error('Submission Error:', error);
             })
             .finally(() => {
                 if (submitBtn) {

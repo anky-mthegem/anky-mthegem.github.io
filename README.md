@@ -110,9 +110,9 @@ To preview or work on the site locally:
 
 ## 📬 Contact & Connect
 
-* **LinkedIn**: [linkedin.com/in/amandeep-singh-93b58498](https://www.linkedin.com/in/amandeep-singh-93b58498/)
-* **Email**: amandeepsinghmthegem@gmail.com
-* **Location**: Mumbai / Punjab, India
+* **LinkedIn**: [linkedin.com/in/anky-mthegem/](https://linkedin.com/in/anky-mthegem/)
+* **Email**: anky_mthegem2@yahoo.co.uk
+* **Location**: Mumbai, Maharashtra / Ludhiana, Punjab, India
 * **Website**: [https://anky-mthegem.github.io](https://anky-mthegem.github.io)
 
 ---

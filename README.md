@@ -39,7 +39,7 @@ This repository hosts the official personal portfolio and engineering showcase o
 ## 🛠️ Technical Competencies Highlighted
 
 * **Industrial Robotics**: ABB (RobotStudio), KUKA (KRC4/WorkVisual), Fanuc (Roboguide), 6-Axis Kinematics.
-* **PLC & Motion Control**: Siemens S7-1200 / S7-1500 (TIA Portal), Beckhoff (TwinCAT 3), Allen-Bradley.
+* **PLC &amp; Motion Control**: Siemens S7-1200 / S7-1500 (TIA Portal), Beckhoff (TwinCAT 3), Omron (Sysmac Studio), Delta (ISPSoft, CANopen Builder), Allen-Bradley.
 * **Foundry & Special Processes**: Loramendi Coldbox core machines (30% cycle time optimization), core sand handling.
 * **Vision & Quality Inspection**: In-House AI Vision, YOLO Object Detection, Python-to-PLC (Snap7), Cognex, OpenCV.
 * **Digital Manufacturing & IoT**: OPC-UA, MQTT, Node-RED, shop floor telemetry, predictive maintenance.

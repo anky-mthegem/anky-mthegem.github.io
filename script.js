@@ -2,6 +2,11 @@
  * AMANDEEP SINGH PORTFOLIO - MAIN INTERACTION SCRIPT
  */
 
+// ==========================================================================
+// CONFIGURATION: Google Apps Script Web App URL for Contact Form Submissions
+// ==========================================================================
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxIdnCSMhl7NrOZwfA5D6AOv_q_Zbmu7Ihz0HDqGDEGYHvqbR4OQn3_jI_OCIINaEXx8g/exec';
+
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
     initNavigation();
@@ -195,55 +200,84 @@ function initIntersectionAnimations() {
 }
 
 /* ==========================================================================
-   CONTACT FORM VALIDATION & SUBMISSION
+   CONTACT FORM VALIDATION & SUBMISSION (GOOGLE APPS SCRIPT)
    ========================================================================== */
 function initContactForm() {
-    const contactForm = document.getElementById('contactForm');
-    const formMessage = document.getElementById('formMessage');
+    const form = document.getElementById('contact-form') || document.getElementById('contactForm');
+    const responseMsg = document.getElementById('response-message') || document.getElementById('formMessage');
+    const submitBtn = document.getElementById('submit-btn') || (form ? form.querySelector('button[type="submit"]') : null);
 
-    if (!contactForm) return;
+    if (!form) return;
 
-    contactForm.addEventListener('submit', function(e) {
+    form.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        const nameInput = document.getElementById('name');
-        const emailInput = document.getElementById('email');
-        const subjectInput = document.getElementById('subject');
-        const messageInput = document.getElementById('message');
-        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        // Retrieve field values
+        const nameInput = form.querySelector('[name="name"]') || document.getElementById('name');
+        const emailInput = form.querySelector('[name="email"]') || document.getElementById('email');
+        const messageInput = form.querySelector('[name="message"]') || document.getElementById('message');
 
         const name = nameInput ? nameInput.value.trim() : '';
         const email = emailInput ? emailInput.value.trim() : '';
-        const subject = subjectInput ? subjectInput.value.trim() : '';
         const message = messageInput ? messageInput.value.trim() : '';
 
         // Validation
-        if (!name || !email || !subject || !message) {
-            showMessage(formMessage, 'Please fill in all required fields.', 'error');
+        if (!name || !email || !message) {
+            showMessage(responseMsg, 'Please fill in all required fields (Name, Email, Message).', 'error');
             return;
         }
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            showMessage(formMessage, 'Please enter a valid email address.', 'error');
+            showMessage(responseMsg, 'Please enter a valid email address.', 'error');
             return;
         }
 
-        // Simulating submission
+        // Check if user still has the placeholder URL
+        if (!SCRIPT_URL || SCRIPT_URL === 'PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE') {
+            showMessage(
+                responseMsg, 
+                '⚠️ Google Apps Script URL not configured yet. Please paste your deployed Web App URL in script.js (SCRIPT_URL).', 
+                'info'
+            );
+            console.warn('Google Apps Script URL is not set. Please replace PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE in script.js with your deployed Web App URL.');
+            return;
+        }
+
+        // Prepare button UI state
         const originalBtnText = submitBtn ? submitBtn.innerHTML : 'Send Message';
         if (submitBtn) {
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span>Sending...</span>';
+            submitBtn.innerHTML = '<span>Submitting...</span>';
         }
+        showMessage(responseMsg, 'Submitting...', 'submitting');
 
-        setTimeout(() => {
-            showMessage(formMessage, 'ℹ️ The online form is currently under construction. Please reach out directly to anky_mthegem2@yahoo.co.uk or call +91-9653080919.', 'success');
-            contactForm.reset();
-            if (submitBtn) {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalBtnText;
-            }
-        }, 800);
+        const formData = new FormData(form);
+
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            body: formData
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data && data.result === 'success') {
+                    showMessage(responseMsg, 'Thank you! Your message has been sent.', 'success');
+                    form.reset();
+                } else {
+                    const errorDetails = data && data.message ? `: ${data.message}` : '';
+                    showMessage(responseMsg, `Error submitting form. Please try again${errorDetails}.`, 'error');
+                }
+            })
+            .catch((error) => {
+                showMessage(responseMsg, 'Submission failed. Please check your connection.', 'error');
+                console.error('Error:', error);
+            })
+            .finally(() => {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnText;
+                }
+            });
     });
 }
 
@@ -253,7 +287,9 @@ function showMessage(el, text, type) {
     el.className = `form-message ${type}`;
     el.style.display = 'block';
 
-    setTimeout(() => {
-        el.style.display = 'none';
-    }, 6000);
+    if (type !== 'submitting') {
+        setTimeout(() => {
+            el.style.display = 'none';
+        }, 7000);
+    }
 }

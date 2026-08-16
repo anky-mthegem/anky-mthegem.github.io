@@ -29,7 +29,7 @@ This repository hosts the official personal portfolio and engineering showcase o
 | **[Home](https://anky-mthegem.github.io/index.html)** | Executive landing page & overview | Career snapshot, core numbers, featured projects, latest certifications |
 | **[About](https://anky-mthegem.github.io/about.html)** | Professional trajectory & philosophy | BITS Pilani M.Tech, Mechatronics roots, 5x marathoner mindset, engineering leadership |
 | **[Experience](https://anky-mthegem.github.io/experience.html)** | Detailed career timeline | Godrej & Boyce (Associate & Deputy Manager), Bharat Milk Products, DCM Engineering |
-| **[Projects](https://anky-mthegem.github.io/projects.html)** | Industrial deployments & case studies | IoT Stitching Cell (60% gain), Robotic Foam Pouring, Vision Transfer, S7-1200 CIP Plant |
+| **[Projects](https://anky-mthegem.github.io/projects.html)** | Industrial deployments &amp; case studies | IoT Stitching Cell (60% gain), KUKA Foam Pouring with Conveyor Tracking, Vision Transfer, S7-1200 CIP Plant |
 | **[Skills](https://anky-mthegem.github.io/skills.html)** | Proof-Based Competency Matrix | Industrial Robotics, Siemens/Beckhoff PLC, Vision Systems, Plant Commissioning |
 | **[Harley Showcase](https://anky-mthegem.github.io/harley.html)** | Machine, touring & community | Harley X440 S, `HD-MUMBAI.mp4` video reel, H.O.G. Grand Trunk Chapter Ludhiana |
 | **[Contact](https://anky-mthegem.github.io/contact.html)** | Direct inquiries & collaboration | Consultation inquiries, connection channels, LinkedIn/GitHub links |

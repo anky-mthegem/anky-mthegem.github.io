@@ -1387,7 +1387,235 @@ img {
     color: var(--text-primary);
 }
 
-/* Proficiency Section */
+/* ==========================================================================
+   PROOF-BASED TECHNICAL COMPETENCY MATRIX
+   ========================================================================== */
+.proof-matrix-section {
+    background: var(--bg-surface);
+    padding: 48px 36px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--card-shadow);
+    margin-top: 40px;
+}
+
+.proof-matrix-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 24px;
+    margin-top: 32px;
+}
+
+.proof-card {
+    background: var(--bg-secondary);
+    padding: 24px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.proof-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--border-glow);
+}
+
+.proof-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent-gradient);
+    opacity: 0.7;
+    transition: opacity var(--transition-fast);
+}
+
+.proof-card:hover::before {
+    opacity: 1;
+}
+
+.proof-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.proof-card-title-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.proof-icon {
+    font-size: 26px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.proof-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.3;
+}
+
+.proof-category {
+    font-size: 12px;
+    color: var(--text-muted);
+    display: block;
+    margin-top: 2px;
+    font-weight: 500;
+}
+
+/* Tier Badges */
+.proof-tier-badge {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.tier-architect {
+    background: rgba(124, 58, 237, 0.12);
+    color: #8b5cf6;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.tier-expert {
+    background: rgba(79, 70, 229, 0.12);
+    color: #6366f1;
+    border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+.tier-lead {
+    background: rgba(16, 185, 129, 0.12);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.tier-specialist {
+    background: rgba(6, 182, 212, 0.12);
+    color: #06b6d4;
+    border: 1px solid rgba(6, 182, 212, 0.3);
+}
+
+/* Operational Scope */
+.proof-scope {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.proof-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--text-muted);
+}
+
+.proof-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.proof-tag {
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: var(--bg-surface);
+    padding: 4px 9px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+/* Verified Plant Impact Callout Box */
+.proof-evidence-box {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--primary);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 14px 16px;
+    border-top: 1px solid var(--border-subtle);
+    border-right: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+    margin-top: auto;
+}
+
+.proof-evidence-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+}
+
+.evidence-icon {
+    font-size: 14px;
+    line-height: 1;
+}
+
+.evidence-title {
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--primary);
+}
+
+.proof-evidence-desc {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.proof-evidence-desc strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* Toolchain */
+.proof-toolchain {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border-color);
+}
+
+.tool-pill {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-primary);
+    background: var(--bg-surface-elevated, var(--bg-surface));
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+}
+
+/* Legacy Proficiency fallback */
 .proficiency-section {
     background: var(--bg-surface);
     padding: 48px 36px;
@@ -1395,50 +1623,30 @@ img {
     border: 1px solid var(--border-color);
     box-shadow: var(--card-shadow);
 }
-
 .proficiency-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 28px;
     margin-top: 32px;
 }
-
 .proficiency-item {
     background: var(--bg-secondary);
     padding: 20px 24px;
     border-radius: var(--radius-sm);
     border: 1px solid var(--border-color);
 }
-
 .proficiency-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
 }
-
-.skill-title {
-    font-weight: 600;
-    font-size: 15px;
-    color: var(--text-primary);
-}
-
-.proficiency-label {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--primary);
-    background: rgba(99, 102, 241, 0.1);
-    padding: 2px 8px;
-    border-radius: 4px;
-}
-
 .proficiency-bar {
     height: 8px;
     background: var(--border-color);
     border-radius: 10px;
     overflow: hidden;
 }
-
 .proficiency-fill {
     height: 100%;
     background: var(--accent-gradient);
@@ -1889,6 +2097,15 @@ textarea.form-control {
         grid-template-columns: 1fr;
         gap: 32px;
     }
+
+    .proof-matrix-section {
+        padding: 32px 20px;
+    }
+
+    .proof-matrix-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1915,4 +2132,594 @@ textarea.form-control {
     .skills-categories {
         grid-template-columns: 1fr;
     }
+
+    .proof-card {
+        padding: 18px 16px;
+    }
+
+    .proof-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .harley-quick-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .harley-stat-card {
+        padding: 16px 12px;
+    }
+
+    .harley-phil-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .harley-cta-box {
+        flex-direction: column;
+        text-align: center;
+        padding: 32px 20px;
+    }
+
+    .harley-cta-buttons {
+        justify-content: center;
+    }
 }
+
+/* ==========================================================================
+   HARLEY-DAVIDSON X440 S SHOWCASE PAGE
+   ========================================================================== */
+.harley-hero {
+    padding: 120px 24px 70px;
+    background: radial-gradient(circle at 50% 20%, rgba(234, 88, 12, 0.15) 0%, rgba(15, 23, 42, 0) 70%), var(--hero-bg-gradient);
+    position: relative;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.harley-hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.harley-badge-pill-hero {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 18px 6px 8px;
+    border-radius: var(--radius-full);
+    background: rgba(234, 88, 12, 0.12);
+    border: 1px solid rgba(234, 88, 12, 0.35);
+    color: #fb923c;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 16px rgba(234, 88, 12, 0.15);
+}
+
+.harley-hero-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.harley-hero-title {
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.15;
+    margin-bottom: 18px;
+    letter-spacing: -0.5px;
+}
+
+.harley-hero-subtitle {
+    font-size: clamp(16px, 2vw, 18px);
+    color: #cbd5e1;
+    line-height: 1.6;
+    margin-bottom: 36px;
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.harley-quick-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.harley-stat-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    padding: 20px 16px;
+    text-align: center;
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.harley-stat-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(234, 88, 12, 0.5);
+}
+
+.harley-stat-val {
+    display: block;
+    font-size: 24px;
+    font-weight: 800;
+    color: #ffffff;
+    font-family: var(--font-heading);
+    margin-bottom: 4px;
+}
+
+.harley-stat-lbl {
+    font-size: 11.5px;
+    color: #94a3b8;
+    font-weight: 500;
+    line-height: 1.3;
+    display: block;
+}
+
+/* Harley Page Sections */
+.harley-page {
+    padding: 60px 24px 80px;
+    background: var(--bg-primary);
+}
+
+.harley-section {
+    margin-bottom: 70px;
+}
+
+/* Spec Grid */
+.harley-spec-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+}
+
+.harley-spec-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 28px;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+}
+
+.harley-spec-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: rgba(234, 88, 12, 0.4);
+}
+
+.harley-spec-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.harley-card-icon {
+    font-size: 26px;
+    width: 46px;
+    height: 46px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.harley-spec-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.harley-spec-sub {
+    font-size: 12px;
+    color: #ea580c;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.harley-spec-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.harley-spec-desc strong {
+    color: var(--text-primary);
+}
+
+.harley-spec-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border-color);
+}
+
+.harley-pill {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--text-primary);
+    background: var(--bg-secondary);
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-color);
+}
+
+/* Philosophy Section */
+.harley-philosophy-section {
+    background: var(--bg-surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    padding: 48px;
+    box-shadow: var(--card-shadow);
+}
+
+.harley-phil-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 48px;
+    align-items: center;
+}
+
+.harley-phil-lead {
+    font-size: 16.5px;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.6;
+    margin: 16px 0 12px;
+    font-style: italic;
+}
+
+.harley-phil-body {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+}
+
+.harley-phil-bullets {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.harley-phil-bullet {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+}
+
+.bullet-icon {
+    font-size: 22px;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.harley-phil-bullet h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.harley-phil-bullet p {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 0;
+}
+
+.harley-phil-card {
+    background: radial-gradient(circle at 50% 0%, rgba(234, 88, 12, 0.15) 0%, rgba(15, 23, 42, 0.8) 100%), #0f172a;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(234, 88, 12, 0.3);
+    padding: 36px 28px;
+    text-align: center;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+}
+
+.harley-emblem-lg {
+    max-width: 140px;
+    width: 100%;
+    border-radius: 12px;
+    margin: 0 auto 20px;
+    display: block;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.harley-phil-card h3 {
+    font-size: 20px;
+    color: #ffffff;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.harley-quote {
+    font-size: 14.5px;
+    color: #cbd5e1;
+    line-height: 1.6;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+.rider-meta {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.rider-meta strong {
+    color: #ffffff;
+    font-size: 15px;
+}
+
+.rider-meta span {
+    color: #ea580c;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Featured Video Showcase Card */
+.harley-featured-video-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    max-width: 960px;
+    margin: 0 auto;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+}
+
+.harley-featured-video-card:hover {
+    box-shadow: 0 20px 40px -10px rgba(234, 88, 12, 0.2);
+    border-color: rgba(234, 88, 12, 0.4);
+}
+
+.harley-video-frame {
+    width: 100%;
+    background: #000000;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.harley-video-element {
+    width: 100%;
+    max-height: 540px;
+    display: block;
+    object-fit: contain;
+    background: #000000;
+    outline: none;
+}
+
+.harley-video-details {
+    padding: 28px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.harley-video-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.harley-video-titles {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.harley-video-titles h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.harley-video-desc {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.harley-video-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 8px;
+}
+
+/* Call to Action */
+.harley-cta-box {
+    background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+    border-radius: var(--radius-lg);
+    padding: 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+    border: 1px solid rgba(234, 88, 12, 0.25);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.15);
+}
+
+.harley-cta-text h2 {
+    color: #ffffff;
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.harley-cta-text p {
+    color: #cbd5e1;
+    font-size: 15px;
+    margin: 0;
+}
+
+.harley-cta-buttons {
+    display: flex;
+    gap: 14px;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+}
+
+/* Hero Badges Wrapper */
+.harley-hero-badges-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.chapter-badge-pill {
+    background: rgba(245, 158, 11, 0.12);
+    border-color: rgba(245, 158, 11, 0.4);
+    color: #fbbf24;
+}
+
+.punjab-badge-pill {
+    background: rgba(239, 68, 68, 0.12);
+    border-color: rgba(239, 68, 68, 0.4);
+    color: #f87171;
+}
+
+/* Chapter Affiliation Grid */
+.harley-chapter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 28px;
+}
+
+.harley-chapter-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 32px;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 18px;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+}
+
+.harley-chapter-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: rgba(234, 88, 12, 0.45);
+}
+
+.chapter-image-wrapper {
+    width: 100%;
+    max-width: 220px;
+    height: 190px;
+    border-radius: var(--radius-md);
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    overflow: visible;
+}
+
+.chapter-badge-img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 4px;
+    display: block;
+}
+
+.chapter-card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.chapter-tag {
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #ea580c;
+    background: rgba(234, 88, 12, 0.1);
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+}
+
+.chapter-card-body h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.chapter-card-body p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.chapter-meta-pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+/* Philosophy Badges Row */
+.phil-badges-row {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.harley-phil-mini-badge {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    object-fit: contain;
+    background: #0f172a;
+    padding: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+

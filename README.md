@@ -29,7 +29,7 @@ This repository hosts the official personal portfolio and engineering showcase o
 | **[Home](https://anky-mthegem.github.io/index.html)** | Executive landing page & overview | Career snapshot, core numbers, featured projects, latest certifications |
 | **[About](https://anky-mthegem.github.io/about.html)** | Professional trajectory & philosophy | BITS Pilani M.Tech, Mechatronics roots, 5x marathoner mindset, engineering leadership |
 | **[Experience](https://anky-mthegem.github.io/experience.html)** | Detailed career timeline | Godrej & Boyce (Associate & Deputy Manager), Bharat Milk Products, DCM Engineering |
-| **[Projects](https://anky-mthegem.github.io/projects.html)** | Industrial deployments &amp; case studies | IoT Stitching Cell (60% gain), KUKA Foam Pouring with Conveyor Tracking, Vision Transfer, S7-1200 CIP Plant |
+| **[Projects](https://anky-mthegem.github.io/projects.html)** | Industrial deployments &amp; case studies | IoT Stitching Cell (60% gain), KUKA Foam Pouring, In-House YOLO Vision Transfer, S7-1200 CIP Plant |
 | **[Skills](https://anky-mthegem.github.io/skills.html)** | Proof-Based Competency Matrix | Industrial Robotics, Siemens/Beckhoff PLC, Vision Systems, Plant Commissioning |
 | **[Harley Showcase](https://anky-mthegem.github.io/harley.html)** | Machine, touring & community | Harley X440 S, `HD-MUMBAI.mp4` video reel, H.O.G. Grand Trunk Chapter Ludhiana |
 | **[Contact](https://anky-mthegem.github.io/contact.html)** | Direct inquiries & collaboration | Consultation inquiries, connection channels, LinkedIn/GitHub links |
@@ -41,7 +41,7 @@ This repository hosts the official personal portfolio and engineering showcase o
 * **Industrial Robotics**: ABB (RobotStudio), KUKA (KRC4/WorkVisual), Fanuc (Roboguide), 6-Axis Kinematics.
 * **PLC & Motion Control**: Siemens S7-1200 / S7-1500 (TIA Portal), Beckhoff (TwinCAT 3), Allen-Bradley.
 * **Foundry & Special Processes**: Loramendi Coldbox core machines (30% cycle time optimization), core sand handling.
-* **Vision & Quality Inspection**: Industrial 2D/3D machine vision, Cognex, OpenCV, automated defect detection.
+* **Vision & Quality Inspection**: In-House AI Vision, YOLO Object Detection, Python-to-PLC (Snap7), Cognex, OpenCV.
 * **Digital Manufacturing & IoT**: OPC-UA, MQTT, Node-RED, shop floor telemetry, predictive maintenance.
 * **Mechanical Design & Simulation**: SolidWorks, AutoCAD, pneumatic/hydraulic circuit sizing.
 

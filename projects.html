@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering Projects &amp; Deployments | Amandeep Singh</title>
+    <meta name="description" content="Industrial engineering projects by Amandeep Singh: IoT Stitching Cell (60% improvement), Robotic Foam Pouring, Vision-Guided FG Transfer, Siemens S7-1200 CIP Plant, and Foundry Robotics.">
+    <meta name="author" content="Amandeep Singh">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" aria-label="Main Navigation">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-badge">AS</span>
+                <span class="logo-text">Amandeep Singh</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="experience.html" class="nav-link">Experience</a></li>
+                <li><a href="projects.html" class="nav-link active">Projects</a></li>
+                <li><a href="skills.html" class="nav-link">Skills</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle light/dark theme">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+                <a href="Resume_Amandeep.pdf" download="Resume_Amandeep.pdf" class="btn-nav-resume" target="_blank" rel="noopener noreferrer">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    <span>Resume</span>
+                </a>
+                <button class="hamburger" aria-label="Open navigation menu" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1>Featured Projects &amp; Deployments</h1>
+            <p class="subtitle">Industrial Robotics, IoT Smart Factory Systems, Vision Integration, PLC &amp; Plant Commissioning</p>
+        </div>
+    </header>
+
+    <!-- Projects Grid Section -->
+    <main class="projects-page">
+        <div class="container">
+            <div class="projects-grid">
+                <!-- Project 1: IoT Stitching Cell -->
+                <article class="project-card-large">
+                    <div class="project-banner" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%);">
+                        <span class="project-banner-icon">🌐</span>
+                        <span class="project-category-badge">Industry 4.0 / IoT</span>
+                    </div>
+                    <div class="project-info">
+                        <h3>IoT Implementation for Stitching Cell</h3>
+                        <p class="project-company">Godrej &amp; Boyce Mfg. Co. Ltd (Haridwar Plant)</p>
+                        <p class="project-desc">
+                            Designed and deployed an end-to-end IoT smart manufacturing architecture for the stitching cell at Godrej Haridwar Plant. Integrated edge sensors, machine runtime telemetry, and real-time production dashboards to eliminate bottlenecks and optimize cell workflow.
+                        </p>
+                        <div class="project-tags">
+                            <span>IoT Telemetry</span>
+                            <span>Industry 4.0</span>
+                            <span>Smart Factory</span>
+                            <span>Process Optimization</span>
+                            <span>Haridwar Plant</span>
+                        </div>
+                        <div class="project-achievements">
+                            <h4>Key Milestones &amp; Impact</h4>
+                            <ul>
+                                <li>Delivered a massive <strong>60% process improvement</strong> in cell efficiency.</li>
+                                <li>Real-time tracking of machine uptime, cycle durations, and operator OEE.</li>
+                                <li>Automated predictive maintenance alerts and shift analytics.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 2: Godrej Robotic Foam Pouring & Releasing Agent -->
+                <article class="project-card-large">
+                    <div class="project-banner" style="background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);">
+                        <span class="project-banner-icon">🤖</span>
+                        <span class="project-category-badge">Industrial Robotics</span>
+                    </div>
+                    <div class="project-info">
+                        <h3>Robotic Chemical Foam &amp; Releasing Agent Pouring Setup</h3>
+                        <p class="project-company">Godrej &amp; Boyce Mfg. Co. Ltd (Haridwar Plant)</p>
+                        <p class="project-desc">
+                            Architected and deployed robotic chemical foam pouring automation and robotic releasing agent dispensing for high-volume furniture foaming lines. Programmed articulated ABB robots with specialized mixing heads to ensure uniform chemical density and eliminate hazardous manual exposure.
+                        </p>
+                        <div class="project-tags">
+                            <span>ABB Robotware</span>
+                            <span>Chemical Foam Pouring</span>
+                            <span>Releasing Agent</span>
+                            <span>Haridwar Plant</span>
+                        </div>
+                        <div class="project-achievements">
+                            <h4>Key Milestones &amp; Impact</h4>
+                            <ul>
+                                <li>Awarded <strong>Best In-House Automation 2024</strong> by Godrej Interio.</li>
+                                <li>100% automated dispensing with zero material wastage.</li>
+                                <li>Drastically enhanced shop-floor operator safety and chemical containment.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 3: In-House Vision System for Automatic FG Transfer -->
+                <article class="project-card-large">
+                    <div class="project-banner" style="background: linear-gradient(135deg, #0284c7 0%, #06b6d4 100%);">
+                        <span class="project-banner-icon">👁️</span>
+                        <span class="project-category-badge">Computer Vision</span>
+                    </div>
+                    <div class="project-info">
+                        <h3>In-House Vision System for Automatic FG Transfer</h3>
+                        <p class="project-company">Godrej &amp; Boyce Mfg. Co. Ltd (Interio Division)</p>
+                        <p class="project-desc">
+                            Spearheaded the research, hardware integration, and software development of an in-house computer vision inspection system for automatic Finished Goods (FG) transfer. The system identifies part geometries, verifies dimensional tolerances, and triggers robotic transfer conveyors.
+                        </p>
+                        <div class="project-tags">
+                            <span>In-House Vision</span>
+                            <span>Object Detection</span>
+                            <span>Automatic FG Transfer</span>
+                            <span>Conveyor Automation</span>
+                        </div>
+                        <div class="project-achievements">
+                            <h4>Key Milestones &amp; Impact</h4>
+                            <ul>
+                                <li>Custom in-house development eliminated need for expensive third-party vision packages.</li>
+                                <li>Seamless integration with PLC conveyors and robotic pick-and-place stations.</li>
+                                <li>Zero defect dispatch rate for finished goods transfer.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 4: Dynamic Robot Movement Vision Programming -->
+                <article class="project-card-large">
+                    <div class="project-banner" style="background: linear-gradient(135deg, #7c3aed 0%, #c026d3 100%);">
+                        <span class="project-banner-icon">🎯</span>
+                        <span class="project-category-badge">Dynamic Robotics</span>
+                    </div>
+                    <div class="project-info">
+                        <h3>Vision-Guided Dynamic Robot Movement Programming</h3>
+                        <p class="project-company">Godrej &amp; Boyce Mfg. Co. Ltd (Interio Division)</p>
+                        <p class="project-desc">
+                            Implemented dynamic robotic trajectory correction using high-speed optical vision feedback. The robot dynamically calculates 6-axis offset coordinates in real time to adapt to part skewing, component shifting, and varying jig dimensions.
+                        </p>
+                        <div class="project-tags">
+                            <span>Dynamic Motion</span>
+                            <span>Vision Guidance</span>
+                            <span>6-Axis Kinematics</span>
+                            <span>Real-Time Offsetting</span>
+                        </div>
+                        <div class="project-achievements">
+                            <h4>Key Milestones &amp; Impact</h4>
+                            <ul>
+                                <li>Reduced robot positioning and handling errors by <strong>85%</strong>.</li>
+                                <li>Eliminated rigid mechanical clamping requirement, increasing line flexibility.</li>
+                                <li>Standardized dynamic routines across multiple robotic manufacturing cells.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 5: Cupboard Assembly Line Khalapur -->
+                <article class="project-card-large">
+                    <div class="project-banner" style="background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);">
+                        <span class="project-banner-icon">🏗️</span>
+                        <span class="project-category-badge">Plant Commissioning</span>
+                    </div>
+                    <div class="project-info">
+                        <h3>Cupboard Assembly Line Project Commissioning</h3>
+                        <p class="project-company">Godrej &amp; Boyce Mfg. Co. Ltd (Khalapur Plant)</p>
+                        <p class="project-desc">
+                            Directed complete project commissioning for the high-volume cupboard assembly line at the Khalapur Plant. Managed timeline, mechanical erection, pneumatic piping, electrical panel wiring, PLC sequence testing, and line ramp-up.
+                        </p>
+                        <div class="project-tags">
+                            <span>Plant Commissioning</span>
+                            <span>Assembly Automation</span>
+                            <span>Khalapur Plant</span>
+                            <span>Project Management</span>
+                        </div>
+                        <div class="project-achievements">
+                            <h4>Key Milestones &amp; Impact</h4>
+                            <ul>
+                                <li>Full turnkey line commissioning delivered on schedule with 100% uptime.</li>
+                                <li>Established baseline production capacity and trained maintenance teams.</li>
+                                <li>Seamless operational handover to manufacturing operations.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 6: Shutter Bending & Corner Forming (Khalapur) -->
+                <article class="project-card-large">
+                    <div class="project-banner" style="background: linear-gradient(135deg, #475569 0%, #64748b 100%);">
+                        <span class="project-banner-icon">📐</span>
+                        <span class="project-category-badge">Sheet Metal Automation</span>
+                    </div>
+                    <div class="project-info">
+                        <h3>Automatic Shutter Bending &amp; Corner Forming</h3>
+                        <p class="project-company">Godrej &amp; Boyce Mfg. Co. Ltd (Khalapur Plant)</p>
+                        <p class="project-desc">
+                            Automated high-precision sheet metal shutter bending and 4-corner forming operations for metal cupboard and furniture manufacturing at the Khalapur Plant. Replaced manual press brake operations with dedicated automated tooling and synchronized pneumatic-hydraulic clamping.
+                        </p>
+                        <div class="project-tags">
+                            <span>Shutter Bending</span>
+                            <span>Corner Forming</span>
+                            <span>Sheet Metal Automation</span>
+                            <span>Khalapur Plant</span>
+                        </div>
+                        <div class="project-achievements">
+                            <h4>Key Milestones &amp; Impact</h4>
+                            <ul>
+                                <li>Achieved consistent 90-degree bend accuracy and burr-free corner forming.</li>
+                                <li>Reduced sheet handling cycle time and eliminated operator repetitive strain.</li>
+                                <li>Enhanced finished product aesthetics and dimensional repeatability.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 7: SVG System (Haridwar) -->
+                <article class="project-card-large">
+                    <div class="project-banner" style="background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);">
+                        <span class="project-banner-icon">⚡</span>
+                        <span class="project-category-badge">Electrical &amp; Power Automation</span>
+                    </div>
+                    <div class="project-info">
+                        <h3>SVG (Static Var Generator) System Implementation</h3>
+                        <p class="project-company">Godrej &amp; Boyce Mfg. Co. Ltd (Haridwar Plant)</p>
+                        <p class="project-desc">
+                            Spearheaded the deployment, integration, and commissioning of the Static Var Generator (SVG) system for electrical power quality optimization, real-time dynamic reactive power compensation, and plant-wide power factor correction at the Haridwar Plant.
+                        </p>
+                        <div class="project-tags">
+                            <span>SVG System</span>
+                            <span>Static Var Generator</span>
+                            <span>Power Quality</span>
+                            <span>Harmonic Mitigation</span>
+                            <span>Haridwar Plant</span>
+                        </div>
+                        <div class="project-achievements">
+                            <h4>Key Milestones &amp; Impact</h4>
+                            <ul>
+                                <li>Maintained optimal unity power factor, mitigating utility penalty risks.</li>
+                                <li>Eliminated harmonic distortion and protected sensitive robotic and PLC controllers.</li>
+                                <li>Real-time telemetry and power quality monitoring integration.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 7: CIP Plant Commissioning -->
+                <article class="project-card-large">
+                    <div class="project-banner" style="background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%);">
+                        <span class="project-banner-icon">⚙️</span>
+                        <span class="project-category-badge">PLC &amp; Process Automation</span>
+                    </div>
+                    <div class="project-info">
+                        <h3>Automated Clean-In-Place (CIP) Plant Commissioning</h3>
+                        <p class="project-company">Bharat Milk Products Pvt Ltd, Kotkapura</p>
+                        <p class="project-desc">
+                            Implemented automated Clean-In-Place (CIP) plant for automatic cleaning-in-place operations across the entire facility using Siemens Simatic S7-1200 PLC. Automated the complete sequence with precision interlocks, flow monitoring, and temperature control.
+                        </p>
+                        <div class="project-tags">
+                            <span>Siemens S7-1200</span>
+                            <span>TIA Portal</span>
+                            <span>CTQ Calibration</span>
+                            <span>SCADA</span>
+                            <span>Dairy Tech</span>
+                        </div>
+                        <div class="project-achievements">
+                            <h4>Key Milestones &amp; Impact</h4>
+                            <ul>
+                                <li>Reduced manual operator cleaning intervention by <strong>95%</strong>.</li>
+                                <li>Achieved 100% successful validation trials with strict dairy hygiene standards.</li>
+                                <li>Calibrated Critical-To-Quality (CTQ) sensors &amp; formulated standard SOPs.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 8: DCM Foundry Robots -->
+                <article class="project-card-large">
+                    <div class="project-banner" style="background: linear-gradient(135deg, #ea580c 0%, #f97316 100%);">
+                        <span class="project-banner-icon">🏭</span>
+                        <span class="project-category-badge">Foundry Automation</span>
+                    </div>
+                    <div class="project-info">
+                        <h3>Foundry Robot Programming &amp; Cycle Optimization</h3>
+                        <p class="project-company">DCM Engineering Products, Ropar</p>
+                        <p class="project-desc">
+                            Operated Loramendi Automatic Core making machines (Coldbox process) and taught/programmed ABB Foundry Plus industrial robots for Mahindra S101 cylinder block water-jacket and slab core assembly.
+                        </p>
+                        <div class="project-tags">
+                            <span>ABB Foundry Plus</span>
+                            <span>Loramendi Coldbox</span>
+                            <span>Cycle Time Study</span>
+                            <span>QCS &amp; WSS</span>
+                        </div>
+                        <div class="project-achievements">
+                            <h4>Key Milestones &amp; Impact</h4>
+                            <ul>
+                                <li>Achieved <strong>30% cycle time reduction</strong> in crank cell assembly.</li>
+                                <li>Boosted shift throughput from <strong>120 to 200 cycles per shift</strong> (66% gain).</li>
+                                <li>Implemented QCS and WSS for Mahindra U108 &amp; Eicher 110p block core making.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 9: Table Saw Braking Safety -->
+                <article class="project-card-large">
+                    <div class="project-banner" style="background: linear-gradient(135deg, #e11d48 0%, #f43f5e 100%);">
+                        <span class="project-banner-icon">🛑</span>
+                        <span class="project-category-badge">Industrial Safety</span>
+                    </div>
+                    <div class="project-info">
+                        <h3>Intelligent Pneumatic Braking System on Table Saw</h3>
+                        <p class="project-company">Academic Engineering Project — LPU</p>
+                        <p class="project-desc">
+                            Designed and fabricated an active safety braking system for industrial table saws utilizing high-speed infrared optical sensor arrays, relay logic circuits, and fast-acting pneumatic actuators to prevent worker casualties.
+                        </p>
+                        <div class="project-tags">
+                            <span>Pneumatic Actuators</span>
+                            <span>Relay Logic Circuit</span>
+                            <span>IR Optical Sensors</span>
+                            <span>Safety Systems</span>
+                        </div>
+                        <div class="project-achievements">
+                            <h4>Key Milestones &amp; Impact</h4>
+                            <ul>
+                                <li>Triggered emergency stop clamping in <strong>&lt; 100ms</strong>.</li>
+                                <li>100% fail-safe compliance under simulated rapid intrusion testing.</li>
+                                <li>Demonstrated active human-machine interface worker protection.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 10: Quad Copter -->
+                <article class="project-card-large">
+                    <div class="project-banner" style="background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);">
+                        <span class="project-banner-icon">🚁</span>
+                        <span class="project-category-badge">Embedded &amp; UAV</span>
+                    </div>
+                    <div class="project-info">
+                        <h3>Autonomous Quad Copter with 2.4GHz Flight Control</h3>
+                        <p class="project-company">Academic Robotics Project — LPU</p>
+                        <p class="project-desc">
+                            Designed and engineered a quad copter utilizing a 2.4GHz wireless flight controller. Calibrated electronic speed controllers (ESCs), brushless DC motors, and flight stability algorithms to enable hovering, stunts, and flips.
+                        </p>
+                        <div class="project-tags">
+                            <span>2.4GHz RF Controller</span>
+                            <span>Embedded Electronics</span>
+                            <span>Flight Stabilization</span>
+                            <span>Aerobatics Control</span>
+                        </div>
+                        <div class="project-achievements">
+                            <h4>Key Milestones &amp; Impact</h4>
+                            <ul>
+                                <li>Demonstrated <strong>30-meter reliable operational range</strong>.</li>
+                                <li>Engineered stable autonomous hover and responsive stunt maneuvering.</li>
+                                <li>Integrated lightweight carbon-fiber composite frame.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 11: Line Follower Robot -->
+                <article class="project-card-large">
+                    <div class="project-banner" style="background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);">
+                        <span class="project-banner-icon">🏎️</span>
+                        <span class="project-category-badge">Autonomous Rover</span>
+                    </div>
+                    <div class="project-info">
+                        <h3>Line Follower Robot Using Atmega8 IC</h3>
+                        <p class="project-company">Indo-US Robo League Project</p>
+                        <p class="project-desc">
+                            Designed and made an autonomous line follower robot using Atmel Atmega8 programmable IC that tracks black lines on white surfaces via optoelectronic sensors and embedded logic circuits.
+                        </p>
+                        <div class="project-tags">
+                            <span>Atmega8 IC</span>
+                            <span>C Programming</span>
+                            <span>Optical Sensor Array</span>
+                            <span>Logic Circuits</span>
+                        </div>
+                        <div class="project-achievements">
+                            <h4>Key Milestones &amp; Impact</h4>
+                            <ul>
+                                <li>Won <strong>Second Prize</strong> at the Indo-US Robo League by Technophilia (2014).</li>
+                                <li>High-frequency optical sensor polling for zero-overshoot path correction.</li>
+                                <li>Custom H-Bridge motor driver integration.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Amandeep Singh</h4>
+                <p>Associate Manager — Projects &amp; Automation</p>
+                <p>Godrej &amp; Boyce Mfg. Co. Ltd | M.Tech (Digital Mfg) BITS Pilani | B.Tech Mechatronics</p>
+            </div>
+            <div class="footer-section">
+                <h4>Get in Touch</h4>
+                <p>Email: <a href="mailto:anky_mthegem2@yahoo.co.uk">anky_mthegem2@yahoo.co.uk</a></p>
+                <p>Phone: <a href="tel:+919653080919">+91-9653080919</a></p>
+                <p>Location: Ludhiana, Punjab, India</p>
+            </div>
+            <div class="footer-section">
+                <h4>Professional Links</h4>
+                <p>Connect with me for collaborations &amp; technical opportunities.</p>
+                <div class="footer-social-links">
+                    <a href="https://www.linkedin.com/in/anky-mthegem/" target="_blank" rel="noopener noreferrer" class="footer-social-link" title="LinkedIn Profile" aria-label="LinkedIn Profile">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    </a>
+                    <a href="https://github.com/anky-mthegem/" target="_blank" rel="noopener noreferrer" class="footer-social-link" title="GitHub Profile" aria-label="GitHub Profile">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Amandeep Singh. All rights reserved. | Ludhiana, Punjab, India</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

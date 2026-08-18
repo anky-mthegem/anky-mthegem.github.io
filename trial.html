@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motor Icon & Animation Design Laboratory | Amandeep Singh Portfolio (Trial)</title>
+    <meta name="description"
+        content="Interactive Motor Icon & Animation Design Laboratory for Siemens S7-1200 Star-Delta Starter PLC Simulator.">
+    <meta name="author" content="Amandeep Singh">
+    <link rel="icon" type="image/png" href="profile_logo.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=3.1">
+
+    <style>
+        :root {
+            --siemens-petrol: #00646e;
+            --siemens-teal: #00a3b4;
+            --siemens-cyan: #38bdf8;
+            --siemens-green: #10b981;
+            --siemens-amber: #f59e0b;
+            --siemens-red: #ef4444;
+            --font-mono-code: 'JetBrains Mono', monospace;
+        }
+
+        .lab-section {
+            padding: 30px 0 80px;
+        }
+
+        /* Interactive Master Controller Banner */
+        .state-controller-banner {
+            background-color: var(--card-bg, #ffffff);
+            border: 1px solid var(--border-color, #e2e8f0);
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin-bottom: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 75px;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+        }
+
+        [data-theme="dark"] .state-controller-banner {
+            background-color: rgba(15, 23, 42, 0.92);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .state-controller-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .state-controller-title .badge {
+            background-color: var(--siemens-petrol);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-family: var(--font-mono-code);
+        }
+
+        .state-btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .state-btn {
+            background-color: var(--bg-primary, #f8fafc);
+            border: 1px solid var(--border-color, #cbd5e1);
+            color: var(--text-primary);
+            font-size: 12.5px;
+            font-weight: 700;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            user-select: none;
+        }
+
+        [data-theme="dark"] .state-btn {
+            background-color: #1e293b;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .state-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .state-btn.active-off {
+            background-color: #475569;
+            color: #ffffff;
+            border-color: #475569;
+            box-shadow: 0 4px 12px rgba(71, 85, 105, 0.3);
+        }
+
+        .state-btn.active-star {
+            background-color: var(--siemens-amber);
+            color: #ffffff;
+            border-color: var(--siemens-amber);
+            box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4);
+        }
+
+        .state-btn.active-delta {
+            background-color: var(--siemens-green);
+            color: #ffffff;
+            border-color: var(--siemens-green);
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+        }
+
+        .state-btn.active-fault {
+            background-color: var(--siemens-red);
+            color: #ffffff;
+            border-color: var(--siemens-red);
+            box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4);
+        }
+
+        /* 5-Option Showcase Grid */
+        .motor-options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .motor-card {
+            background-color: var(--card-bg, #ffffff);
+            border: 1px solid var(--border-color, #e2e8f0);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        [data-theme="dark"] .motor-card {
+            background-color: #0f172a;
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .motor-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--siemens-teal);
+            box-shadow: 0 16px 32px -5px rgba(0, 100, 110, 0.15);
+        }
+
+        .motor-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .motor-card-num {
+            font-size: 11px;
+            font-weight: 800;
+            background-color: rgba(0, 100, 110, 0.12);
+            color: var(--siemens-petrol);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-family: var(--font-mono-code);
+        }
+
+        [data-theme="dark"] .motor-card-num {
+            background-color: rgba(56, 189, 248, 0.15);
+            color: var(--siemens-cyan);
+        }
+
+        .motor-preview-stage {
+            background-color: var(--bg-primary, #f8fafc);
+            border: 1px solid var(--border-color, #e2e8f0);
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 170px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        [data-theme="dark"] .motor-preview-stage {
+            background-color: #060a14;
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .motor-card-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .motor-card-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .motor-feature-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: auto;
+        }
+
+        .motor-tag {
+            font-size: 10.5px;
+            font-family: var(--font-mono-code);
+            padding: 3px 8px;
+            border-radius: 4px;
+            background-color: var(--bg-primary, #f1f5f9);
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        [data-theme="dark"] .motor-tag {
+            background-color: #1e293b;
+        }
+
+        /* ==========================================================================
+           ANIMATIONS FOR THE 5 MOTOR DESIGNS
+           ========================================================================== */
+
+        /* --------------------------------------------------------------------------
+           DESIGN 1: TEFC Industrial Motor with Rotating Cooling Fan & Drive Shaft
+           -------------------------------------------------------------------------- */
+        .d1-motor-svg {
+            width: 130px;
+            height: 90px;
+            display: block;
+            transition: transform 0.2s ease;
+        }
+
+        .d1-fan-blade {
+            transform-origin: 22px 45px;
+        }
+
+        .state-star .d1-fan-blade {
+            animation: spinFan 0.65s infinite linear;
+        }
+
+        .state-delta .d1-fan-blade {
+            animation: spinFan 0.2s infinite linear;
+        }
+
+        .state-fault .d1-motor-svg {
+            animation: faultVibrate 0.15s infinite ease-in-out alternate;
+        }
+
+        .d1-shaft-indicator {
+            transform-origin: 108px 45px;
+        }
+
+        .state-star .d1-shaft-indicator {
+            animation: spinFan 0.65s infinite linear;
+        }
+
+        .state-delta .d1-shaft-indicator {
+            animation: spinFan 0.2s infinite linear;
+        }
+
+        .d1-aura {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .state-star .d1-aura-star {
+            opacity: 0.8;
+            animation: pulseAura 1.4s infinite alternate ease-in-out;
+        }
+
+        .state-delta .d1-aura-delta {
+            opacity: 0.85;
+            animation: pulseAura 0.8s infinite alternate ease-in-out;
+        }
+
+        .state-fault .d1-aura-fault {
+            opacity: 0.9;
+            animation: pulseAura 0.5s infinite alternate ease-in-out;
+        }
+
+        /* --------------------------------------------------------------------------
+           DESIGN 2: 3-Phase Stator & Squirrel Cage Cutaway (120° Magnetic Field Wave)
+           -------------------------------------------------------------------------- */
+        .d2-stator-svg {
+            width: 100px;
+            height: 100px;
+            display: block;
+        }
+
+        .d2-rotor-core {
+            transform-origin: 50px 50px;
+        }
+
+        .state-star .d2-rotor-core {
+            animation: spinFan 0.7s infinite linear;
+        }
+
+        .state-delta .d2-rotor-core {
+            animation: spinFan 0.22s infinite linear;
+        }
+
+        .state-fault .d2-stator-svg {
+            animation: faultVibrate 0.15s infinite ease-in-out alternate;
+        }
+
+        .d2-field-orbit {
+            transform-origin: 50px 50px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .state-star .d2-field-orbit {
+            opacity: 0.75;
+            animation: spinFan 0.7s infinite linear;
+        }
+
+        .state-delta .d2-field-orbit {
+            opacity: 0.95;
+            animation: spinFan 0.22s infinite linear;
+        }
+
+        /* --------------------------------------------------------------------------
+           DESIGN 3: SCADA Holographic Concentric Digital Twin Rings
+           -------------------------------------------------------------------------- */
+        .d3-hologram-svg {
+            width: 105px;
+            height: 105px;
+            display: block;
+        }
+
+        .d3-outer-ring {
+            transform-origin: 50px 50px;
+            transition: stroke 0.3s ease;
+        }
+
+        .state-star .d3-outer-ring {
+            animation: spinFan 1.2s infinite linear;
+            stroke: var(--siemens-amber);
+            filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.7));
+        }
+
+        .state-delta .d3-outer-ring {
+            animation: spinFan 0.35s infinite linear;
+            stroke: var(--siemens-green);
+            filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.9));
+        }
+
+        .d3-inner-ring {
+            transform-origin: 50px 50px;
+            transition: stroke 0.3s ease;
+        }
+
+        .state-star .d3-inner-ring {
+            animation: spinFanReverse 0.8s infinite linear;
+            stroke: #fcd34d;
+        }
+
+        .state-delta .d3-inner-ring {
+            animation: spinFanReverse 0.25s infinite linear;
+            stroke: #34d399;
+        }
+
+        .state-fault .d3-hologram-svg {
+            animation: glitchStrobe 0.6s infinite alternate;
+        }
+
+        /* --------------------------------------------------------------------------
+           DESIGN 4: Aerodynamic Impeller Turbine & Drive Hub (Frontal End-Bell)
+           -------------------------------------------------------------------------- */
+        .d4-impeller-svg {
+            width: 100px;
+            height: 100px;
+            display: block;
+        }
+
+        .d4-blades {
+            transform-origin: 50px 50px;
+        }
+
+        .state-star .d4-blades {
+            animation: spinFan 0.6s infinite linear;
+            filter: drop-shadow(0 0 4px rgba(245, 158, 11, 0.5));
+        }
+
+        .state-delta .d4-blades {
+            animation: spinFan 0.18s infinite linear;
+            filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.8));
+        }
+
+        .state-fault .d4-impeller-svg {
+            animation: faultVibrate 0.12s infinite ease-in-out alternate;
+        }
+
+        /* --------------------------------------------------------------------------
+           DESIGN 5: Minimalist Precision Vector Motor Glyph with Live Magnetic Waves
+           -------------------------------------------------------------------------- */
+        .d5-glyph-svg {
+            width: 105px;
+            height: 105px;
+            display: block;
+        }
+
+        .d5-center-rotor {
+            transform-origin: 50px 50px;
+        }
+
+        .state-star .d5-center-rotor {
+            animation: spinFan 0.75s infinite linear;
+        }
+
+        .state-delta .d5-center-rotor {
+            animation: spinFan 0.22s infinite linear;
+        }
+
+        .d5-wave {
+            opacity: 0;
+            transform-origin: 50px 50px;
+        }
+
+        .state-star .d5-wave-1 {
+            opacity: 0.8;
+            animation: expandWave 1.2s infinite ease-out;
+            stroke: var(--siemens-amber);
+        }
+
+        .state-star .d5-wave-2 {
+            opacity: 0.8;
+            animation: expandWave 1.2s infinite ease-out 0.4s;
+            stroke: var(--siemens-amber);
+        }
+
+        .state-delta .d5-wave-1 {
+            opacity: 0.9;
+            animation: expandWave 0.6s infinite ease-out;
+            stroke: var(--siemens-green);
+        }
+
+        .state-delta .d5-wave-2 {
+            opacity: 0.9;
+            animation: expandWave 0.6s infinite ease-out 0.2s;
+            stroke: var(--siemens-green);
+        }
+
+        .state-fault .d5-glyph-svg {
+            animation: faultVibrate 0.15s infinite alternate;
+        }
+
+        /* Global Keyframes */
+        @keyframes spinFan {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes spinFanReverse {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-360deg); }
+        }
+
+        @keyframes faultVibrate {
+            0% { transform: translate(-2px, 1px) rotate(-1deg); }
+            100% { transform: translate(2px, -1px) rotate(1deg); }
+        }
+
+        @keyframes pulseAura {
+            0% { transform: scale(0.96); opacity: 0.5; }
+            100% { transform: scale(1.04); opacity: 0.9; }
+        }
+
+        @keyframes expandWave {
+            0% { transform: scale(0.6); opacity: 1; }
+            100% { transform: scale(1.2); opacity: 0; }
+        }
+
+        @keyframes glitchStrobe {
+            0%, 100% { opacity: 1; filter: drop-shadow(0 0 6px var(--siemens-red)); }
+            50% { opacity: 0.4; }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Standard Navigation -->
+    <nav class="navbar" aria-label="Main Navigation">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="profile_logo.png" alt="Amandeep Singh" class="logo-img" width="40" height="40"
+                    style="width:40px;height:40px;max-width:40px;max-height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;">
+                <span class="logo-text">Amandeep Singh</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="experience.html" class="nav-link">Experience</a></li>
+                <li><a href="projects.html" class="nav-link">Projects</a></li>
+                <li><a href="skills.html" class="nav-link">Skills</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="plc.html" class="nav-link" style="color: var(--siemens-green); font-weight: 800;">PLC Simulator</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle light/dark theme">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                <a href="Resume_Amandeep.pdf" download="Resume_Amandeep.pdf" class="btn-nav-resume" target="_blank"
+                    rel="noopener noreferrer">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    <span>Resume</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1>Motor Visualizer Design Laboratory</h1>
+            <p class="subtitle">Interactive Showcase of 5 Custom Industrial Motor Graphics &amp; Dynamic Speed Animations</p>
+        </div>
+    </header>
+
+    <!-- Lab Content Stage -->
+    <main class="lab-section">
+        <div class="container">
+            <!-- Master Interactive State Controller -->
+            <div class="state-controller-banner">
+                <div class="state-controller-title">
+                    <span>⚡ Live State Controller:</span>
+                    <span class="badge" id="currentModeBadge">MODE: OFF (0 RPM)</span>
+                </div>
+                <div class="state-btn-group">
+                    <button class="state-btn active-off" id="btnOff" onclick="setLabState('off')">
+                        <span>⚙️</span> OFF (Rest)
+                    </button>
+                    <button class="state-btn" id="btnStar" onclick="setLabState('star')">
+                        <span>⭐</span> STAR (Υ Start - 1,120 RPM)
+                    </button>
+                    <button class="state-btn" id="btnDelta" onclick="setLabState('delta')">
+                        <span>⚡</span> DELTA (Δ Run - 1,450 RPM)
+                    </button>
+                    <button class="state-btn" id="btnFault" onclick="setLabState('fault')">
+                        <span>🚨</span> FAULT (Overload Trip)
+                    </button>
+                </div>
+            </div>
+
+            <!-- 5-Option Showcase Grid -->
+            <div class="motor-options-grid" id="motorOptionsGrid">
+
+                <!-- OPTION 1: TEFC Industrial Induction Motor -->
+                <div class="motor-card">
+                    <div class="motor-card-header">
+                        <span class="motor-card-num">DESIGN OPTION 1</span>
+                    </div>
+                    <div class="motor-preview-stage" id="stage1">
+                        <!-- Industrial TEFC Motor SVG -->
+                        <svg class="d1-motor-svg" viewBox="0 0 130 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Electromagnetic Aura -->
+                            <ellipse class="d1-aura d1-aura-star" cx="65" cy="45" rx="55" ry="35" fill="url(#starGlowGrad)" opacity="0"/>
+                            <ellipse class="d1-aura d1-aura-delta" cx="65" cy="45" rx="58" ry="38" fill="url(#deltaGlowGrad)" opacity="0"/>
+                            <ellipse class="d1-aura d1-aura-fault" cx="65" cy="45" rx="58" ry="38" fill="url(#faultGlowGrad)" opacity="0"/>
+
+                            <!-- Gradients -->
+                            <defs>
+                                <radialGradient id="starGlowGrad" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.4"/>
+                                    <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+                                </radialGradient>
+                                <radialGradient id="deltaGlowGrad" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="#10b981" stop-opacity="0.5"/>
+                                    <stop offset="100%" stop-color="#10b981" stop-opacity="0"/>
+                                </radialGradient>
+                                <radialGradient id="faultGlowGrad" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="#ef4444" stop-opacity="0.6"/>
+                                    <stop offset="100%" stop-color="#ef4444" stop-opacity="0"/>
+                                </radialGradient>
+                                <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#475569"/>
+                                    <stop offset="50%" stop-color="#334155"/>
+                                    <stop offset="100%" stop-color="#1e293b"/>
+                                </linearGradient>
+                            </defs>
+
+                            <!-- Mounting Feet Base -->
+                            <rect x="35" y="70" width="18" height="8" rx="2" fill="#1e293b" stroke="#0f172a" stroke-width="1.5"/>
+                            <rect x="75" y="70" width="18" height="8" rx="2" fill="#1e293b" stroke="#0f172a" stroke-width="1.5"/>
+
+                            <!-- Rear Cooling Fan Shroud -->
+                            <path d="M 12 25 L 32 20 L 32 70 L 12 65 Z" fill="#334155" stroke="#1e293b" stroke-width="1.5"/>
+                            <!-- Rear Rotating Fan Blades -->
+                            <g class="d1-fan-blade">
+                                <circle cx="22" cy="45" r="14" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4 3"/>
+                                <line x1="22" y1="31" x2="22" y2="59" stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round"/>
+                                <line x1="8" y1="45" x2="36" y2="45" stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round"/>
+                                <line x1="12" y1="35" x2="32" y2="55" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+                                <line x1="12" y1="55" x2="32" y2="35" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+                            </g>
+
+                            <!-- Main Stator Frame with Cooling Ribs -->
+                            <rect x="32" y="20" width="62" height="50" rx="4" fill="url(#bodyGrad)" stroke="#1e293b" stroke-width="2"/>
+                            <!-- Cooling Rib Lines -->
+                            <line x1="42" y1="20" x2="42" y2="70" stroke="#1e293b" stroke-width="1.5"/>
+                            <line x1="52" y1="20" x2="52" y2="70" stroke="#1e293b" stroke-width="1.5"/>
+                            <line x1="62" y1="20" x2="62" y2="70" stroke="#1e293b" stroke-width="1.5"/>
+                            <line x1="72" y1="20" x2="72" y2="70" stroke="#1e293b" stroke-width="1.5"/>
+                            <line x1="82" y1="20" x2="82" y2="70" stroke="#1e293b" stroke-width="1.5"/>
+
+                            <!-- Top Terminal Box -->
+                            <rect x="48" y="11" width="30" height="11" rx="2" fill="#00646e" stroke="#00a3b4" stroke-width="1.5"/>
+                            <text x="63" y="19" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="800" fill="#ffffff">3~ MOT</text>
+
+                            <!-- Drive-End Bearing Shield & Shaft Hub -->
+                            <path d="M 94 25 Q 102 45 94 65 Z" fill="#64748b" stroke="#334155" stroke-width="1.5"/>
+                            <rect x="98" y="40" width="20" height="10" rx="2" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+                            <g class="d1-shaft-indicator">
+                                <circle cx="108" cy="45" r="4" fill="#334155"/>
+                                <line x1="108" y1="41" x2="108" y2="49" stroke="#38bdf8" stroke-width="2"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <h3 class="motor-card-title">1. TEFC Industrial Induction Motor</h3>
+                    <p class="motor-card-desc">Complete IEC Totally Enclosed Fan Cooled 3-phase motor with top terminal box, ribbed cooling stator body, and active spinning rear ventilation fan &amp; drive shaft.</p>
+                    <div class="motor-feature-tags">
+                        <span class="motor-tag">Realistic TEFC</span>
+                        <span class="motor-tag">Spinning Fan</span>
+                        <span class="motor-tag">Aura Flux</span>
+                    </div>
+                </div>
+
+                <!-- OPTION 2: 3-Phase Stator & Squirrel-Cage Rotor Cutaway -->
+                <div class="motor-card">
+                    <div class="motor-card-header">
+                        <span class="motor-card-num">DESIGN OPTION 2</span>
+                    </div>
+                    <div class="motor-preview-stage" id="stage2">
+                        <!-- Stator Cutaway SVG -->
+                        <svg class="d2-stator-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Outer Stator Ring -->
+                            <circle cx="50" cy="50" r="44" fill="#0f172a" stroke="#334155" stroke-width="3"/>
+                            
+                            <!-- 3 Winding Poles at 120 Degrees -->
+                            <!-- Phase U (Top: 90 deg) -->
+                            <rect x="42" y="8" width="16" height="14" rx="2" fill="#ef4444" stroke="#f87171" stroke-width="1"/>
+                            <text x="50" y="18" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="800" fill="#ffffff">U</text>
+
+                            <!-- Phase V (Bottom-Right: 330 deg) -->
+                            <rect x="70" y="60" width="16" height="14" rx="2" fill="#f59e0b" stroke="#fbbf24" stroke-width="1" transform="rotate(60 78 67)"/>
+                            <text x="75" y="70" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="800" fill="#ffffff">V</text>
+
+                            <!-- Phase W (Bottom-Left: 210 deg) -->
+                            <rect x="14" y="60" width="16" height="14" rx="2" fill="#38bdf8" stroke="#7dd3fc" stroke-width="1" transform="rotate(-60 22 67)"/>
+                            <text x="25" y="70" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="800" fill="#ffffff">W</text>
+
+                            <!-- Orbiting RMF (Rotating Magnetic Field) Wave -->
+                            <g class="d2-field-orbit">
+                                <circle cx="50" cy="50" r="32" fill="none" stroke="url(#orbitGrad)" stroke-width="3" stroke-dasharray="20 10 30 10"/>
+                            </g>
+
+                            <!-- Central Squirrel Cage Rotor -->
+                            <g class="d2-rotor-core">
+                                <circle cx="50" cy="50" r="22" fill="#334155" stroke="#64748b" stroke-width="2"/>
+                                <!-- Rotor Bars -->
+                                <line x1="50" y1="28" x2="50" y2="72" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/>
+                                <line x1="28" y1="50" x2="72" y2="50" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/>
+                                <line x1="34" y1="34" x2="66" y2="66" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/>
+                                <line x1="34" y1="66" x2="66" y2="34" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/>
+                                <!-- Center Shaft Pin -->
+                                <circle cx="50" cy="50" r="6" fill="#00a3b4" stroke="#ffffff" stroke-width="1.5"/>
+                            </g>
+
+                            <defs>
+                                <linearGradient id="orbitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#10b981"/>
+                                    <stop offset="50%" stop-color="#f59e0b"/>
+                                    <stop offset="100%" stop-color="#38bdf8"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <h3 class="motor-card-title">2. Stator &amp; Squirrel-Cage Cutaway</h3>
+                    <p class="motor-card-desc">Electrical engineering cutaway illustrating 3 stator winding poles (U, V, W at 120°), rotating magnetic field (RMF) flux ring, and central spinning rotor bars.</p>
+                    <div class="motor-feature-tags">
+                        <span class="motor-tag">120° Stator Poles</span>
+                        <span class="motor-tag">RMF Flux Wave</span>
+                        <span class="motor-tag">Physics Cutaway</span>
+                    </div>
+                </div>
+
+                <!-- OPTION 3: SCADA Holographic Digital Twin Rings -->
+                <div class="motor-card">
+                    <div class="motor-card-header">
+                        <span class="motor-card-num">DESIGN OPTION 3</span>
+                    </div>
+                    <div class="motor-preview-stage" id="stage3">
+                        <!-- Holographic Twin SVG -->
+                        <svg class="d3-hologram-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Outer Glass Border -->
+                            <circle cx="50" cy="50" r="46" fill="rgba(15, 23, 42, 0.04)" stroke="#64748b" stroke-width="1.2" stroke-dasharray="2 4"/>
+
+                            <!-- Outer High-Tech Rotating Segment Ring -->
+                            <circle class="d3-outer-ring" cx="50" cy="50" r="38" fill="none" stroke="#94a3b8" stroke-width="3" stroke-dasharray="35 15 20 15"/>
+
+                            <!-- Inner Counter-Rotating Ring -->
+                            <circle class="d3-inner-ring" cx="50" cy="50" r="26" fill="none" stroke="#cbd5e1" stroke-width="2.5" stroke-dasharray="18 12"/>
+
+                            <!-- Center Motor Hub -->
+                            <circle cx="50" cy="50" r="14" fill="#0f172a" stroke="#00a3b4" stroke-width="2"/>
+                            <text x="50" y="53" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="800" fill="#38bdf8">3Φ</text>
+                        </svg>
+                    </div>
+                    <h3 class="motor-card-title">3. SCADA Holographic Twin Rings</h3>
+                    <p class="motor-card-desc">Sleek, futuristic telemetry ring gauge featuring dual counter-rotating tachometer orbits that switch from glowing amber in Star to vivid emerald in Delta.</p>
+                    <div class="motor-feature-tags">
+                        <span class="motor-tag">Holographic HUD</span>
+                        <span class="motor-tag">Dual-Ring Spin</span>
+                        <span class="motor-tag">Modern Cyber</span>
+                    </div>
+                </div>
+
+                <!-- OPTION 4: Aerodynamic Impeller Turbine & Hub -->
+                <div class="motor-card">
+                    <div class="motor-card-header">
+                        <span class="motor-card-num">DESIGN OPTION 4</span>
+                    </div>
+                    <div class="motor-preview-stage" id="stage4">
+                        <!-- Turbine SVG -->
+                        <svg class="d4-impeller-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Outer Housing Rim -->
+                            <circle cx="50" cy="50" r="44" fill="#1e293b" stroke="#334155" stroke-width="3"/>
+                            <circle cx="50" cy="50" r="38" fill="#0f172a"/>
+
+                            <!-- 6 Aerodynamic Impeller Blades -->
+                            <g class="d4-blades">
+                                <!-- Blade 1 -->
+                                <path d="M 50 50 Q 58 30 50 14 Q 44 26 50 50 Z" fill="#64748b" stroke="#94a3b8" stroke-width="1"/>
+                                <!-- Blade 2 -->
+                                <path d="M 50 50 Q 58 30 50 14 Q 44 26 50 50 Z" fill="#64748b" stroke="#94a3b8" stroke-width="1" transform="rotate(60 50 50)"/>
+                                <!-- Blade 3 -->
+                                <path d="M 50 50 Q 58 30 50 14 Q 44 26 50 50 Z" fill="#64748b" stroke="#94a3b8" stroke-width="1" transform="rotate(120 50 50)"/>
+                                <!-- Blade 4 -->
+                                <path d="M 50 50 Q 58 30 50 14 Q 44 26 50 50 Z" fill="#64748b" stroke="#94a3b8" stroke-width="1" transform="rotate(180 50 50)"/>
+                                <!-- Blade 5 -->
+                                <path d="M 50 50 Q 58 30 50 14 Q 44 26 50 50 Z" fill="#64748b" stroke="#94a3b8" stroke-width="1" transform="rotate(240 50 50)"/>
+                                <!-- Blade 6 -->
+                                <path d="M 50 50 Q 58 30 50 14 Q 44 26 50 50 Z" fill="#64748b" stroke="#94a3b8" stroke-width="1" transform="rotate(300 50 50)"/>
+
+                                <!-- Center Shaft Nose Cone -->
+                                <circle cx="50" cy="50" r="10" fill="#00646e" stroke="#00a3b4" stroke-width="2"/>
+                                <circle cx="50" cy="50" r="4" fill="#ffffff"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <h3 class="motor-card-title">4. Aerodynamic Impeller Turbine</h3>
+                    <p class="motor-card-desc">Frontal view of a balanced 6-blade industrial cooling impeller and central shaft nose cone with high-velocity radial blur in Delta mode.</p>
+                    <div class="motor-feature-tags">
+                        <span class="motor-tag">6-Blade Impeller</span>
+                        <span class="motor-tag">High Velocity</span>
+                        <span class="motor-tag">Mechanical Drive</span>
+                    </div>
+                </div>
+
+                <!-- OPTION 5: Minimalist Vector Glyph with Live Flux Radiation -->
+                <div class="motor-card">
+                    <div class="motor-card-header">
+                        <span class="motor-card-num">DESIGN OPTION 5</span>
+                    </div>
+                    <div class="motor-preview-stage" id="stage5">
+                        <!-- Vector Glyph SVG -->
+                        <svg class="d5-glyph-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Radiating Flux Waves -->
+                            <circle class="d5-wave d5-wave-1" cx="50" cy="50" r="38" fill="none" stroke-width="2" stroke-dasharray="4 4"/>
+                            <circle class="d5-wave d5-wave-2" cx="50" cy="50" r="44" fill="none" stroke-width="1.5"/>
+
+                            <!-- Clean IEC Motor Glyph Frame -->
+                            <circle cx="50" cy="50" r="28" fill="#1e293b" stroke="#00a3b4" stroke-width="2.5"/>
+
+                            <!-- Rotor Center Pin -->
+                            <g class="d5-center-rotor">
+                                <circle cx="50" cy="50" r="16" fill="#0f172a" stroke="#475569" stroke-width="1.5"/>
+                                <path d="M 50 36 L 50 64 M 36 50 L 64 50" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round"/>
+                                <circle cx="50" cy="50" r="4" fill="#ffffff"/>
+                            </g>
+
+                            <!-- 3-Phase Terminal Dots on Top -->
+                            <circle cx="42" cy="18" r="2.5" fill="#ef4444"/>
+                            <circle cx="50" cy="18" r="2.5" fill="#f59e0b"/>
+                            <circle cx="58" cy="18" r="2.5" fill="#38bdf8"/>
+                        </svg>
+                    </div>
+                    <h3 class="motor-card-title">5. Minimalist Precision Glyph &amp; Flux Waves</h3>
+                    <p class="motor-card-desc">Clean, modern industrial schematic symbol featuring 3-phase top node pins, spinning rotor crosshair, and outward-expanding sinusoidal magnetic flux waves.</p>
+                    <div class="motor-feature-tags">
+                        <span class="motor-tag">Clean Minimal</span>
+                        <span class="motor-tag">Pulsing Flux</span>
+                        <span class="motor-tag">Schematic Symbol</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Amandeep Singh</h4>
+                <p>Associate Manager — Projects &amp; Automation</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Navigation</h4>
+                <p><a href="index.html">Home</a> &bull; <a href="plc.html">PLC Simulator</a> &bull; <a href="contact.html">Contact</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Amandeep Singh. Motor Visualizer Design Laboratory.</p>
+        </div>
+    </footer>
+
+    <!-- Theme & Interactive Showcase Controller JS -->
+    <script src="script.js"></script>
+    <script>
+        function setLabState(state) {
+            const grid = document.getElementById('motorOptionsGrid');
+            const badge = document.getElementById('currentModeBadge');
+            
+            // Remove existing state classes
+            grid.classList.remove('state-off', 'state-star', 'state-delta', 'state-fault');
+            grid.classList.add(`state-${state}`);
+
+            // Update button active styles
+            document.querySelectorAll('.state-btn').forEach(btn => {
+                btn.className = 'state-btn';
+            });
+
+            if (state === 'off') {
+                document.getElementById('btnOff').classList.add('active-off');
+                badge.textContent = 'MODE: OFF (0 RPM - Rest)';
+                badge.style.backgroundColor = '#475569';
+            } else if (state === 'star') {
+                document.getElementById('btnStar').classList.add('active-star');
+                badge.textContent = 'MODE: STAR (Υ - 1,120 RPM Start)';
+                badge.style.backgroundColor = 'var(--siemens-amber)';
+            } else if (state === 'delta') {
+                document.getElementById('btnDelta').classList.add('active-delta');
+                badge.textContent = 'MODE: DELTA (Δ - 1,450 RPM Full Run)';
+                badge.style.backgroundColor = 'var(--siemens-green)';
+            } else if (state === 'fault') {
+                document.getElementById('btnFault').classList.add('active-fault');
+                badge.textContent = 'MODE: FAULT (Overload Trip - Alarm)';
+                badge.style.backgroundColor = 'var(--siemens-red)';
+            }
+        }
+
+        // Start in Star mode for exciting initial visual impact
+        setLabState('star');
+    </script>
+</body>
+
+</html>

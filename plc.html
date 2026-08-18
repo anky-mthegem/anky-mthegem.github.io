@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siemens S7-1200 Star-Delta Starter PLC Simulator | Amandeep Singh</title>
+    <meta name="description"
+        content="Interactive Siemens S7-1200 PLC & TIA Portal Ladder Logic (LAD) Simulator for 3-Phase Automatic Star-Delta (Υ-Δ) Induction Motor Starter by Amandeep Singh.">
+    <meta name="author" content="Amandeep Singh">
+    <link rel="icon" type="image/png" href="profile_logo.png">
+
+    <!-- Fonts: Plus Jakarta Sans (UI), Outfit (Display), JetBrains Mono (Telemetry & LAD Logic) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=3.1">
+
+    <style>
+        /* ==========================================================================
+           SIEMENS S7-1200 STAR-DELTA PLC SIMULATOR DESIGN SYSTEM
+           Matches Portfolio Aesthetic (styles.css), Clean Light/Dark Theme Integration
+           ========================================================================== */
+
+        :root {
+            --siemens-petrol: #00646e;
+            --siemens-teal: #00a3b4;
+            --siemens-cyan: #38bdf8;
+            --siemens-green: #10b981;
+            --siemens-amber: #f59e0b;
+            --siemens-red: #ef4444;
+            --font-mono-code: 'JetBrains Mono', monospace;
+        }
+
+        .sim-section {
+            padding: 30px 0 70px;
+        }
+
+        .sim-workbench-card {
+            background-color: var(--card-bg, #ffffff);
+            border: 1px solid var(--border-color, #e2e8f0);
+            border-radius: 16px;
+            padding: 24px 28px 28px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+            margin-bottom: 40px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        [data-theme="dark"] .sim-workbench-card {
+            background-color: #0f172a;
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 12px 32px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        /* --------------------------------------------------------------------------
+           1. SIEMENS S7-1200 CPU HEADER STRIP
+           -------------------------------------------------------------------------- */
+        .sim-cpu-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color, #e2e8f0);
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .sim-cpu-title-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .siemens-chip {
+            background-color: var(--siemens-petrol);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 5px 12px;
+            border-radius: 6px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            box-shadow: 0 2px 8px rgba(0, 100, 110, 0.3);
+        }
+
+        .sim-cpu-heading {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .sim-cpu-sub {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin: 3px 0 0;
+            font-family: var(--font-mono-code);
+        }
+
+        .sim-led-strip {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            flex-wrap: wrap;
+        }
+
+        .sim-led-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .sim-led-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #cbd5e1;
+            transition: all 0.25s ease;
+        }
+
+        [data-theme="dark"] .sim-led-dot {
+            background-color: #334155;
+        }
+
+        .sim-led-dot.active-green {
+            background-color: var(--siemens-green);
+            box-shadow: 0 0 10px var(--siemens-green);
+        }
+
+        .sim-led-dot.active-amber {
+            background-color: var(--siemens-amber);
+            box-shadow: 0 0 10px var(--siemens-amber);
+        }
+
+        .sim-led-dot.active-red {
+            background-color: var(--siemens-red);
+            box-shadow: 0 0 10px var(--siemens-red);
+            animation: pulseLedFault 1s infinite alternate;
+        }
+
+        @keyframes pulseLedFault {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.2); opacity: 0.6; }
+        }
+
+        /* --------------------------------------------------------------------------
+           3-COLUMN WORKSTATION LAYOUT
+           -------------------------------------------------------------------------- */
+        .sim-main-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr 290px;
+            gap: 22px;
+            align-items: stretch;
+        }
+
+        /* --------------------------------------------------------------------------
+           2. MCC OPERATOR CONTROLS (LEFT PANEL)
+           -------------------------------------------------------------------------- */
+        .sim-panel {
+            background-color: var(--bg-primary, #f8fafc);
+            border: 1px solid var(--border-color, #e2e8f0);
+            border-radius: 12px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+        }
+
+        [data-theme="dark"] .sim-panel {
+            background-color: #0b1120;
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .sim-panel-title {
+            font-size: 12.5px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-color, #e2e8f0);
+            padding-bottom: 8px;
+            margin: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sim-panel-title span.tag {
+            font-size: 10px;
+            color: var(--siemens-green);
+            font-weight: 700;
+        }
+
+        .sim-btn-switch {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: var(--card-bg, #ffffff);
+            border: 1px solid var(--border-color, #e2e8f0);
+            padding: 9px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        [data-theme="dark"] .sim-btn-switch {
+            background-color: #1e293b;
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .sim-btn-switch:hover {
+            border-color: var(--siemens-teal);
+            transform: translateY(-1px);
+        }
+
+        .sim-btn-switch:active {
+            transform: translateY(1px);
+        }
+
+        .sim-btn-meta {
+            text-align: left;
+        }
+
+        .sim-btn-tag {
+            font-size: 10px;
+            color: var(--text-secondary);
+            font-family: var(--font-mono-code);
+            display: block;
+        }
+
+        .sim-btn-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .sim-btn-badge {
+            font-size: 10.5px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background-color: #e2e8f0;
+            color: #475569;
+            font-family: var(--font-mono-code);
+        }
+
+        [data-theme="dark"] .sim-btn-badge {
+            background-color: #334155;
+            color: #cbd5e1;
+        }
+
+        .sim-btn-switch.active .sim-btn-badge {
+            background-color: var(--siemens-green);
+            color: #ffffff;
+        }
+
+        .sim-btn-switch.danger.active .sim-btn-badge {
+            background-color: var(--siemens-red);
+            color: #ffffff;
+        }
+
+        .sim-preset-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+        }
+
+        .sim-preset-btn {
+            background-color: var(--card-bg, #ffffff);
+            border: 1px solid var(--border-color, #e2e8f0);
+            color: var(--text-secondary);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 6px 0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: var(--font-mono-code);
+        }
+
+        [data-theme="dark"] .sim-preset-btn {
+            background-color: #1e293b;
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .sim-preset-btn.active, .sim-preset-btn:hover {
+            background-color: var(--siemens-petrol);
+            border-color: var(--siemens-petrol);
+            color: #ffffff;
+        }
+
+        /* --------------------------------------------------------------------------
+           3. LIVE ANIMATED TIA PORTAL LADDER LOGIC (LAD) CANVAS (CENTER PANEL)
+           -------------------------------------------------------------------------- */
+        .sim-ladder-panel {
+            background-color: var(--bg-primary, #f8fafc);
+            border: 1px solid var(--border-color, #e2e8f0);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-x: auto;
+        }
+
+        [data-theme="dark"] .sim-ladder-panel {
+            background-color: #060a14;
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .ladder-rung {
+            background-color: var(--card-bg, #ffffff);
+            border: 1px solid var(--border-color, #e2e8f0);
+            border-left: 4px solid #94a3b8;
+            border-radius: 8px;
+            padding: 9px 12px;
+            transition: all 0.25s ease;
+        }
+
+        [data-theme="dark"] .ladder-rung {
+            background-color: #0f172a;
+            border-color: rgba(255, 255, 255, 0.06);
+            border-left-color: #334155;
+        }
+
+        .ladder-rung.energized {
+            border-left-color: var(--siemens-green);
+            background-color: rgba(16, 185, 129, 0.04);
+        }
+
+        .ladder-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-mono-code);
+        }
+
+        .ladder-row {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-family: var(--font-mono-code);
+            font-size: 11px;
+        }
+
+        .wire-line {
+            width: 8px;
+            height: 2px;
+            background-color: #cbd5e1;
+            transition: background-color 0.2s ease;
+        }
+
+        [data-theme="dark"] .wire-line {
+            background-color: #334155;
+        }
+
+        .wire-line.hot {
+            background-color: var(--siemens-green);
+        }
+
+        .ladder-contact {
+            border: 1px solid var(--border-color, #cbd5e1);
+            background-color: var(--bg-primary, #f8fafc);
+            padding: 3px 6px;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 54px;
+            transition: all 0.2s ease;
+        }
+
+        [data-theme="dark"] .ladder-contact {
+            background-color: #1e293b;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .ladder-contact.closed {
+            border-color: var(--siemens-green);
+            background-color: rgba(16, 185, 129, 0.12);
+        }
+
+        /* Parallel Seal-In / Latching Branch */
+        .ladder-branch-container {
+            display: inline-flex;
+            flex-direction: column;
+            gap: 5px;
+            position: relative;
+            border-left: 2px solid #cbd5e1;
+            border-right: 2px solid #cbd5e1;
+            padding: 3px 5px;
+            border-radius: 4px;
+            transition: border-color 0.2s ease;
+        }
+
+        [data-theme="dark"] .ladder-branch-container {
+            border-color: #334155;
+        }
+
+        .ladder-branch-container.hot {
+            border-color: var(--siemens-green);
+        }
+
+        .ladder-branch-row {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .contact-sym {
+            font-weight: 800;
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .ladder-contact.closed .contact-sym {
+            color: var(--siemens-green);
+        }
+
+        .contact-label {
+            font-size: 9px;
+            color: var(--text-secondary);
+        }
+
+        .ladder-coil {
+            border: 2px solid var(--border-color, #cbd5e1);
+            background-color: var(--bg-primary, #f8fafc);
+            padding: 3px 9px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-left: auto;
+            min-width: 72px;
+            transition: all 0.2s ease;
+        }
+
+        [data-theme="dark"] .ladder-coil {
+            background-color: #1e293b;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .ladder-coil.energized {
+            border-color: var(--siemens-green);
+            background-color: rgba(16, 185, 129, 0.2);
+        }
+
+        .ladder-coil.energized-amber {
+            border-color: var(--siemens-amber);
+            background-color: rgba(245, 158, 11, 0.2);
+        }
+
+        .ladder-coil.energized-red {
+            border-color: var(--siemens-red);
+            background-color: rgba(239, 68, 68, 0.2);
+        }
+
+        /* --------------------------------------------------------------------------
+           4. MOTOR TELEMETRY, TERMINAL BOARD & DIAGNOSTICS (RIGHT PANEL)
+           -------------------------------------------------------------------------- */
+        .sim-telemetry-panel {
+            background-color: var(--bg-primary, #f8fafc);
+            border: 1px solid var(--border-color, #e2e8f0);
+            border-radius: 12px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+        }
+
+        [data-theme="dark"] .sim-telemetry-panel {
+            background-color: #0b1120;
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .motor-display-box {
+            background-color: var(--card-bg, #ffffff);
+            border: 1px solid var(--border-color, #e2e8f0);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        [data-theme="dark"] .motor-display-box {
+            background-color: #1e293b;
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .motor-icon-spin {
+            font-size: 30px;
+            display: inline-block;
+            margin-bottom: 4px;
+            transition: transform 0.3s ease;
+        }
+
+        .motor-icon-spin.spin-star {
+            animation: spinMotor 0.7s infinite linear;
+        }
+
+        .motor-icon-spin.spin-delta {
+            animation: spinMotor 0.25s infinite linear;
+        }
+
+        @keyframes spinMotor {
+            100% { transform: rotate(360deg); }
+        }
+
+        .motor-status-title {
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .telemetry-mini-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 7px;
+            margin-top: 8px;
+        }
+
+        .telemetry-stat-tile {
+            background-color: var(--bg-primary, #f8fafc);
+            border: 1px solid var(--border-color, #e2e8f0);
+            border-radius: 6px;
+            padding: 7px 8px;
+            text-align: left;
+        }
+
+        [data-theme="dark"] .telemetry-stat-tile {
+            background-color: #0f172a;
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .stat-tile-label {
+            font-size: 9.5px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .stat-tile-val {
+            font-size: 13.5px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-top: 1px;
+            font-family: var(--font-mono-code);
+        }
+
+        .stat-tile-val.star-val { color: var(--siemens-amber); }
+        .stat-tile-val.delta-val { color: var(--siemens-green); }
+        .stat-tile-val.trip-val { color: var(--siemens-red); }
+
+        /* SCADA Event Log Window */
+        .scada-log-window {
+            background-color: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            padding: 10px;
+            font-family: var(--font-mono-code);
+            font-size: 9.5px;
+            color: #a7f3d0;
+            flex: 1;
+            min-height: 180px;
+            max-height: 250px;
+            overflow-y: auto;
+            text-align: left;
+            line-height: 1.4;
+        }
+
+        .log-line {
+            margin-bottom: 2px;
+        }
+
+        .log-ts {
+            color: #64748b;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 1024px) {
+            .sim-main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation (Original Site Standard) -->
+    <nav class="navbar" aria-label="Main Navigation">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="profile_logo.png" alt="Amandeep Singh" class="logo-img" width="40" height="40"
+                    style="width:40px;height:40px;max-width:40px;max-height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;">
+                <span class="logo-text">Amandeep Singh</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="experience.html" class="nav-link">Experience</a></li>
+                <li><a href="projects.html" class="nav-link">Projects</a></li>
+                <li><a href="skills.html" class="nav-link">Skills</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle light/dark theme">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                <a href="Resume_Amandeep.pdf" download="Resume_Amandeep.pdf" class="btn-nav-resume" target="_blank"
+                    rel="noopener noreferrer">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    <span>Resume</span>
+                </a>
+                <button class="hamburger" aria-label="Open navigation menu" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1>Siemens S7-1200 Star-Delta PLC Simulator</h1>
+            <p class="subtitle">Interactive 3-Phase Induction Motor Control &bull; TIA Portal Ladder Logic Execution</p>
+        </div>
+    </header>
+
+    <!-- Simulator Main Stage -->
+    <main class="sim-section">
+        <div class="container">
+            <div class="sim-workbench-card">
+                <!-- 1. CPU Top Header Strip -->
+                <div class="sim-cpu-header">
+                    <div class="sim-cpu-title-group">
+                        <span class="siemens-chip">SIEMENS S7-1200</span>
+                        <div>
+                            <h2 class="sim-cpu-heading">CPU 1214C DC/DC/DC &bull; Star-Delta Starter (Υ-Δ)</h2>
+                        </div>
+                    </div>
+                    <div class="sim-led-strip">
+                        <div class="sim-led-item">
+                            <span class="sim-led-dot active-green" id="ledRun"></span>
+                            <span>RUN</span>
+                        </div>
+                        <div class="sim-led-item">
+                            <span class="sim-led-dot" id="ledKm"></span>
+                            <span>Km (%Q0.0)</span>
+                        </div>
+                        <div class="sim-led-item">
+                            <span class="sim-led-dot" id="ledKy"></span>
+                            <span>Ky (%Q0.1)</span>
+                        </div>
+                        <div class="sim-led-item">
+                            <span class="sim-led-dot" id="ledKd"></span>
+                            <span>KΔ (%Q0.2)</span>
+                        </div>
+                        <div class="sim-led-item">
+                            <span class="sim-led-dot" id="ledFault"></span>
+                            <span>FAULT (OLR)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3-Column Main Interactive Grid -->
+                <div class="sim-main-grid">
+                    <!-- Column 1: Operator Desk Controls -->
+                    <div class="sim-panel">
+                        <h3 class="sim-panel-title">
+                            <span>MCC Operator Desk</span>
+                            <span class="tag">24V DC I/O</span>
+                        </h3>
+
+                        <!-- Start PB -->
+                        <div class="sim-btn-switch" id="swStart" onclick="triggerStartPB()">
+                            <div class="sim-btn-meta">
+                                <span class="sim-btn-tag">%I 0.0 &bull; Green PB (NO)</span>
+                                <span class="sim-btn-name">Start Motor</span>
+                            </div>
+                            <span class="sim-btn-badge">START</span>
+                        </div>
+
+                        <!-- Stop PB -->
+                        <div class="sim-btn-switch danger" id="swStop" onclick="toggleStopPB()">
+                            <div class="sim-btn-meta">
+                                <span class="sim-btn-tag">%I 0.1 &bull; Red PB (NC)</span>
+                                <span class="sim-btn-name" id="stopLabel">Stop Motor</span>
+                            </div>
+                            <span class="sim-btn-badge" id="stopBadge">NORMAL</span>
+                        </div>
+
+                        <!-- Thermal OLR -->
+                        <div class="sim-btn-switch danger" id="swOLR" onclick="toggleThermalOLR()">
+                            <div class="sim-btn-meta">
+                                <span class="sim-btn-tag">%I 0.2 &bull; Thermal OLR (NC)</span>
+                                <span class="sim-btn-name" id="olrLabel">Overload (OK)</span>
+                            </div>
+                            <span class="sim-btn-badge" id="olrBadge">CLOSED</span>
+                        </div>
+
+                        <!-- E-Stop -->
+                        <div class="sim-btn-switch danger" id="swEStop" onclick="toggleEStop()">
+                            <div class="sim-btn-meta">
+                                <span class="sim-btn-tag">%I 0.3 &bull; Safety E-Stop (NC)</span>
+                                <span class="sim-btn-name" id="estopLabel">Emergency Stop (OK)</span>
+                            </div>
+                            <span class="sim-btn-badge" id="estopBadge">CLOSED</span>
+                        </div>
+
+                        <!-- Timer Preset Selector -->
+                        <div>
+                            <span class="sim-btn-tag" style="margin-bottom: 4px;">Transition Timer (TON_1 PT)</span>
+                            <div class="sim-preset-row">
+                                <button class="sim-preset-btn" onclick="setTimerPreset(3000, this)">3.0s</button>
+                                <button class="sim-preset-btn active" onclick="setTimerPreset(5000, this)">5.0s (Std)</button>
+                                <button class="sim-preset-btn" onclick="setTimerPreset(8000, this)">8.0s</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2: Live Animated Ladder Logic (LAD) -->
+                    <div class="sim-ladder-panel">
+                        <!-- Network 1: Main Contactor Latch -->
+                        <div class="ladder-rung" id="rung1">
+                            <div class="ladder-title">
+                                <span>NET 1: Main Contactor (%Q0.0) &bull; Permissives &amp; Latch</span>
+                                <span id="r1Status">OFFLINE</span>
+                            </div>
+                            <div class="ladder-row">
+                                <div class="wire-line hot"></div>
+
+                                <div class="ladder-contact closed" id="cntEStop" title="E-Stop NC (%I0.3)">
+                                    <span class="contact-sym">| / |</span>
+                                    <span class="contact-label">%I0.3 (E-Stop)</span>
+                                </div>
+
+                                <div class="wire-line" id="w1"></div>
+
+                                <div class="ladder-contact closed" id="cntOLR" title="Thermal OLR NC (%I0.2)">
+                                    <span class="contact-sym">| / |</span>
+                                    <span class="contact-label">%I0.2 (OLR)</span>
+                                </div>
+
+                                <div class="wire-line" id="w2"></div>
+
+                                <div class="ladder-contact closed" id="cntStop" title="Stop PB NC (%I0.1)">
+                                    <span class="contact-sym">| / |</span>
+                                    <span class="contact-label">%I0.1 (Stop)</span>
+                                </div>
+
+                                <div class="wire-line" id="w3"></div>
+
+                                <!-- Parallel Start PB & Km Seal-In / Latch Branch -->
+                                <div class="ladder-branch-container" id="branchKm">
+                                    <div class="ladder-branch-row">
+                                        <div class="ladder-contact" id="cntStartPB" title="Start Pushbutton (%I0.0 NO)">
+                                            <span class="contact-sym">| |</span>
+                                            <span class="contact-label">%I0.0 (Start PB)</span>
+                                        </div>
+                                    </div>
+                                    <div class="ladder-branch-row">
+                                        <div class="ladder-contact" id="cntKmSealIn" title="Km Seal-In Latch Contact (%Q0.0 NO)">
+                                            <span class="contact-sym">| |</span>
+                                            <span class="contact-label">%Q0.0 (Km Latch)</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="wire-line" id="w4"></div>
+
+                                <div class="ladder-coil" id="coilKm">
+                                    <span class="contact-sym">( %Q 0.0 )</span>
+                                    <span class="contact-label">Main Km</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Network 2: Star Contactor with Delta Interlock -->
+                        <div class="ladder-rung" id="rung2">
+                            <div class="ladder-title">
+                                <span>NET 2: Star Contactor (%Q0.1) &bull; Delta Interlock</span>
+                                <span id="r2Status">OPEN</span>
+                            </div>
+                            <div class="ladder-row">
+                                <div class="wire-line hot"></div>
+
+                                <div class="ladder-contact" id="cntKmToStar">
+                                    <span class="contact-sym">| |</span>
+                                    <span class="contact-label">%Q0.0 (Km)</span>
+                                </div>
+
+                                <div class="wire-line" id="w5"></div>
+
+                                <div class="ladder-contact closed" id="cntTimerNC">
+                                    <span class="contact-sym">| / |</span>
+                                    <span class="contact-label">TON_1.DN</span>
+                                </div>
+
+                                <div class="wire-line" id="w6"></div>
+
+                                <div class="ladder-contact closed" id="cntKdInterlock">
+                                    <span class="contact-sym">| / |</span>
+                                    <span class="contact-label">%Q0.2 (KΔ Int)</span>
+                                </div>
+
+                                <div class="wire-line" id="w7"></div>
+
+                                <div class="ladder-coil" id="coilKy">
+                                    <span class="contact-sym">( %Q 0.1 )</span>
+                                    <span class="contact-label">Star Ky</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Network 3: TON Transition Timer -->
+                        <div class="ladder-rung" id="rung3">
+                            <div class="ladder-title">
+                                <span>NET 3: Transition Timer (TON_1)</span>
+                                <span id="r3Status">INACTIVE</span>
+                            </div>
+                            <div class="ladder-row">
+                                <div class="wire-line hot"></div>
+
+                                <div class="ladder-contact" id="cntKmToTimer">
+                                    <span class="contact-sym">| |</span>
+                                    <span class="contact-label">%Q0.0 (Km)</span>
+                                </div>
+
+                                <div class="wire-line" id="w8"></div>
+
+                                <div class="ladder-contact" style="min-width: 80px;" id="cntTimerBlock">
+                                    <span class="contact-sym">[ TON_1 ]</span>
+                                    <span class="contact-label" id="timerLabel">PT: 5.0s</span>
+                                </div>
+
+                                <div class="wire-line" id="w9"></div>
+
+                                <div class="ladder-coil" id="coilTimerDone">
+                                    <span class="contact-sym">[ TON_1.DN ]</span>
+                                    <span class="contact-label">Timer Bit</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Network 4: Delta Contactor with Star Interlock -->
+                        <div class="ladder-rung" id="rung4">
+                            <div class="ladder-title">
+                                <span>NET 4: Delta Contactor (%Q0.2) &bull; Star Interlock</span>
+                                <span id="r4Status">OPEN</span>
+                            </div>
+                            <div class="ladder-row">
+                                <div class="wire-line hot"></div>
+
+                                <div class="ladder-contact" id="cntKmToDelta">
+                                    <span class="contact-sym">| |</span>
+                                    <span class="contact-label">%Q0.0 (Km)</span>
+                                </div>
+
+                                <div class="wire-line" id="w10"></div>
+
+                                <div class="ladder-contact" id="cntTimerNO">
+                                    <span class="contact-sym">| |</span>
+                                    <span class="contact-label">TON_1.DN</span>
+                                </div>
+
+                                <div class="wire-line" id="w11"></div>
+
+                                <div class="ladder-contact closed" id="cntKyInterlock">
+                                    <span class="contact-sym">| / |</span>
+                                    <span class="contact-label">%Q0.1 (Ky Int)</span>
+                                </div>
+
+                                <div class="wire-line" id="w12"></div>
+
+                                <div class="ladder-coil" id="coilKd">
+                                    <span class="contact-sym">( %Q 0.2 )</span>
+                                    <span class="contact-label">Delta KΔ</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Network 5: Overload Alarm Siren -->
+                        <div class="ladder-rung" id="rung5">
+                            <div class="ladder-title">
+                                <span>NET 5: Overload Alarm Siren</span>
+                                <span id="r5Status">NORMAL</span>
+                            </div>
+                            <div class="ladder-row">
+                                <div class="wire-line hot"></div>
+
+                                <div class="ladder-contact" id="cntTripAlarm">
+                                    <span class="contact-sym">| / |</span>
+                                    <span class="contact-label">%I0.2 (OLR Trip)</span>
+                                </div>
+
+                                <div class="wire-line" id="w13"></div>
+
+                                <div class="ladder-coil" id="coilTrip">
+                                    <span class="contact-sym">( %Q 0.3 )</span>
+                                    <span class="contact-label">Fault Siren</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 3: Motor Telemetry & Diagnostics -->
+                    <div class="sim-telemetry-panel">
+                        <h3 class="sim-panel-title">
+                            <span>Motor &amp; Telemetry</span>
+                            <span class="tag">SCADA ACTIVE</span>
+                        </h3>
+
+                        <!-- Motor Visualizer -->
+                        <div class="motor-display-box">
+                            <div class="motor-icon-spin" id="motorIcon">⚙️</div>
+                            <div class="telemetry-stat-tile" style="margin-top: 8px; text-align: center;">
+                                <div class="stat-tile-label">Operating Mode</div>
+                                <div class="stat-tile-val" id="valMode" style="font-size: 16px; margin-top: 2px;">OFF</div>
+                            </div>
+                        </div>
+
+                        <!-- SCADA Diagnostics Log Directly Below -->
+                        <div style="display: flex; flex-direction: column; flex: 1;">
+                            <div style="font-size: 11px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; display: flex; justify-content: space-between;">
+                                <span>Diagnostics Log</span>
+                                <span style="color: var(--siemens-green);">● 10ms Scan</span>
+                            </div>
+                            <div class="scada-log-window" id="scadaLog">
+                                <div class="log-line"><span class="log-ts">[00:00:01]</span> S7-1200 CPU: RUN MODE READY.</div>
+                                <div class="log-line"><span class="log-ts">[00:00:02]</span> Safety Loop Closed (DI 0.3 OK).</div>
+                                <div class="log-line"><span class="log-ts">[00:00:03]</span> Press START PB to begin Star sequence.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-box">
+                <div class="cta-content">
+                    <h2>Looking for Industrial PLC &amp; Automation Expertise?</h2>
+                    <p>Let's collaborate on PLC architectures (Siemens S7-1200/1500, TIA Portal), robotic cell deployment, or plant modernization.</p>
+                </div>
+                <div class="cta-actions">
+                    <a href="contact.html" class="btn btn-primary">Start a Conversation</a>
+                    <a href="projects.html" class="btn btn-secondary">Explore Projects</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Amandeep Singh</h4>
+                <p>Associate Manager — Projects &amp; Automation</p>
+                <p>Godrej &amp; Boyce Mfg. Co. Ltd | M.Tech (Digital Mfg) BITS Pilani | B.Tech Mechatronics</p>
+            </div>
+            <div class="footer-section">
+                <h4>Get in Touch</h4>
+                <p>Email: <a href="mailto:anky_mthegem2@yahoo.co.uk">anky_mthegem2@yahoo.co.uk</a></p>
+                <p>Phone: <a href="tel:+919653080919">+91-9653080919</a></p>
+                <p>Location: Ludhiana, Punjab, India</p>
+            </div>
+            <div class="footer-section">
+                <h4>Professional Links</h4>
+                <p>Connect with me for collaborations &amp; technical opportunities.</p>
+                <div class="footer-social-links">
+                    <a href="https://www.linkedin.com/in/anky-mthegem/" target="_blank" rel="noopener noreferrer"
+                        class="footer-social-link" title="LinkedIn Profile" aria-label="LinkedIn Profile">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                        </svg>
+                    </a>
+                    <a href="https://github.com/anky-mthegem/" target="_blank" rel="noopener noreferrer"
+                        class="footer-social-link" title="GitHub Profile" aria-label="GitHub Profile">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Amandeep Singh. All rights reserved. | Ludhiana, Punjab, India</p>
+        </div>
+    </footer>
+
+    <!-- Scripts: Theme & Star-Delta PLC Simulation Engine -->
+    <script src="script.js"></script>
+    <script>
+        // ==========================================================================
+        // SIEMENS S7-1200 STAR-DELTA PLC SIMULATION ENGINE
+        // ==========================================================================
+        const plc = {
+            I0_0_Start: false,       // %I0.0: Start PB (NO)
+            I0_1_Stop: true,         // %I0.1: Stop PB (NC)
+            I0_2_OLR: true,          // %I0.2: Thermal Overload (NC)
+            I0_3_EStop: true,        // %I0.3: Safety E-Stop (NC)
+
+            Q0_0_Km: false,          // %Q0.0: Main Contactor
+            Q0_1_Ky: false,          // %Q0.1: Star Contactor
+            Q0_2_Kd: false,          // %Q0.2: Delta Contactor
+            Q0_3_Trip: false,        // %Q0.3: Overload Alarm Siren
+
+            timerStartTime: null,
+            timerPresetMs: 5000,     // Default 5.0s
+            timerDone: false
+        };
+
+        function addLog(msg) {
+            const box = document.getElementById('scadaLog');
+            if (!box) return;
+            const time = new Date().toLocaleTimeString('en-US', { hour12: false });
+            const line = document.createElement('div');
+            line.className = 'log-line';
+            line.innerHTML = `<span class="log-ts">[${time}]</span> ${msg}`;
+            box.appendChild(line);
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function setTimerPreset(ms, btn) {
+            plc.timerPresetMs = ms;
+            document.querySelectorAll('.sim-preset-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            addLog(`Timer Preset Updated: TON_1 PT = ${(ms/1000).toFixed(1)}s`);
+            const label = document.getElementById('timerLabel');
+            if (label && !plc.Q0_0_Km) {
+                label.textContent = `PT: ${(ms/1000).toFixed(1)}s`;
+            }
+        }
+
+        function triggerStartPB() {
+            if (!plc.I0_3_EStop) {
+                addLog('⚠️ Start Inhibited: Safety E-Stop Loop is Tripped!');
+                return;
+            }
+            if (!plc.I0_2_OLR) {
+                addLog('⚠️ Start Inhibited: Thermal Overload Relay F1 is Tripped!');
+                return;
+            }
+            if (!plc.I0_1_Stop) {
+                addLog('⚠️ Start Inhibited: Stop button is engaged.');
+                return;
+            }
+
+            plc.I0_0_Start = true;
+            document.getElementById('swStart').classList.add('active');
+            addLog('🟢 Start PB Pressed (%I0.0) -> Initiating STAR (Υ) Start Sequence');
+            evaluateScan();
+
+            setTimeout(() => {
+                plc.I0_0_Start = false;
+                document.getElementById('swStart').classList.remove('active');
+                evaluateScan();
+            }, 300);
+        }
+
+        function toggleStopPB() {
+            plc.I0_1_Stop = !plc.I0_1_Stop;
+            const sw = document.getElementById('swStop');
+            const label = document.getElementById('stopLabel');
+            const badge = document.getElementById('stopBadge');
+
+            if (plc.I0_1_Stop) {
+                sw.classList.remove('active');
+                label.textContent = 'Stop Motor';
+                badge.textContent = 'NORMAL';
+                addLog('Stop PB Released (NC Loop Closed)');
+            } else {
+                sw.classList.add('active');
+                label.textContent = 'STOP ENGAGED!';
+                badge.textContent = 'OPEN';
+                addLog('🔴 Stop PB Engaged (%I0.1) -> Dropping all contactors (Coast to stop)');
+            }
+            evaluateScan();
+        }
+
+        function toggleThermalOLR() {
+            plc.I0_2_OLR = !plc.I0_2_OLR;
+            const sw = document.getElementById('swOLR');
+            const label = document.getElementById('olrLabel');
+            const badge = document.getElementById('olrBadge');
+
+            if (plc.I0_2_OLR) {
+                sw.classList.remove('active');
+                label.textContent = 'Overload (OK)';
+                badge.textContent = 'CLOSED';
+                addLog('Thermal Overload Reset (NC Healthy)');
+            } else {
+                sw.classList.add('active');
+                label.textContent = 'TRIP: OVERLOAD!';
+                badge.textContent = 'TRIPPED';
+                addLog('🚨 THERMAL OVERLOAD RELAY TRIPPED (%I0.2)! Current exceeded threshold.');
+            }
+            evaluateScan();
+        }
+
+        function toggleEStop() {
+            plc.I0_3_EStop = !plc.I0_3_EStop;
+            const sw = document.getElementById('swEStop');
+            const label = document.getElementById('estopLabel');
+            const badge = document.getElementById('estopBadge');
+
+            if (plc.I0_3_EStop) {
+                sw.classList.remove('active');
+                label.textContent = 'Emergency Stop (OK)';
+                badge.textContent = 'CLOSED';
+                addLog('🛡️ Safety E-Stop Reset (%I0.3 NC Healthy)');
+            } else {
+                sw.classList.add('active');
+                label.textContent = 'E-STOPPED!';
+                badge.textContent = 'TRIPPED';
+                addLog('🛑 EMERGENCY STOP ACTIVATED (%I0.3)! Main power disconnected.');
+            }
+            evaluateScan();
+        }
+
+        function evaluateScan() {
+            const permissives = plc.I0_3_EStop && plc.I0_2_OLR && plc.I0_1_Stop;
+
+            // NET 1: Main Contactor Km (%Q0.0)
+            if (permissives && (plc.I0_0_Start || plc.Q0_0_Km)) {
+                if (!plc.Q0_0_Km) {
+                    addLog('⚡ Main Contactor Km Energized -> 3-Phase Applied to U1, V1, W1');
+                    plc.timerStartTime = Date.now();
+                    plc.timerDone = false;
+                }
+                plc.Q0_0_Km = true;
+            } else {
+                if (plc.Q0_0_Km) {
+                    addLog('Main Contactor Km Dropped -> Power Cut');
+                }
+                plc.Q0_0_Km = false;
+                plc.timerStartTime = null;
+                plc.timerDone = false;
+            }
+
+            // NET 3: Timer Evaluation (TON_1)
+            if (plc.Q0_0_Km && plc.timerStartTime) {
+                const elapsed = Date.now() - plc.timerStartTime;
+                if (elapsed >= plc.timerPresetMs) {
+                    if (!plc.timerDone) {
+                        addLog('⏱️ Timer TON_1 Done -> Breaking Star (Ky) & Latching DELTA (KΔ)');
+                    }
+                    plc.timerDone = true;
+                }
+            }
+
+            // NET 2: Star Contactor Ky (%Q0.1)
+            if (plc.Q0_0_Km && !plc.timerDone && !plc.Q0_2_Kd) {
+                if (!plc.Q0_1_Ky) {
+                    addLog('⭐ Star Contactor Ky Closed -> Star Point Shorted (240V/phase)');
+                }
+                plc.Q0_1_Ky = true;
+            } else {
+                plc.Q0_1_Ky = false;
+            }
+
+            // NET 4: Delta Contactor Kd (%Q0.2)
+            if (plc.Q0_0_Km && plc.timerDone && !plc.Q0_1_Ky) {
+                if (!plc.Q0_2_Kd) {
+                    addLog('🔺 Delta Contactor KΔ Latched -> Full 415V RMS Run (1,450 RPM)');
+                }
+                plc.Q0_2_Kd = true;
+            } else {
+                plc.Q0_2_Kd = false;
+            }
+
+            // NET 5: Fault Siren (%Q0.3)
+            plc.Q0_3_Trip = !plc.I0_2_OLR;
+
+            // Render
+            renderUI();
+        }
+
+        function renderUI() {
+            // CPU Header LEDs
+            document.getElementById('ledKm').className = plc.Q0_0_Km ? 'sim-led-dot active-green' : 'sim-led-dot';
+            document.getElementById('ledKy').className = plc.Q0_1_Ky ? 'sim-led-dot active-amber' : 'sim-led-dot';
+            document.getElementById('ledKd').className = plc.Q0_2_Kd ? 'sim-led-dot active-green' : 'sim-led-dot';
+            document.getElementById('ledFault').className = plc.Q0_3_Trip ? 'sim-led-dot active-red' : 'sim-led-dot';
+
+            // Network 1 (Main Contactor & Seal-In Latch)
+            const p1 = plc.I0_3_EStop;
+            const p2 = p1 && plc.I0_2_OLR;
+            const p3 = p2 && plc.I0_1_Stop;
+            const p4 = plc.Q0_0_Km;
+
+            document.getElementById('w1').classList.toggle('hot', p1);
+            document.getElementById('w2').classList.toggle('hot', p2);
+            document.getElementById('w3').classList.toggle('hot', p3);
+            document.getElementById('w4').classList.toggle('hot', p4);
+
+            document.getElementById('cntEStop').classList.toggle('closed', plc.I0_3_EStop);
+            document.getElementById('cntOLR').classList.toggle('closed', plc.I0_2_OLR);
+            document.getElementById('cntStop').classList.toggle('closed', plc.I0_1_Stop);
+            document.getElementById('cntStartPB').classList.toggle('closed', plc.I0_0_Start);
+            document.getElementById('cntKmSealIn').classList.toggle('closed', plc.Q0_0_Km);
+            document.getElementById('branchKm').classList.toggle('hot', (plc.I0_0_Start || plc.Q0_0_Km) && p3);
+            document.getElementById('coilKm').classList.toggle('energized', plc.Q0_0_Km);
+            document.getElementById('rung1').classList.toggle('energized', plc.Q0_0_Km);
+            document.getElementById('r1Status').textContent = plc.Q0_0_Km ? 'ENERGIZED' : 'OFFLINE';
+            document.getElementById('r1Status').style.color = plc.Q0_0_Km ? 'var(--siemens-green)' : '#64748b';
+
+            // Network 2 (Star Contactor)
+            document.getElementById('cntKmToStar').classList.toggle('closed', plc.Q0_0_Km);
+            document.getElementById('cntTimerNC').classList.toggle('closed', !plc.timerDone);
+            document.getElementById('cntKdInterlock').classList.toggle('closed', !plc.Q0_2_Kd);
+            document.getElementById('coilKy').classList.toggle('energized-amber', plc.Q0_1_Ky);
+            document.getElementById('rung2').classList.toggle('energized', plc.Q0_1_Ky);
+            document.getElementById('r2Status').textContent = plc.Q0_1_Ky ? 'STAR (CLOSED)' : 'OPEN';
+            document.getElementById('r2Status').style.color = plc.Q0_1_Ky ? 'var(--siemens-amber)' : '#64748b';
+
+            // Network 3 (TON Timer)
+            document.getElementById('cntKmToTimer').classList.toggle('closed', plc.Q0_0_Km);
+            document.getElementById('cntTimerBlock').classList.toggle('closed', plc.timerDone);
+            document.getElementById('coilTimerDone').classList.toggle('energized', plc.timerDone);
+            document.getElementById('rung3').classList.toggle('energized', plc.Q0_0_Km);
+            document.getElementById('r3Status').textContent = plc.timerDone ? 'TIMER DONE' : (plc.Q0_0_Km ? 'TIMING...' : 'INACTIVE');
+            document.getElementById('r3Status').style.color = plc.timerDone ? 'var(--siemens-green)' : (plc.Q0_0_Km ? 'var(--siemens-amber)' : '#64748b');
+
+            // Network 4 (Delta Contactor)
+            document.getElementById('cntKmToDelta').classList.toggle('closed', plc.Q0_0_Km);
+            document.getElementById('cntTimerNO').classList.toggle('closed', plc.timerDone);
+            document.getElementById('cntKyInterlock').classList.toggle('closed', !plc.Q0_1_Ky);
+            document.getElementById('coilKd').classList.toggle('energized', plc.Q0_2_Kd);
+            document.getElementById('rung4').classList.toggle('energized', plc.Q0_2_Kd);
+            document.getElementById('r4Status').textContent = plc.Q0_2_Kd ? 'DELTA (FULL RUN)' : 'OPEN';
+            document.getElementById('r4Status').style.color = plc.Q0_2_Kd ? 'var(--siemens-green)' : '#64748b';
+
+            // Network 5 (Overload Siren)
+            document.getElementById('cntTripAlarm').classList.toggle('closed', plc.Q0_3_Trip);
+            document.getElementById('coilTrip').classList.toggle('energized-red', plc.Q0_3_Trip);
+            document.getElementById('rung5').classList.toggle('energized', plc.Q0_3_Trip);
+            document.getElementById('r5Status').textContent = plc.Q0_3_Trip ? 'ALARM ACTIVE!' : 'NORMAL';
+            document.getElementById('r5Status').style.color = plc.Q0_3_Trip ? 'var(--siemens-red)' : '#64748b';
+
+            // Motor Visualizer & Mode Telemetry
+            const icon = document.getElementById('motorIcon');
+            const vMode = document.getElementById('valMode');
+            if (plc.Q0_3_Trip) {
+                icon.className = 'motor-icon-spin';
+                icon.textContent = '⚠️';
+                vMode.textContent = 'FAULT';
+                vMode.className = 'stat-tile-val trip-val';
+            } else if (!plc.I0_3_EStop) {
+                icon.className = 'motor-icon-spin';
+                icon.textContent = '🛑';
+                vMode.textContent = 'E-STOP';
+                vMode.className = 'stat-tile-val trip-val';
+            } else if (plc.Q0_2_Kd) {
+                icon.className = 'motor-icon-spin spin-delta';
+                icon.textContent = '⚡';
+                vMode.textContent = 'DELTA (Δ)';
+                vMode.className = 'stat-tile-val delta-val';
+            } else if (plc.Q0_1_Ky) {
+                icon.className = 'motor-icon-spin spin-star';
+                icon.textContent = '⭐';
+                vMode.textContent = 'STAR (Υ)';
+                vMode.className = 'stat-tile-val star-val';
+            } else {
+                icon.className = 'motor-icon-spin';
+                icon.textContent = '⚙️';
+                vMode.textContent = 'OFF';
+                vMode.className = 'stat-tile-val';
+            }
+        }
+
+        // Live Timer Loop for TON_1
+        setInterval(() => {
+            if (plc.Q0_0_Km && plc.timerStartTime) {
+                const elapsed = Date.now() - plc.timerStartTime;
+                const total = plc.timerPresetMs;
+                const s = (Math.min(elapsed, total) / 1000).toFixed(1);
+                const maxS = (total / 1000).toFixed(1);
+                const label = document.getElementById('timerLabel');
+                if (label) {
+                    label.textContent = `ET: ${s}s / ${maxS}s`;
+                }
+                evaluateScan();
+            }
+        }, 80);
+
+        // Initial scan
+        evaluateScan();
+    </script>
+</body>
+
+</html>

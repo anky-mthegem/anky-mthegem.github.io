@@ -278,6 +278,55 @@ img {
     fill: currentColor;
 }
 
+/* Round PLC Icon Button on Header / Navbar */
+.btn-nav-plc-round {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1.5px solid #00a3b4;
+    background: linear-gradient(135deg, #00646e 0%, #004b53 100%);
+    color: #ffffff !important;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    box-shadow: 0 2px 8px rgba(0, 100, 110, 0.25);
+    position: relative;
+    user-select: none;
+    flex-shrink: 0;
+}
+
+.btn-nav-plc-round:hover {
+    transform: translateY(-2px) scale(1.05);
+    border-color: #38bdf8;
+    box-shadow: 0 4px 14px rgba(0, 163, 180, 0.45);
+    color: #ffffff !important;
+}
+
+.btn-nav-plc-round .plc-nav-dot {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: #10b981;
+    border: 1.5px solid #004b53;
+    box-shadow: 0 0 6px #10b981;
+    animation: navPlcPulse 1.8s infinite ease-in-out;
+}
+
+@keyframes navPlcPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.7; }
+}
+
 /* Resume CTA Button in Nav */
 .btn-nav-resume {
     display: inline-flex;

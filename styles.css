@@ -2427,7 +2427,10 @@ textarea.form-control {
     display: block;
 }
 
-/* Fixed Floating Pill Scroll Action Widget */
+/* ==========================================================================
+   GLOBAL FIXED FLOATING PILL SCROLL ACTION WIDGET
+   ========================================================================== */
+.floating-pill-wrap,
 .harley-floating-pill-wrap {
     position: fixed;
     bottom: 28px;
@@ -2436,6 +2439,7 @@ textarea.form-control {
     transition: transform var(--transition-normal), opacity var(--transition-normal);
 }
 
+.floating-pill-btn,
 .harley-floating-pill-btn {
     display: inline-flex;
     align-items: center;
@@ -2445,8 +2449,8 @@ textarea.form-control {
     background: rgba(15, 23, 42, 0.88);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(234, 88, 12, 0.45);
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45), 0 0 18px rgba(234, 88, 12, 0.22);
+    border: 1px solid rgba(99, 102, 241, 0.4);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45), 0 0 18px rgba(99, 102, 241, 0.2);
     color: #ffffff;
     font-family: var(--font-heading);
     font-size: 11.5px;
@@ -2458,46 +2462,52 @@ textarea.form-control {
     outline: none;
 }
 
+.floating-pill-btn:hover,
 .harley-floating-pill-btn:hover {
-    background: rgba(234, 88, 12, 0.22);
-    border-color: #f97316;
+    background: rgba(99, 102, 241, 0.2);
+    border-color: #818cf8;
     transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.5), 0 0 28px rgba(234, 88, 12, 0.55);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.5), 0 0 28px rgba(99, 102, 241, 0.45);
     color: #ffffff;
 }
 
+.floating-pill-icon-box,
 .harley-pill-icon-box {
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    background: rgba(234, 88, 12, 0.18);
-    border: 1px solid rgba(234, 88, 12, 0.55);
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(99, 102, 241, 0.45);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fb923c;
+    color: #818cf8;
     flex-shrink: 0;
     transition: all 0.3s ease;
-    box-shadow: 0 0 10px rgba(234, 88, 12, 0.3);
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.25);
 }
 
+.floating-pill-btn:hover .floating-pill-icon-box,
 .harley-floating-pill-btn:hover .harley-pill-icon-box {
-    background: #ea580c;
+    background: #6366f1;
     color: #ffffff;
-    box-shadow: 0 0 14px rgba(234, 88, 12, 0.85);
+    box-shadow: 0 0 14px rgba(99, 102, 241, 0.85);
     transform: scale(1.08);
 }
 
+.floating-pill-icon-arrow,
 .harley-pill-icon-arrow {
     transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Arrow bounce animation for scroll down */
+.floating-pill-wrap.is-down .floating-pill-icon-arrow,
 .harley-floating-pill-wrap.is-down .harley-pill-icon-arrow {
     animation: bounceDown 1.8s infinite;
 }
 
 /* Arrow bounce animation for scroll up */
+.floating-pill-wrap.is-up .floating-pill-icon-arrow,
 .harley-floating-pill-wrap.is-up .harley-pill-icon-arrow {
     animation: bounceUp 1.8s infinite;
 }
@@ -2514,6 +2524,7 @@ textarea.form-control {
     }
 }
 
+.floating-pill-label,
 .harley-pill-label {
     font-size: 11.5px;
     font-weight: 700;
@@ -2523,6 +2534,41 @@ textarea.form-control {
     white-space: nowrap;
 }
 
+.floating-pill-btn:hover .floating-pill-label,
+.harley-floating-pill-btn:hover .harley-pill-label {
+    color: #e0e7ff;
+}
+
+/* Specific Harley-Davidson Orange Theme Glowing Overrides */
+body:has(.harley-hero) .floating-pill-btn,
+.harley-floating-pill-btn {
+    border-color: rgba(234, 88, 12, 0.45);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45), 0 0 18px rgba(234, 88, 12, 0.22);
+}
+
+body:has(.harley-hero) .floating-pill-btn:hover,
+.harley-floating-pill-btn:hover {
+    background: rgba(234, 88, 12, 0.22);
+    border-color: #f97316;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.5), 0 0 28px rgba(234, 88, 12, 0.55);
+}
+
+body:has(.harley-hero) .floating-pill-icon-box,
+.harley-pill-icon-box {
+    background: rgba(234, 88, 12, 0.18);
+    border-color: rgba(234, 88, 12, 0.55);
+    color: #fb923c;
+    box-shadow: 0 0 10px rgba(234, 88, 12, 0.3);
+}
+
+body:has(.harley-hero) .floating-pill-btn:hover .floating-pill-icon-box,
+.harley-floating-pill-btn:hover .harley-pill-icon-box {
+    background: #ea580c;
+    color: #ffffff;
+    box-shadow: 0 0 14px rgba(234, 88, 12, 0.85);
+}
+
+body:has(.harley-hero) .floating-pill-btn:hover .floating-pill-label,
 .harley-floating-pill-btn:hover .harley-pill-label {
     color: #fed7aa;
 }
@@ -3132,17 +3178,20 @@ textarea.form-control {
         padding: 40px 14px 60px;
     }
 
+    .floating-pill-wrap,
     .harley-floating-pill-wrap {
         bottom: 18px;
         right: 18px;
     }
 
+    .floating-pill-btn,
     .harley-floating-pill-btn {
         padding: 7px 13px 7px 9px;
         font-size: 11px;
         gap: 8px;
     }
 
+    .floating-pill-icon-box,
     .harley-pill-icon-box {
         width: 24px;
         height: 24px;

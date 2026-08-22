@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initProgressBars();
     initIntersectionAnimations();
     initContactForm();
-    initHarleyFloatingPill();
+    initFloatingScrollPill();
 });
 
 /* ==========================================================================
@@ -309,11 +309,11 @@ function showMessage(el, text, type) {
 }
 
 /* ==========================================================================
-   HARLEY FLOATING PILL SCROLL BUTTON (DYNAMIC SCROLL DOWN / SCROLL UP)
+   GLOBAL FLOATING PILL SCROLL BUTTON (DYNAMIC SCROLL DOWN / SCROLL UP)
    ========================================================================== */
-function initHarleyFloatingPill() {
-    const pillWrap = document.getElementById('harleyFloatingPill');
-    const pillBtn = document.getElementById('harleyScrollBtn');
+function initFloatingScrollPill() {
+    const pillWrap = document.getElementById('floatingPill') || document.getElementById('harleyFloatingPill');
+    const pillBtn = document.getElementById('floatingScrollBtn') || document.getElementById('harleyScrollBtn');
     const pillLabel = document.getElementById('pillLabel');
     const pillArrowPath = document.getElementById('pillArrowPath');
 
@@ -367,9 +367,13 @@ function initHarleyFloatingPill() {
             });
         } else {
             const scrollY = window.scrollY || window.pageYOffset;
-            const contentEl = document.getElementById('harleyContent');
-            if (scrollY < 120 && contentEl) {
-                contentEl.scrollIntoView({ behavior: 'smooth' });
+            const targetEl = document.getElementById('mainContent') || 
+                             document.getElementById('harleyContent') || 
+                             document.getElementById('projectsGrid') || 
+                             document.querySelector('main') || 
+                             document.querySelector('section');
+            if (scrollY < 120 && targetEl) {
+                targetEl.scrollIntoView({ behavior: 'smooth' });
             } else {
                 window.scrollBy({ top: window.innerHeight * 0.85, behavior: 'smooth' });
             }
@@ -391,4 +395,5 @@ function initHarleyFloatingPill() {
     // Initial check
     updatePillState();
 }
+
 

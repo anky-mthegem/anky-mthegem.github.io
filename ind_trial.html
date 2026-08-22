@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harley Button Design Laboratory | Amandeep Singh Portfolio (Trial)</title>
+    <meta name="description"
+        content="Interactive Harley Button Design Options Preview for Home Page (index.html).">
+    <meta name="author" content="Amandeep Singh">
+    <link rel="icon" type="image/png" href="profile_logo.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=3.3">
+
+    <!-- Custom Trial Preview Styles -->
+    <style>
+        /* --- Live Switcher Toolbar --- */
+        .trial-control-panel {
+            position: sticky;
+            top: 72px;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(234, 88, 12, 0.4);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6), 0 0 20px rgba(234, 88, 12, 0.15);
+            padding: 12px 16px;
+        }
+
+        .trial-control-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .trial-control-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            font-family: var(--font-heading);
+        }
+
+        .trial-control-tag {
+            background: linear-gradient(135deg, #ea580c, #f97316);
+            color: #ffffff;
+            font-size: 10.5px;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: var(--radius-full);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .trial-btn-group {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .trial-opt-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #cbd5e1;
+            padding: 7px 14px;
+            border-radius: var(--radius-full);
+            font-size: 12px;
+            font-weight: 600;
+            font-family: var(--font-body);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .trial-opt-btn:hover {
+            background: rgba(234, 88, 12, 0.2);
+            border-color: rgba(234, 88, 12, 0.5);
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .trial-opt-btn.active {
+            background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+            border-color: #f97316;
+            color: #ffffff;
+            box-shadow: 0 0 16px rgba(234, 88, 12, 0.6);
+        }
+
+        .trial-desc-bar {
+            background: rgba(234, 88, 12, 0.08);
+            border-left: 3px solid #ea580c;
+            padding: 8px 14px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #f8fafc;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* -------------------------------------------------------------
+           OPTION 1: "V-Twin Edition" Neon Action Pill (Explore →)
+           ------------------------------------------------------------- */
+        .harley-opt1-wrap {
+            margin-bottom: 34px;
+            display: inline-block;
+        }
+
+        .harley-btn-opt1 {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(234, 88, 12, 0.45);
+            padding: 7px 18px 7px 8px;
+            border-radius: var(--radius-full);
+            text-decoration: none;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 18px rgba(234, 88, 12, 0.15);
+            transition: all var(--transition-normal);
+            cursor: pointer;
+        }
+
+        .harley-btn-opt1:hover {
+            background: rgba(234, 88, 12, 0.18);
+            border-color: #ea580c;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 28px rgba(234, 88, 12, 0.45);
+        }
+
+        .harley-opt1-thumb-wrap {
+            position: relative;
+            width: 42px;
+            height: 42px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .harley-opt1-thumb {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ea580c;
+            box-shadow: 0 0 10px rgba(234, 88, 12, 0.4);
+        }
+
+        .harley-opt1-pulse-ring {
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            border: 1.5px dashed rgba(234, 88, 12, 0.5);
+            animation: rotateRing 6s linear infinite;
+        }
+
+        @keyframes rotateRing {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .harley-opt1-content {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .harley-opt1-tag {
+            font-size: 10.5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #fb923c;
+            font-weight: 700;
+            font-family: var(--font-heading);
+        }
+
+        .harley-opt1-title {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.2px;
+        }
+
+        .harley-opt1-action-tag {
+            margin-left: 6px;
+            background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: var(--radius-full);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 2px 8px rgba(234, 88, 12, 0.4);
+            transition: all var(--transition-fast);
+        }
+
+        .harley-btn-opt1:hover .harley-opt1-action-tag {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            box-shadow: 0 4px 14px rgba(234, 88, 12, 0.7);
+            transform: translateX(2px);
+        }
+
+        .harley-opt1-action-tag svg {
+            transition: transform var(--transition-fast);
+        }
+
+        .harley-btn-opt1:hover .harley-opt1-action-tag svg {
+            transform: translateX(3px);
+        }
+
+        /* -------------------------------------------------------------
+           OPTION 2: Twin Badge beside Siemens PLC (Hero Buttons Cluster)
+           ------------------------------------------------------------- */
+        .harley-badge-twin {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(234, 88, 12, 0.35);
+            backdrop-filter: blur(10px);
+            padding: 6px 18px 6px 8px;
+            border-radius: var(--radius-full);
+            text-decoration: none;
+            transition: all var(--transition-fast);
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+        }
+
+        .harley-badge-twin:hover {
+            border-color: #ea580c;
+            box-shadow: 0 0 20px rgba(234, 88, 12, 0.45);
+            transform: translateY(-2px);
+        }
+
+        .harley-twin-thumb-wrap {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .harley-twin-thumb {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ea580c;
+        }
+
+        .harley-twin-pulse-dot {
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+            width: 10px;
+            height: 10px;
+            background-color: #ea580c;
+            border: 2px solid #0f172a;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #ea580c;
+            animation: harleyDotPulse 1.8s infinite;
+        }
+
+        @keyframes harleyDotPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 6px #ea580c; }
+            50% { transform: scale(1.3); box-shadow: 0 0 12px #f97316; }
+        }
+
+        .harley-twin-text {
+            text-align: left;
+        }
+
+        .harley-twin-text span {
+            display: block;
+            font-size: 10.5px;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #fb923c;
+            font-weight: 700;
+        }
+
+        .harley-twin-text strong {
+            font-size: 13.5px;
+            color: #ffffff;
+            letter-spacing: 0.3px;
+        }
+
+        /* -------------------------------------------------------------
+           OPTION 3: Grand Trunk Chapter Deluxe Banner
+           ------------------------------------------------------------- */
+        .harley-opt3-wrap {
+            margin-bottom: 34px;
+            display: inline-block;
+        }
+
+        .harley-btn-opt3 {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            background: linear-gradient(135deg, rgba(30, 27, 75, 0.7) 0%, rgba(15, 23, 42, 0.85) 100%);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(234, 88, 12, 0.4);
+            padding: 8px 18px 8px 10px;
+            border-radius: var(--radius-full);
+            text-decoration: none;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 15px rgba(234, 88, 12, 0.15);
+            transition: all var(--transition-normal);
+            cursor: pointer;
+        }
+
+        .harley-btn-opt3:hover {
+            border-color: #ea580c;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 25px rgba(234, 88, 12, 0.45);
+        }
+
+        .harley-opt3-dual-logos {
+            display: flex;
+            align-items: center;
+        }
+
+        .harley-opt3-logo1 {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ea580c;
+            z-index: 2;
+        }
+
+        .harley-opt3-logo2 {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #fbbf24;
+            margin-left: -14px;
+            z-index: 1;
+        }
+
+        .harley-opt3-text-box {
+            text-align: left;
+        }
+
+        .harley-opt3-header {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #fbbf24;
+            font-weight: 700;
+        }
+
+        .harley-opt3-headline {
+            font-size: 13px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .harley-opt3-badge-btn {
+            background: rgba(234, 88, 12, 0.18);
+            border: 1px solid rgba(234, 88, 12, 0.6);
+            color: #fed7aa;
+            padding: 5px 12px;
+            border-radius: var(--radius-full);
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all var(--transition-fast);
+        }
+
+        .harley-btn-opt3:hover .harley-opt3-badge-btn {
+            background: #ea580c;
+            color: #ffffff;
+            box-shadow: 0 0 12px rgba(234, 88, 12, 0.7);
+        }
+
+        /* -------------------------------------------------------------
+           OPTION 4: Sleek Metallic Gradient Button (Solid CTA Style)
+           ------------------------------------------------------------- */
+        .harley-opt4-wrap {
+            margin-bottom: 34px;
+            display: inline-block;
+        }
+
+        .harley-btn-opt4 {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 11px 24px 11px 16px;
+            background: linear-gradient(135deg, rgba(234, 88, 12, 0.25) 0%, rgba(15, 23, 42, 0.85) 100%);
+            border: 1px solid rgba(234, 88, 12, 0.5);
+            border-radius: var(--radius-full);
+            color: #ffffff;
+            font-family: var(--font-heading);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 16px rgba(234, 88, 12, 0.2);
+            transition: all var(--transition-normal);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .harley-btn-opt4::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(60deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transform: rotate(30deg);
+            transition: all 0.7s ease;
+        }
+
+        .harley-btn-opt4:hover::before {
+            left: 100%;
+        }
+
+        .harley-btn-opt4:hover {
+            border-color: #f97316;
+            background: linear-gradient(135deg, rgba(234, 88, 12, 0.4) 0%, rgba(15, 23, 42, 0.95) 100%);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 26px rgba(234, 88, 12, 0.5);
+            color: #ffffff;
+        }
+
+        .harley-opt4-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            object-fit: cover;
+            border: 1.5px solid #ea580c;
+        }
+
+        .harley-opt4-arrow {
+            color: #ea580c;
+            transition: transform var(--transition-fast);
+        }
+
+        .harley-btn-opt4:hover .harley-opt4-arrow {
+            color: #ffffff;
+            transform: translateX(4px);
+        }
+
+        /* -------------------------------------------------------------
+           Visibility Helpers for Switcher
+           ------------------------------------------------------------- */
+        .option-hidden {
+            display: none !important;
+        }
+
+        .show-all-grid {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 30px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--radius-lg);
+            border: 1px dashed rgba(234, 88, 12, 0.3);
+        }
+
+        @media (max-width: 640px) {
+            .trial-control-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .trial-btn-group {
+                width: 100%;
+            }
+            .trial-opt-btn {
+                flex: 1 1 calc(50% - 6px);
+                font-size: 11px;
+                padding: 6px 10px;
+                justify-content: center;
+            }
+            .harley-btn-opt1,
+            .harley-btn-opt3,
+            .harley-btn-opt4 {
+                max-width: 100%;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .harley-opt1-action-tag {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" aria-label="Main Navigation">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="profile_logo.png" alt="Amandeep Singh" class="logo-img" width="40" height="40" style="width:40px;height:40px;max-width:40px;max-height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;">
+                <span class="logo-text">Amandeep Singh</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link active">Home (Live)</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="experience.html" class="nav-link">Experience</a></li>
+                <li class="nav-item-plc">
+                    <a href="plc.html" class="nav-plc-badge-btn" title="Launch Siemens S7-1200 PLC Simulator" aria-label="PLC Simulator">
+                        <span class="plc-nav-text">PLC</span>
+                        <span class="plc-nav-led"></span>
+                    </a>
+                </li>
+                <li><a href="projects.html" class="nav-link">Projects</a></li>
+                <li><a href="skills.html" class="nav-link">Skills</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="harley.html" class="nav-link" style="color:#ea580c;font-weight:700;">Harley Showcase</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle light/dark theme">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                <a href="Resume_Amandeep.pdf" download="Resume_Amandeep.pdf" class="btn-nav-resume" target="_blank"
+                    rel="noopener noreferrer">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    <span>Resume</span>
+                </a>
+                <button class="hamburger" aria-label="Open navigation menu" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- LIVE DEMO CONTROLLER TOOLBAR -->
+    <aside class="trial-control-panel" aria-label="Harley Button Options Switcher">
+        <div class="trial-control-inner">
+            <div class="trial-control-title">
+                <span class="trial-control-tag">Live Preview</span>
+                <span>Select Harley Button Style:</span>
+            </div>
+            <div class="trial-btn-group">
+                <button type="button" class="trial-opt-btn active" data-opt="1" onclick="switchHarleyOption(1)">
+                    <span>1️⃣ Neon Action Pill (Explore →)</span>
+                </button>
+                <button type="button" class="trial-opt-btn" data-opt="2" onclick="switchHarleyOption(2)">
+                    <span>2️⃣ Twin Button (Beside PLC)</span>
+                </button>
+                <button type="button" class="trial-opt-btn" data-opt="3" onclick="switchHarleyOption(3)">
+                    <span>3️⃣ GT Chapter Deluxe Banner</span>
+                </button>
+                <button type="button" class="trial-opt-btn" data-opt="4" onclick="switchHarleyOption(4)">
+                    <span>4️⃣ Metallic Carbon CTA</span>
+                </button>
+                <button type="button" class="trial-opt-btn" data-opt="all" onclick="switchHarleyOption('all')">
+                    <span>👀 Show All Together</span>
+                </button>
+            </div>
+        </div>
+        <div class="trial-control-inner">
+            <div class="trial-desc-bar" id="optionDescription">
+                <strong>Option 1 (Active):</strong> "V-Twin Edition" Neon Action Pill — Premium frosted glass with rotating amber pulse ring, two-tier headline, and glowing "Explore →" action tag.
+            </div>
+        </div>
+    </aside>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-glow-1"></div>
+        <div class="hero-glow-2"></div>
+        <div class="hero-content">
+            <div class="hero-tag">
+                <span class="pulse-dot"></span>
+                <span>Associate Manager @ Godrej &amp; Boyce</span>
+            </div>
+            <h1>Amandeep <span class="hero-gradient-text">Singh</span></h1>
+            <p class="hero-subtitle">Associate Manager — Projects &amp; Automation</p>
+            <p class="hero-subtitle-sub">Mechatronics Engineer with <strong>9+ years of industry experience</strong>
+                specializing in Robotic Cell Automation (ABB, KUKA, Fanuc), Siemens PLC Systems, Computer Vision, and
+                Digital Manufacturing (BITS Pilani).</p>
+
+            <!-- =============================================================
+                 HARLEY BUTTON PREVIEW CONTAINER (Dynamically Switched)
+                 ============================================================= -->
+
+            <!-- OPTION 1: Neon Action Pill (Explore →) -->
+            <div class="harley-opt1-wrap option-target" id="opt1Wrap">
+                <a href="harley.html" class="harley-btn-opt1" title="Explore Harley-Davidson X440 S Showcase & Video">
+                    <div class="harley-opt1-thumb-wrap">
+                        <img src="Harley_davidson_logo.jpg" alt="Harley-Davidson Logo" class="harley-opt1-thumb" />
+                        <span class="harley-opt1-pulse-ring"></span>
+                    </div>
+                    <div class="harley-opt1-content">
+                        <span class="harley-opt1-tag">Passion &amp; Motorcycling</span>
+                        <span class="harley-opt1-title">Harley-Davidson X440 S Showcase</span>
+                    </div>
+                    <span class="harley-opt1-action-tag">
+                        <span>Explore</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+
+            <!-- OPTION 3: Grand Trunk Chapter Deluxe Banner -->
+            <div class="harley-opt3-wrap option-target option-hidden" id="opt3Wrap">
+                <a href="harley.html" class="harley-btn-opt3" title="Grand Trunk Chapter H.O.G. Ludhiana Showcase">
+                    <div class="harley-opt3-dual-logos">
+                        <img src="Harley_davidson_logo.jpg" alt="Harley Logo" class="harley-opt3-logo1" />
+                        <img src="hog_grand_trunk_ludhiana.jpg" alt="HOG Ludhiana" class="harley-opt3-logo2" />
+                    </div>
+                    <div class="harley-opt3-text-box">
+                        <div class="harley-opt3-header">Grand Trunk Chapter • H.O.G. Ludhiana</div>
+                        <div class="harley-opt3-headline">The Machine, The Ride &amp; Open Road</div>
+                    </div>
+                    <span class="harley-opt3-badge-btn">
+                        <span>Watch Reel</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+
+            <!-- OPTION 4: Sleek Metallic Carbon Button -->
+            <div class="harley-opt4-wrap option-target option-hidden" id="opt4Wrap">
+                <a href="harley.html" class="harley-btn-opt4" title="Explore Harley-Davidson X440 S Page">
+                    <img src="Harley_davidson_logo.jpg" alt="Harley Logo" class="harley-opt4-icon" />
+                    <span>Explore Harley-Davidson X440 S</span>
+                    <svg class="harley-opt4-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Main Action Buttons Row -->
+            <div class="hero-buttons">
+                <a href="projects.html" class="btn btn-primary">
+                    <span>Explore Projects</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </a>
+                <a href="Resume_Amandeep.pdf" download="Resume_Amandeep.pdf" class="btn btn-secondary" target="_blank"
+                    rel="noopener noreferrer">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    <span>Download CV</span>
+                </a>
+                <a href="contact.html" class="btn btn-secondary">Get In Touch</a>
+
+                <!-- Siemens PLC RUN Flagship Badge -->
+                <a href="plc.html" class="plc-badge-pill" title="Launch Siemens S7-1200 PLC Simulator">
+                    <div class="plc-thumb-wrap">
+                        <svg class="plc-thumb" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="20" cy="20" r="19" fill="#00646E" stroke="#00A3B4" stroke-width="2"/>
+                            <text x="20" y="17" font-family="'Plus Jakarta Sans', -apple-system, sans-serif" font-weight="900" font-size="9" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">SIEMENS</text>
+                            <text x="20" y="28" font-family="'JetBrains Mono', monospace" font-weight="800" font-size="8.5" fill="#38BDF8" text-anchor="middle">S7-1200</text>
+                        </svg>
+                        <span class="plc-live-pulse-dot"></span>
+                    </div>
+                    <div class="plc-badge-text">
+                        <span>Siemens S7-1200</span>
+                        <strong>PLC RUN</strong>
+                    </div>
+                </a>
+
+                <!-- OPTION 2: Harley Twin Badge in Button Row -->
+                <a href="harley.html" class="harley-badge-twin option-target option-hidden" id="opt2Btn" title="Explore Harley-Davidson X440 S Showcase">
+                    <div class="harley-twin-thumb-wrap">
+                        <img src="Harley_davidson_logo.jpg" alt="Harley-Davidson Logo" class="harley-twin-thumb" />
+                        <span class="harley-twin-pulse-dot"></span>
+                    </div>
+                    <div class="harley-twin-text">
+                        <span>Harley X440 S</span>
+                        <strong>TOUR &amp; REEL 🎬</strong>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Quick Stats Section -->
+    <section class="quick-stats" aria-label="Key Highlights and Statistics">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">⏱️</div>
+                    <div class="stat-number-wrap">
+                        <span class="stat-number" data-target="9">9</span>
+                        <span class="stat-suffix">+</span>
+                    </div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🚀</div>
+                    <div class="stat-number-wrap">
+                        <span class="stat-number" data-target="50">50</span>
+                        <span class="stat-suffix">+</span>
+                    </div>
+                    <div class="stat-label">Automation Deployments</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⚡</div>
+                    <div class="stat-number-wrap">
+                        <span class="stat-number" data-target="30">30</span>
+                        <span class="stat-suffix">%</span>
+                    </div>
+                    <div class="stat-label">Cycle Time Reduction</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🏆</div>
+                    <div class="stat-number-wrap">
+                        <span class="stat-number" data-target="5">5</span>
+                        <span class="stat-suffix">+</span>
+                    </div>
+                    <div class="stat-label">Awards &amp; Distinctions</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Projects Preview -->
+    <section class="featured-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Featured Work</span>
+                <h2 class="section-title">Core Engineering Highlights</h2>
+                <p class="section-desc">Pioneering automation, robotics integration, and plant modernization initiatives
+                    across major manufacturing operations.</p>
+            </div>
+            <div class="featured-grid">
+                <div class="featured-card">
+                    <div class="featured-icon-box">🌐</div>
+                    <h3>IoT Smart Factory Implementation</h3>
+                    <p>Spearheaded IoT architecture for stitching cells at Godrej Haridwar Plant, deploying sensor
+                        telemetry to yield a massive <strong>60% process improvement</strong>.</p>
+                    <a href="projects.html" class="link-arrow">
+                        <span>Read Case Study</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </a>
+                </div>
+                <div class="featured-card">
+                    <div class="featured-icon-box">🤖</div>
+                    <h3>Robotic Automation &amp; Vision</h3>
+                    <p>Spearheaded KUKA robot programming with conveyor tracking for chemical foam &amp; releasing agent pouring, SVG systems, and in-house vision inspection at Godrej Interio (Best In-House Automation 2024).</p>
+                    <a href="projects.html" class="link-arrow">
+                        <span>Read Case Study</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </a>
+                </div>
+                <div class="featured-card">
+                    <div class="featured-icon-box">⚙️</div>
+                    <h3>Automated CIP Plant Systems</h3>
+                    <p>Commissioned full facility Clean-In-Place (CIP) automated cleaning operations using Siemens
+                        Simatic S7-1200 PLC, cutting manual intervention by 95% at Bharat Milk Products.</p>
+                    <a href="projects.html" class="link-arrow">
+                        <span>Read Case Study</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </a>
+                </div>
+                <div class="featured-card">
+                    <div class="featured-icon-box">🏭</div>
+                    <h3>Foundry Robotic Cell Optimization</h3>
+                    <p>Optimized robotic assembly cells for Mahindra S101 cylinder block and Eicher lines at DCM
+                        Engineering, delivering <strong>30% cycle time reduction</strong> and 200 cycles/shift.</p>
+                    <a href="projects.html" class="link-arrow">
+                        <span>Read Case Study</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-box">
+                <div class="cta-content">
+                    <h2>Ready to Elevate Your Automation Operations?</h2>
+                    <p>Let's discuss how my expertise in Robotics, PLC Systems, and Plant Commissioning can bring speed,
+                        precision, and efficiency to your projects.</p>
+                </div>
+                <div class="cta-actions">
+                    <a href="contact.html" class="btn btn-primary">Start a Conversation</a>
+                    <a href="projects.html" class="btn btn-secondary">All Projects</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Amandeep Singh</h4>
+                <p>Associate Manager — Projects &amp; Automation</p>
+                <p>Godrej &amp; Boyce Mfg. Co. Ltd | M.Tech (Digital Mfg) BITS Pilani | B.Tech Mechatronics</p>
+            </div>
+            <div class="footer-section">
+                <h4>Get in Touch</h4>
+                <p>Email: <a href="mailto:anky_mthegem2@yahoo.co.uk">anky_mthegem2@yahoo.co.uk</a></p>
+                <p>Phone: <a href="tel:+919653080919">+91-9653080919</a></p>
+                <p>Location: Ludhiana, Punjab, India</p>
+            </div>
+            <div class="footer-section">
+                <h4>Professional Links</h4>
+                <p>Connect with me for collaborations &amp; technical opportunities.</p>
+                <div class="footer-social-links">
+                    <a href="https://www.linkedin.com/in/anky-mthegem/" target="_blank" rel="noopener noreferrer"
+                        class="footer-social-link" title="LinkedIn Profile" aria-label="LinkedIn Profile">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                        </svg>
+                    </a>
+                    <a href="https://github.com/anky-mthegem/" target="_blank" rel="noopener noreferrer"
+                        class="footer-social-link" title="GitHub Profile" aria-label="GitHub Profile">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Amandeep Singh. All rights reserved. | Ludhiana, Punjab, India</p>
+        </div>
+    </footer>
+
+    <!-- Fixed Floating Pill Scroll Action Widget -->
+    <div class="floating-pill-wrap is-down" id="floatingPill">
+        <button type="button" class="floating-pill-btn" id="floatingScrollBtn" aria-label="Scroll down to explore page">
+            <span class="floating-pill-icon-box">
+                <svg class="floating-pill-icon-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path id="pillArrowPath" d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+                </svg>
+            </span>
+            <span class="floating-pill-label" id="pillLabel">Scroll Down</span>
+        </button>
+    </div>
+
+    <script src="script.js?v=3.3"></script>
+    <script>
+        // Interactive Harley Button Option Switcher
+        const descriptions = {
+            1: "<strong>Option 1 (Active):</strong> 'V-Twin Edition' Neon Action Pill — Frosted glass with rotating amber pulse ring, two-tier text ('Passion &amp; Motorcycling' / 'Harley-Davidson X440 S Showcase'), and glowing 'Explore →' tag.",
+            2: "<strong>Option 2 (Active):</strong> Twin Flagship Badge — Sits directly in the main hero buttons row next to Siemens S7-1200 PLC, creating a balanced dual-flagship row with live amber pulse dot.",
+            3: "<strong>Option 3 (Active):</strong> GT Chapter Deluxe Banner — Features dual badge thumbnails (Harley + Grand Trunk Chapter H.O.G. Ludhiana) and 'Watch Reel ▶' action tag.",
+            4: "<strong>Option 4 (Active):</strong> Metallic Carbon CTA — Full primary-style button with fiery orange border, shimmer light sweep animation on hover, and motorcycle emblem.",
+            all: "<strong>All Options Active:</strong> Showing all 4 Harley button design options simultaneously so you can compare their visual weight, typography, and hover effects."
+        };
+
+        function switchHarleyOption(opt) {
+            // Update buttons active state
+            document.querySelectorAll('.trial-opt-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-opt') == opt);
+            });
+
+            // Update description text
+            const descEl = document.getElementById('optionDescription');
+            if (descEl && descriptions[opt]) {
+                descEl.innerHTML = descriptions[opt];
+            }
+
+            // Target elements
+            const opt1 = document.getElementById('opt1Wrap');
+            const opt2 = document.getElementById('opt2Btn');
+            const opt3 = document.getElementById('opt3Wrap');
+            const opt4 = document.getElementById('opt4Wrap');
+
+            if (opt === 'all') {
+                opt1.classList.remove('option-hidden');
+                opt2.classList.remove('option-hidden');
+                opt3.classList.remove('option-hidden');
+                opt4.classList.remove('option-hidden');
+            } else {
+                opt1.classList.toggle('option-hidden', opt !== 1);
+                opt2.classList.toggle('option-hidden', opt !== 2);
+                opt3.classList.toggle('option-hidden', opt !== 3);
+                opt4.classList.toggle('option-hidden', opt !== 4);
+            }
+        }
+    </script>
+</body>
+
+</html>

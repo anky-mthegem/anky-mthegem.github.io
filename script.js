@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initProgressBars();
     initIntersectionAnimations();
     initContactForm();
+    initHarleyFloatingPill();
 });
 
 /* ==========================================================================
@@ -306,3 +307,88 @@ function showMessage(el, text, type) {
         }, 7000);
     }
 }
+
+/* ==========================================================================
+   HARLEY FLOATING PILL SCROLL BUTTON (DYNAMIC SCROLL DOWN / SCROLL UP)
+   ========================================================================== */
+function initHarleyFloatingPill() {
+    const pillWrap = document.getElementById('harleyFloatingPill');
+    const pillBtn = document.getElementById('harleyScrollBtn');
+    const pillLabel = document.getElementById('pillLabel');
+    const pillArrowPath = document.getElementById('pillArrowPath');
+
+    if (!pillWrap || !pillBtn || !pillLabel) return;
+
+    let isScrollingUp = false;
+
+    function updatePillState() {
+        const scrollY = window.scrollY || window.pageYOffset;
+        const windowHeight = window.innerHeight;
+        const docHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+        const distanceFromBottom = docHeight - (scrollY + windowHeight);
+
+        // Switch to "Scroll Up" ONLY when user reaches near the bottom of the page (within 200px or when footer is in view)
+        const isAtBottom = distanceFromBottom <= 200;
+
+        if (isAtBottom) {
+            if (!isScrollingUp) {
+                isScrollingUp = true;
+                pillWrap.classList.remove('is-down');
+                pillWrap.classList.add('is-up');
+                pillLabel.textContent = 'Scroll Up';
+                pillBtn.setAttribute('aria-label', 'Scroll to top of page');
+                if (pillArrowPath) {
+                    // Up chevron paths
+                    pillArrowPath.setAttribute('d', 'M17 11l-5-5-5 5M17 18l-5-5-5 5');
+                }
+            }
+        } else {
+            if (isScrollingUp || !pillWrap.classList.contains('is-down')) {
+                isScrollingUp = false;
+                pillWrap.classList.remove('is-up');
+                pillWrap.classList.add('is-down');
+                pillLabel.textContent = 'Scroll Down';
+                pillBtn.setAttribute('aria-label', 'Scroll down to explore page');
+                if (pillArrowPath) {
+                    // Down chevron paths
+                    pillArrowPath.setAttribute('d', 'M7 13l5 5 5-5M7 6l5 5 5-5');
+                }
+            }
+        }
+    }
+
+    // Smooth scroll action on click
+    pillBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (isScrollingUp) {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        } else {
+            const scrollY = window.scrollY || window.pageYOffset;
+            const contentEl = document.getElementById('harleyContent');
+            if (scrollY < 120 && contentEl) {
+                contentEl.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                window.scrollBy({ top: window.innerHeight * 0.85, behavior: 'smooth' });
+            }
+        }
+    });
+
+    // Throttled scroll listener
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                updatePillState();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+
+    // Initial check
+    updatePillState();
+}
+

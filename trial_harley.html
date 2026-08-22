@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Harley-Davidson X440 S — Scroll Animation Options Demo & Interactive Preview">
+    <title>Harley-Davidson X440 S | Scroll Animation Design Options</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- Favicon & Stylesheet -->
+    <link rel="icon" type="image/png" href="profile_logo.png">
+    <link rel="stylesheet" href="styles.css?v=3.2">
+
+    <!-- Trial Page Custom Styles for Scroll Animation Options -->
+    <style>
+        /* --- Live Switcher Toolbar --- */
+        .trial-control-panel {
+            position: sticky;
+            top: 72px;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(234, 88, 12, 0.4);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6), 0 0 20px rgba(234, 88, 12, 0.15);
+            padding: 12px 16px;
+        }
+
+        .trial-control-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .trial-control-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            font-family: var(--font-heading);
+        }
+
+        .trial-control-tag {
+            background: linear-gradient(135deg, #ea580c, #f97316);
+            color: #ffffff;
+            font-size: 10.5px;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: var(--radius-full);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .trial-btn-group {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .trial-opt-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #cbd5e1;
+            padding: 7px 14px;
+            border-radius: var(--radius-full);
+            font-size: 12px;
+            font-weight: 600;
+            font-family: var(--font-body);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .trial-opt-btn:hover {
+            background: rgba(234, 88, 12, 0.2);
+            border-color: rgba(234, 88, 12, 0.5);
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .trial-opt-btn.active {
+            background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+            border-color: #f97316;
+            color: #ffffff;
+            box-shadow: 0 0 16px rgba(234, 88, 12, 0.6);
+        }
+
+        .trial-desc-bar {
+            background: rgba(234, 88, 12, 0.08);
+            border-left: 3px solid #ea580c;
+            padding: 8px 14px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #f8fafc;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* -------------------------------------------------------------
+           OPTION 1: Bottom-Right Hero Corner (Hero Absolute)
+           ------------------------------------------------------------- */
+        .harley-scroll-opt1 {
+            position: absolute;
+            bottom: 24px;
+            right: 32px;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .harley-opt1-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: #cbd5e1;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 10px 14px;
+            border-radius: var(--radius-md);
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(234, 88, 12, 0.3);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 15px rgba(234, 88, 12, 0.15);
+            transition: all var(--transition-normal);
+        }
+
+        .harley-opt1-btn:hover {
+            border-color: #ea580c;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 25px rgba(234, 88, 12, 0.45);
+            color: #ffffff;
+        }
+
+        .harley-opt1-mouse {
+            width: 22px;
+            height: 36px;
+            border: 2px solid rgba(234, 88, 12, 0.7);
+            border-radius: 12px;
+            position: relative;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .harley-opt1-wheel {
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 7px;
+            background: #ea580c;
+            border-radius: 2px;
+            box-shadow: 0 0 8px #ea580c;
+            animation: scrollWheel 1.8s infinite;
+        }
+
+        .harley-opt1-text {
+            font-size: 10.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: #fb923c;
+        }
+
+        .harley-opt1-arrow {
+            color: #ea580c;
+            animation: bounceDown 2s infinite;
+        }
+
+        /* -------------------------------------------------------------
+           OPTION 2: Fixed Floating Bottom-Right Pill
+           ------------------------------------------------------------- */
+        .harley-scroll-opt2 {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .harley-opt2-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 18px 10px 14px;
+            border-radius: var(--radius-full);
+            background: rgba(15, 23, 42, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(234, 88, 12, 0.45);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 20px rgba(234, 88, 12, 0.25);
+            color: #ffffff;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .harley-opt2-pill:hover {
+            background: rgba(234, 88, 12, 0.2);
+            border-color: #f97316;
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 30px rgba(234, 88, 12, 0.5);
+        }
+
+        .harley-opt2-icon-wrap {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(234, 88, 12, 0.15);
+            border: 1px solid rgba(234, 88, 12, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fb923c;
+            position: relative;
+        }
+
+        .harley-opt2-icon-wrap::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            border: 1.5px dashed rgba(234, 88, 12, 0.4);
+            animation: rotateRing 6s linear infinite;
+        }
+
+        @keyframes rotateRing {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .harley-opt2-text-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .harley-opt2-sub {
+            font-size: 9.5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+
+        .harley-opt2-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.3px;
+        }
+
+        .harley-opt2-arrow {
+            color: #ea580c;
+            animation: bounceDown 1.8s infinite;
+        }
+
+        /* -------------------------------------------------------------
+           OPTION 3: Automotive Vertical Side Rail (Right Edge)
+           ------------------------------------------------------------- */
+        .harley-scroll-opt3 {
+            position: absolute;
+            right: 28px;
+            bottom: 35px;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .harley-opt3-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 8px 6px;
+            border-radius: var(--radius-sm);
+            transition: all 0.25s ease;
+        }
+
+        .harley-opt3-link:hover {
+            transform: translateY(3px);
+        }
+
+        .harley-opt3-link:hover .harley-opt3-text {
+            color: #fb923c;
+            text-shadow: 0 0 10px rgba(234, 88, 12, 0.8);
+        }
+
+        .harley-opt3-link:hover .harley-opt3-rail-line {
+            background: linear-gradient(to bottom, #ea580c, #fbbf24);
+            box-shadow: 0 0 12px #ea580c;
+        }
+
+        .harley-opt3-text {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transform: rotate(180deg);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 3.5px;
+            text-transform: uppercase;
+            color: #94a3b8;
+            font-family: var(--font-heading);
+            transition: all 0.25s ease;
+        }
+
+        .harley-opt3-rail {
+            width: 2px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .harley-opt3-rail-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to bottom, transparent, #ea580c, #fb923c);
+            border-radius: 2px;
+            animation: beamDrop 1.8s ease-in-out infinite;
+        }
+
+        @keyframes beamDrop {
+            0% { top: -50%; opacity: 0; }
+            30% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        .harley-opt3-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #ea580c;
+            box-shadow: 0 0 8px #ea580c;
+            animation: pulseGlow 1.8s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.4); opacity: 1; box-shadow: 0 0 14px #ea580c; }
+        }
+
+        /* -------------------------------------------------------------
+           OPTION 4: Right-Aligned Under Stats (Flow Alignment)
+           ------------------------------------------------------------- */
+        .harley-scroll-opt4 {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 28px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .harley-opt4-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 18px;
+            background: rgba(234, 88, 12, 0.08);
+            border: 1px solid rgba(234, 88, 12, 0.35);
+            border-radius: var(--radius-full);
+            color: #cbd5e1;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .harley-opt4-btn:hover {
+            background: rgba(234, 88, 12, 0.18);
+            border-color: #ea580c;
+            transform: translateX(4px);
+            color: #ffffff;
+            box-shadow: 0 6px 20px rgba(234, 88, 12, 0.35);
+        }
+
+        .harley-opt4-label {
+            font-size: 11.5px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: #fb923c;
+        }
+
+        .harley-opt4-mouse-mini {
+            width: 18px;
+            height: 28px;
+            border: 1.5px solid rgba(234, 88, 12, 0.6);
+            border-radius: 9px;
+            position: relative;
+        }
+
+        .harley-opt4-wheel-mini {
+            position: absolute;
+            top: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 5px;
+            background: #ea580c;
+            border-radius: 1.5px;
+            animation: scrollWheel 1.6s infinite;
+        }
+
+        /* -------------------------------------------------------------
+           Option Selector Visibility Helper Classes
+           ------------------------------------------------------------- */
+        .option-hidden {
+            display: none !important;
+        }
+
+        /* Responsive adjustments for options */
+        @media (max-width: 768px) {
+            .harley-scroll-opt1 {
+                right: 16px;
+                bottom: 16px;
+            }
+            .harley-scroll-opt2 {
+                right: 16px;
+                bottom: 20px;
+            }
+            .harley-scroll-opt3 {
+                right: 14px;
+            }
+            .harley-scroll-opt4 {
+                justify-content: center;
+            }
+            .trial-control-inner {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .trial-btn-group {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" aria-label="Main Navigation">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="profile_logo.png" alt="Amandeep Singh" class="logo-img" width="40" height="40" style="width:40px;height:40px;max-width:40px;max-height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;">
+                <span class="logo-text">Amandeep Singh</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="experience.html" class="nav-link">Experience</a></li>
+                <li class="nav-item-plc">
+                    <a href="plc.html" class="nav-plc-badge-btn" title="Launch Siemens S7-1200 PLC Simulator" aria-label="PLC Simulator">
+                        <span class="plc-nav-text">PLC</span>
+                        <span class="plc-nav-led"></span>
+                    </a>
+                </li>
+                <li><a href="projects.html" class="nav-link">Projects</a></li>
+                <li><a href="skills.html" class="nav-link">Skills</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="harley.html" class="nav-link active" style="color:#ea580c;font-weight:700;">Harley (Live)</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle light/dark theme">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                <a href="Resume_Amandeep.pdf" download="Resume_Amandeep.pdf" class="btn-nav-resume" target="_blank" rel="noopener noreferrer">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    <span>Resume</span>
+                </a>
+                <button class="hamburger" aria-label="Open navigation menu" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- LIVE DEMO CONTROLLER TOOLBAR -->
+    <aside class="trial-control-panel" aria-label="Scroll Animation Options Preview Switcher">
+        <div class="trial-control-inner">
+            <div class="trial-control-title">
+                <span class="trial-control-tag">Live Preview</span>
+                <span>Select Scroll Animation Option:</span>
+            </div>
+            <div class="trial-btn-group">
+                <button type="button" class="trial-opt-btn active" data-opt="1" onclick="switchOption(1)">
+                    <span>1️⃣ Bottom-Right Hero Corner</span>
+                </button>
+                <button type="button" class="trial-opt-btn" data-opt="2" onclick="switchOption(2)">
+                    <span>2️⃣ Fixed Floating Pill</span>
+                </button>
+                <button type="button" class="trial-opt-btn" data-opt="3" onclick="switchOption(3)">
+                    <span>3️⃣ Automotive Vertical Rail</span>
+                </button>
+                <button type="button" class="trial-opt-btn" data-opt="4" onclick="switchOption(4)">
+                    <span>4️⃣ Right-Aligned Under Stats</span>
+                </button>
+                <button type="button" class="trial-opt-btn" data-opt="all" onclick="switchOption('all')">
+                    <span>👀 Show All Together</span>
+                </button>
+            </div>
+        </div>
+        <div class="trial-control-inner">
+            <div class="trial-desc-bar" id="optionDescription">
+                <strong>Option 1 (Active):</strong> Bottom-Right Hero Corner — Anchored to the lower right of the hero header; keeps stats clear with a sleek glassmorphic mouse &amp; orange chevron.
+            </div>
+        </div>
+    </aside>
+
+    <!-- Harley Page Hero -->
+    <header class="harley-hero">
+        <div class="container" style="position: relative;">
+            <div class="harley-hero-content">
+                <div class="harley-hero-badges-wrapper">
+                    <div class="harley-badge-pill-hero">
+                        <img src="Harley_davidson_logo.jpg" alt="Harley-Davidson Official Logo" class="harley-hero-logo" />
+                        <span>Harley-Davidson X440 S</span>
+                    </div>
+                    <div class="harley-badge-pill-hero chapter-badge-pill">
+                        <img src="hog_grand_trunk_ludhiana.jpg" alt="Grand Trunk Chapter HOG" class="harley-hero-logo" />
+                        <span>Grand Trunk Chapter • Ludhiana</span>
+                    </div>
+                    <div class="harley-badge-pill-hero punjab-badge-pill">
+                        <img src="harley_davidson_punjab_patch.jpg" alt="Harley Punjab Patch" class="harley-hero-logo" />
+                        <span>Harley-Davidson Punjab</span>
+                    </div>
+                </div>
+                <h1 class="harley-hero-title">The Machine, The Ride &amp; The Open Road</h1>
+                <p class="harley-hero-subtitle">
+                    Where mechanical precision, mechatronics intuition, and the spirit of touring converge. Exploring northern highways, alpine routes, and the art of two-wheeled engineering.
+                </p>
+
+                <div class="harley-quick-stats">
+                    <div class="harley-stat-card">
+                        <span class="harley-stat-val">440 cc</span>
+                        <span class="harley-stat-lbl">Single-Cylinder Oil-Cooled</span>
+                    </div>
+                    <div class="harley-stat-card">
+                        <span class="harley-stat-val">38 Nm</span>
+                        <span class="harley-stat-lbl">Peak Torque @ 4,000 RPM</span>
+                    </div>
+                    <div class="harley-stat-card">
+                        <span class="harley-stat-val">KYB 43mm</span>
+                        <span class="harley-stat-lbl">Inverted USD Cartridge Forks</span>
+                    </div>
+                    <div class="harley-stat-card">
+                        <span class="harley-stat-val">Dual ABS</span>
+                        <span class="harley-stat-lbl">ByBre Braking System</span>
+                    </div>
+                </div>
+
+                <!-- OPTION 4: Right-Aligned Under Stats Flow -->
+                <div class="harley-scroll-opt4 option-target option-hidden" id="opt4Element">
+                    <a href="#harleyContent" class="harley-opt4-btn" aria-label="Scroll down to explore Harley-Davidson showcase">
+                        <span class="harley-opt4-label">Scroll to Explore Ride</span>
+                        <div class="harley-opt4-mouse-mini">
+                            <div class="harley-opt4-wheel-mini"></div>
+                        </div>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: #ea580c;">
+                            <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- OPTION 1: Bottom-Right Hero Corner -->
+            <div class="harley-scroll-opt1 option-target" id="opt1Element">
+                <a href="#harleyContent" class="harley-opt1-btn" aria-label="Scroll down to explore Harley-Davidson showcase">
+                    <div class="harley-opt1-mouse">
+                        <div class="harley-opt1-wheel"></div>
+                    </div>
+                    <span class="harley-opt1-text">Scroll Down</span>
+                    <svg class="harley-opt1-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- OPTION 3: Automotive Vertical Side Rail -->
+            <div class="harley-scroll-opt3 option-target option-hidden" id="opt3Element">
+                <a href="#harleyContent" class="harley-opt3-link" aria-label="Scroll down to explore Harley-Davidson showcase">
+                    <span class="harley-opt3-text">SCROLL • EXPLORE</span>
+                    <div class="harley-opt3-rail">
+                        <div class="harley-opt3-rail-line"></div>
+                    </div>
+                    <div class="harley-opt3-dot"></div>
+                </a>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- OPTION 2: Fixed Floating Bottom-Right Pill -->
+    <div class="harley-scroll-opt2 option-target option-hidden" id="opt2Element">
+        <a href="#harleyContent" class="harley-opt2-pill" aria-label="Scroll to explore Harley showcase">
+            <div class="harley-opt2-icon-wrap">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="5" y="2" width="14" height="20" rx="7"></rect>
+                    <line x1="12" y1="6" x2="12" y2="10"></line>
+                </svg>
+            </div>
+            <div class="harley-opt2-text-wrap">
+                <span class="harley-opt2-sub">Harley Showcase</span>
+                <span class="harley-opt2-title">Scroll Down</span>
+            </div>
+            <svg class="harley-opt2-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+            </svg>
+        </a>
+    </div>
+
+    <!-- Main Content -->
+    <main class="harley-page" id="harleyContent">
+        <div class="container">
+
+            <!-- Section 1: Chapter Affiliation & Heritage Badges -->
+            <section class="harley-section">
+                <div class="section-header" style="text-align: center; margin-bottom: 36px;">
+                    <span class="section-tag" style="background: rgba(234, 88, 12, 0.12); color: #ea580c; border-color: rgba(234, 88, 12, 0.3);">Official Chapter &amp; Heritage</span>
+                    <h2 class="section-title">Grand Trunk Chapter • H.O.G. Ludhiana</h2>
+                    <p class="section-desc">Riding with pride in the Harley Owners Group (H.O.G.) community across Punjab and the northern highway touring corridors.</p>
+                </div>
+
+                <div class="harley-chapter-grid">
+                    <!-- Chapter Card 1: Grand Trunk Chapter Ludhiana -->
+                    <div class="harley-chapter-card">
+                        <div class="chapter-image-wrapper">
+                            <img src="hog_grand_trunk_ludhiana.jpg" alt="Grand Trunk Chapter Ludhiana Punjab - Harley Owners Group H.O.G." class="chapter-badge-img" />
+                        </div>
+                        <div class="chapter-card-body">
+                            <span class="chapter-tag">Official H.O.G. Chapter</span>
+                            <h3>Grand Trunk Chapter — Ludhiana, Punjab</h3>
+                            <p>
+                                Active rider in the <strong>Grand Trunk Chapter</strong> (Ludhiana, Punjab) of the official Harley Owners Group (H.O.G.). Regular participant in breakfast runs, highway rallies, and multi-state touring circuits across the historic Grand Trunk Road network.
+                            </p>
+                            <div class="chapter-meta-pills">
+                                <span class="harley-pill">H.O.G. Ludhiana</span>
+                                <span class="harley-pill">GT Road Circuit</span>
+                                <span class="harley-pill">Highway Rallies</span>
+                                <span class="harley-pill">Touring Brotherhood</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chapter Card 2: Harley-Davidson Punjab Insignia -->
+                    <div class="harley-chapter-card">
+                        <div class="chapter-image-wrapper">
+                            <img src="harley_davidson_punjab_patch.jpg" alt="Harley-Davidson Punjab Embroidered Crest with Lion &amp; Khanda" class="chapter-badge-img" />
+                        </div>
+                        <div class="chapter-card-body">
+                            <span class="chapter-tag">Regional Insignia</span>
+                            <h3>Harley-Davidson Punjab Crest</h3>
+                            <p>
+                                The iconic embroidered insignia uniting the spirit of Punjab — courage, resilience (Sher / Lion), and heritage (Khanda &amp; Talwars) — with the thunderous V-twin engineering and open-road freedom of Harley-Davidson.
+                            </p>
+                            <div class="chapter-meta-pills">
+                                <span class="harley-pill">Punjab Crest</span>
+                                <span class="harley-pill">Heritage &amp; Pride</span>
+                                <span class="harley-pill">Embroidered Patch</span>
+                                <span class="harley-pill">Northern Riders</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: The Rider's Philosophy -->
+            <section class="harley-section harley-philosophy-section">
+                <div class="harley-phil-grid">
+                    <div class="harley-phil-text">
+                        <span class="section-tag" style="background: rgba(234, 88, 12, 0.12); color: #ea580c; border-color: rgba(234, 88, 12, 0.3);">Philosophy &amp; Focus</span>
+                        <h2 class="section-title">The Engineering of Freedom</h2>
+                        <p class="harley-phil-lead">
+                            "When automating robotic cells or commissioning complex plant lines, every millisecond and mechanical linkage counts. On the motorcycle, that same focus translates into sensory awareness, throttle rhythm, and respect for mechanical synergy."
+                        </p>
+                        <p class="harley-phil-body">
+                            As a Mechatronics Engineer and an Associate Manager in automation, working with industrial kinematics and high-torque servomotors during the week makes operating a precision internal combustion machine on the weekends an organic extension of my craft.
+                        </p>
+                        <div class="harley-phil-bullets">
+                            <div class="harley-phil-bullet">
+                                <span class="bullet-icon">🏃</span>
+                                <div>
+                                    <h4>Endurance &amp; Stamina</h4>
+                                    <p>5-time marathon runner (5K &amp; 10K events for health &amp; anti-drug awareness). Mental stamina for 400+ km highway touring days.</p>
+                                </div>
+                            </div>
+                            <div class="harley-phil-bullet">
+                                <span class="bullet-icon">🧭</span>
+                                <div>
+                                    <h4>Northern Routes &amp; Exploration</h4>
+                                    <p>Weekend highway runs across Punjab, Shivalik foothills, and scenic bypass routes connecting northern heritage corridors.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="harley-phil-card">
+                        <div class="harley-card-inner">
+                            <div class="phil-badges-row">
+                                <img src="hog_grand_trunk_ludhiana.jpg" alt="Grand Trunk Chapter" class="harley-phil-mini-badge" />
+                                <img src="harley_davidson_punjab_patch.jpg" alt="Punjab Patch" class="harley-phil-mini-badge" />
+                            </div>
+                            <h3>The Rider's Creed</h3>
+                            <p class="harley-quote">
+                                "Two wheels move the soul. Engineering builds the machine; discipline commands the journey."
+                            </p>
+                            <div class="rider-meta">
+                                <strong>Amandeep Singh</strong>
+                                <span>Grand Trunk Chapter (Ludhiana) • Harley X440s Pilot</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Video & Media Showcase -->
+            <section class="harley-section">
+                <div class="section-header" style="text-align: center; margin-bottom: 32px;">
+                    <span class="section-tag" style="background: rgba(234, 88, 12, 0.12); color: #ea580c; border-color: rgba(234, 88, 12, 0.3);">Featured Video Experience</span>
+                    <h2 class="section-title">Ride in Action: HD-MUMBAI</h2>
+                    <p class="section-desc">Experience the machine in motion, highway acoustics, and open-road touring footage.</p>
+                </div>
+
+                <!-- Featured HD-MUMBAI Video Player Container -->
+                <div class="harley-featured-video-card">
+                    <div class="harley-video-frame">
+                        <video controls controlsList="nodownload" oncontextmenu="return false;" playsinline preload="metadata" class="harley-video-element" poster="Harley_davidson_logo.jpg">
+                            <source src="HD-MUMBAI.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="harley-video-details">
+                        <div class="harley-video-header">
+                            <div class="harley-video-titles">
+                                <span class="harley-pill" style="color: #ea580c; border-color: rgba(234, 88, 12, 0.4);">🎬 Featured Video</span>
+                                <h3>Harley-Davidson Ride &amp; Road Experience — Mumbai</h3>
+                            </div>
+                            <span class="harley-badge-pill" style="margin: 0; pointer-events: none;">
+                                <img src="hog_grand_trunk_ludhiana.jpg" alt="HOG Ludhiana" class="harley-thumb" style="width: 28px; height: 28px;" />
+                                <div class="harley-badge-text">
+                                    <span>Ride Edition</span>
+                                    <strong>HD-MUMBAI</strong>
+                                </div>
+                            </span>
+                        </div>
+                        <p class="harley-video-desc">
+                            High-octane ride footage capturing the exhaust resonance, highway stability, and open throttle cadence on the Harley-Davidson journey across the Mumbai touring corridors.
+                        </p>
+                        <div class="harley-video-tags">
+                            <span class="tool-pill">🎬 HD Video</span>
+                            <span class="tool-pill">🔊 Exhaust Acoustics</span>
+                            <span class="tool-pill">📍 Mumbai Route</span>
+                            <span class="tool-pill">🏍️ Harley-Davidson Experience</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: Call to Action -->
+            <section class="harley-cta-box">
+                <div class="harley-cta-text">
+                    <h2>Share the Passion for Machines &amp; Motion</h2>
+                    <p>Whether it's industrial automation architecture or motorcycle touring stories, let's connect and collaborate.</p>
+                </div>
+                <div class="harley-cta-buttons">
+                    <a href="contact.html" class="btn btn-primary">Get In Touch</a>
+                    <a href="projects.html" class="btn btn-outline">Explore Industrial Projects</a>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Amandeep Singh</h4>
+                <p>Associate Manager — Projects &amp; Automation</p>
+                <p>Godrej &amp; Boyce Mfg. Co. Ltd | M.Tech (Digital Mfg) BITS Pilani | B.Tech Mechatronics</p>
+            </div>
+            <div class="footer-section">
+                <h4>Get in Touch</h4>
+                <p>Email: <a href="mailto:anky_mthegem2@yahoo.co.uk">anky_mthegem2@yahoo.co.uk</a></p>
+                <p>Phone: <a href="tel:+919653080919">+91-9653080919</a></p>
+                <p>Location: Ludhiana, Punjab, India</p>
+            </div>
+            <div class="footer-section">
+                <h4>Professional Links</h4>
+                <p>Connect with me for collaborations &amp; technical opportunities.</p>
+                <div class="footer-social-links">
+                    <a href="https://www.linkedin.com/in/anky-mthegem/" target="_blank" rel="noopener noreferrer" class="footer-social-link" title="LinkedIn Profile" aria-label="LinkedIn Profile">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.75-1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    </a>
+                    <a href="https://github.com/anky-mthegem/" target="_blank" rel="noopener noreferrer" class="footer-social-link" title="GitHub Profile" aria-label="GitHub Profile">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Amandeep Singh. All rights reserved. | Ludhiana, Punjab, India</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Interactive Option Switcher Logic
+        const descriptions = {
+            1: "<strong>Option 1 (Active):</strong> Bottom-Right Hero Corner — Anchored to the lower right of the hero header; keeps stats clear with a sleek glassmorphic mouse & orange chevron.",
+            2: "<strong>Option 2 (Active):</strong> Fixed Floating Pill — Stays visible in the bottom-right corner as you scroll, with glowing badge & pulsing rotation ring.",
+            3: "<strong>Option 3 (Active):</strong> Automotive Vertical Side Rail — Superbike-inspired right-edge vertical rail with neon beam drop animation.",
+            4: "<strong>Option 4 (Active):</strong> Right-Aligned Below Stats — Follows natural document flow aligned under the rightmost stat cards.",
+            all: "<strong>All Options Active:</strong> Showing all 4 scroll animation styles simultaneously so you can compare their visual positioning and style."
+        };
+
+        function switchOption(opt) {
+            // Update buttons
+            document.querySelectorAll('.trial-opt-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-opt') == opt);
+            });
+
+            // Update description
+            const descEl = document.getElementById('optionDescription');
+            if (descEl && descriptions[opt]) {
+                descEl.innerHTML = descriptions[opt];
+            }
+
+            // Update visible elements
+            const opt1 = document.getElementById('opt1Element');
+            const opt2 = document.getElementById('opt2Element');
+            const opt3 = document.getElementById('opt3Element');
+            const opt4 = document.getElementById('opt4Element');
+
+            if (opt === 'all') {
+                opt1.classList.remove('option-hidden');
+                opt2.classList.remove('option-hidden');
+                opt3.classList.remove('option-hidden');
+                opt4.classList.remove('option-hidden');
+            } else {
+                opt1.classList.toggle('option-hidden', opt !== 1);
+                opt2.classList.toggle('option-hidden', opt !== 2);
+                opt3.classList.toggle('option-hidden', opt !== 3);
+                opt4.classList.toggle('option-hidden', opt !== 4);
+            }
+        }
+    </script>
+</body>
+</html>

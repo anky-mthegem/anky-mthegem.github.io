@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harley Button Design Laboratory | Amandeep Singh Portfolio (Trial)</title>
+    <title>3D Harley Button Design Laboratory | Amandeep Singh Portfolio (Trial)</title>
     <meta name="description"
-        content="Interactive Harley Button Design Options Preview for Home Page (index.html).">
+        content="Interactive 3D Harley Button Design Options Preview for Home Page (index.html).">
     <meta name="author" content="Amandeep Singh">
     <link rel="icon" type="image/png" href="profile_logo.png">
 
@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css?v=3.3">
 
-    <!-- Custom Trial Preview Styles -->
+    <!-- Custom 3D Trial Preview Styles -->
     <style>
         /* --- Live Switcher Toolbar --- */
         .trial-control-panel {
@@ -38,7 +38,7 @@
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 10px;
         }
 
         .trial-control-title {
@@ -61,6 +61,7 @@
             border-radius: var(--radius-full);
             text-transform: uppercase;
             letter-spacing: 1px;
+            box-shadow: 0 0 10px rgba(234, 88, 12, 0.5);
         }
 
         .trial-btn-group {
@@ -74,13 +75,13 @@
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.15);
             color: #cbd5e1;
-            padding: 7px 14px;
+            padding: 7px 13px;
             border-radius: var(--radius-full);
-            font-size: 12px;
+            font-size: 11.5px;
             font-weight: 600;
             font-family: var(--font-body);
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -97,7 +98,8 @@
             background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
             border-color: #f97316;
             color: #ffffff;
-            box-shadow: 0 0 16px rgba(234, 88, 12, 0.6);
+            box-shadow: 0 3px 0 #7c2d12, 0 0 16px rgba(234, 88, 12, 0.6);
+            transform: translateY(-1px);
         }
 
         .trial-desc-bar {
@@ -108,151 +110,219 @@
             font-size: 12px;
             color: #f8fafc;
             margin-top: 8px;
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
 
+        /* =============================================================
+           3D BUTTON DESIGN STYLES
+           ============================================================= */
+
         /* -------------------------------------------------------------
-           OPTION 1: "V-Twin Edition" Neon Action Pill (Explore →)
+           3D OPTION 1: "Ignition Push Button" with 3D Extrusion & Tactile Press
            ------------------------------------------------------------- */
-        .harley-opt1-wrap {
+        .harley-3d-opt1-wrap {
             margin-bottom: 34px;
             display: inline-block;
         }
 
-        .harley-btn-opt1 {
+        .harley-3d-btn-opt1 {
             display: inline-flex;
             align-items: center;
             gap: 14px;
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border: 1px solid rgba(234, 88, 12, 0.45);
-            padding: 7px 18px 7px 8px;
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid #ea580c;
+            border-top: 1px solid #fdba74;
+            padding: 8px 18px 8px 8px;
             border-radius: var(--radius-full);
             text-decoration: none;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 18px rgba(234, 88, 12, 0.15);
-            transition: all var(--transition-normal);
             cursor: pointer;
-        }
-
-        .harley-btn-opt1:hover {
-            background: rgba(234, 88, 12, 0.18);
-            border-color: #ea580c;
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 28px rgba(234, 88, 12, 0.45);
-        }
-
-        .harley-opt1-thumb-wrap {
+            user-select: none;
             position: relative;
-            width: 42px;
-            height: 42px;
+            /* 3D Physical Depth: Top highlight + Body gradient + Deep 3D bottom shelf + Drop shadow */
+            box-shadow: 
+                0 6px 0 #9a3412,
+                0 7px 0 #7c2d12,
+                0 14px 25px rgba(0, 0, 0, 0.6),
+                0 0 20px rgba(234, 88, 12, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.35),
+                inset 0 -2px 0 rgba(0, 0, 0, 0.4);
+            transform: translateY(0);
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .harley-3d-btn-opt1:hover {
+            background: linear-gradient(180deg, #273549 0%, #111a2e 100%);
+            border-color: #fb923c;
+            transform: translateY(-2px);
+            box-shadow: 
+                0 8px 0 #9a3412,
+                0 9px 0 #7c2d12,
+                0 18px 30px rgba(0, 0, 0, 0.7),
+                0 0 30px rgba(234, 88, 12, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5),
+                inset 0 -2px 0 rgba(0, 0, 0, 0.4);
+        }
+
+        /* Realistic Tactile Push-Down State */
+        .harley-3d-btn-opt1:active {
+            transform: translateY(6px) !important;
+            box-shadow: 
+                0 0 0 #9a3412,
+                0 2px 8px rgba(0, 0, 0, 0.8),
+                0 0 15px rgba(234, 88, 12, 0.4),
+                inset 0 2px 4px rgba(0, 0, 0, 0.6) !important;
+        }
+
+        .harley-3d-coin-wrap {
+            position: relative;
+            width: 44px;
+            height: 44px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ea580c, #7c2d12);
+            padding: 2px;
+            box-shadow: 
+                0 3px 6px rgba(0, 0, 0, 0.5),
+                inset 0 1px 1px rgba(255, 255, 255, 0.5),
+                inset 0 -2px 2px rgba(0, 0, 0, 0.6);
         }
 
-        .harley-opt1-thumb {
-            width: 42px;
-            height: 42px;
+        .harley-3d-coin-img {
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid #ea580c;
-            box-shadow: 0 0 10px rgba(234, 88, 12, 0.4);
+            border: 1.5px solid #fdba74;
+            display: block;
         }
 
-        .harley-opt1-pulse-ring {
+        .harley-3d-pulse-led {
             position: absolute;
-            inset: -3px;
+            bottom: -2px;
+            right: -2px;
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle at 35% 35%, #fff 0%, #fb923c 40%, #ea580c 100%);
+            border: 2px solid #0f172a;
             border-radius: 50%;
-            border: 1.5px dashed rgba(234, 88, 12, 0.5);
-            animation: rotateRing 6s linear infinite;
+            box-shadow: 0 0 10px #f97316;
+            animation: ledBlink 1.8s infinite;
         }
 
-        @keyframes rotateRing {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        @keyframes ledBlink {
+            0%, 100% { box-shadow: 0 0 6px #ea580c; opacity: 1; }
+            50% { box-shadow: 0 0 14px #fb923c, 0 0 20px rgba(251, 146, 60, 0.6); opacity: 0.85; }
         }
 
-        .harley-opt1-content {
+        .harley-3d-content {
             text-align: left;
             display: flex;
             flex-direction: column;
             gap: 2px;
         }
 
-        .harley-opt1-tag {
+        .harley-3d-tag {
             font-size: 10.5px;
             text-transform: uppercase;
             letter-spacing: 1px;
             color: #fb923c;
-            font-weight: 700;
+            font-weight: 800;
             font-family: var(--font-heading);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
         }
 
-        .harley-opt1-title {
-            font-size: 13.5px;
-            font-weight: 700;
+        .harley-3d-title {
+            font-size: 14px;
+            font-weight: 800;
             color: #ffffff;
             letter-spacing: 0.2px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
         }
 
-        .harley-opt1-action-tag {
+        /* 3D Action Sub-Pill with extrusion */
+        .harley-3d-subpill {
             margin-left: 6px;
-            background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+            background: linear-gradient(180deg, #ea580c 0%, #c2410c 100%);
             color: #ffffff;
             font-size: 11px;
-            font-weight: 700;
-            padding: 5px 12px;
+            font-weight: 800;
+            padding: 6px 14px;
             border-radius: var(--radius-full);
             display: inline-flex;
             align-items: center;
-            gap: 5px;
-            box-shadow: 0 2px 8px rgba(234, 88, 12, 0.4);
-            transition: all var(--transition-fast);
+            gap: 6px;
+            border-top: 1px solid #fdba74;
+            box-shadow: 
+                0 3px 0 #7c2d12,
+                0 4px 10px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            transition: all 0.15s ease;
         }
 
-        .harley-btn-opt1:hover .harley-opt1-action-tag {
-            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
-            box-shadow: 0 4px 14px rgba(234, 88, 12, 0.7);
-            transform: translateX(2px);
+        .harley-3d-btn-opt1:hover .harley-3d-subpill {
+            background: linear-gradient(180deg, #f97316 0%, #ea580c 100%);
+            box-shadow: 
+                0 4px 0 #7c2d12,
+                0 6px 14px rgba(234, 88, 12, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            transform: translateY(-1px);
         }
 
-        .harley-opt1-action-tag svg {
-            transition: transform var(--transition-fast);
-        }
-
-        .harley-btn-opt1:hover .harley-opt1-action-tag svg {
-            transform: translateX(3px);
+        .harley-3d-btn-opt1:active .harley-3d-subpill {
+            transform: translateY(3px);
+            box-shadow: 0 0 0 #7c2d12, inset 0 2px 3px rgba(0, 0, 0, 0.5);
         }
 
         /* -------------------------------------------------------------
-           OPTION 2: Twin Badge beside Siemens PLC (Hero Buttons Cluster)
+           3D OPTION 2: 3D Twin Heavy-Duty Button (Beside Siemens PLC)
            ------------------------------------------------------------- */
-        .harley-badge-twin {
+        .harley-3d-badge-twin {
             display: inline-flex;
             align-items: center;
             gap: 12px;
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(234, 88, 12, 0.35);
-            backdrop-filter: blur(10px);
-            padding: 6px 18px 6px 8px;
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid #ea580c;
+            border-top: 1px solid #fdba74;
+            padding: 7px 18px 7px 8px;
             border-radius: var(--radius-full);
             text-decoration: none;
-            transition: all var(--transition-fast);
-            box-shadow: var(--shadow-sm);
             cursor: pointer;
+            user-select: none;
+            box-shadow: 
+                0 5px 0 #9a3412,
+                0 6px 0 #7c2d12,
+                0 10px 20px rgba(0, 0, 0, 0.5),
+                0 0 18px rgba(234, 88, 12, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.35);
+            transition: all 0.15s ease;
         }
 
-        .harley-badge-twin:hover {
-            border-color: #ea580c;
-            box-shadow: 0 0 20px rgba(234, 88, 12, 0.45);
+        .harley-3d-badge-twin:hover {
             transform: translateY(-2px);
+            border-color: #fb923c;
+            box-shadow: 
+                0 7px 0 #9a3412,
+                0 8px 0 #7c2d12,
+                0 14px 25px rgba(0, 0, 0, 0.6),
+                0 0 25px rgba(234, 88, 12, 0.45),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
         }
 
-        .harley-twin-thumb-wrap {
+        .harley-3d-badge-twin:active {
+            transform: translateY(5px) !important;
+            box-shadow: 
+                0 0 0 #9a3412,
+                0 2px 6px rgba(0, 0, 0, 0.8),
+                inset 0 2px 4px rgba(0, 0, 0, 0.6) !important;
+        }
+
+        .harley-3d-twin-thumb-wrap {
             position: relative;
             width: 40px;
             height: 40px;
@@ -260,213 +330,306 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ea580c, #7c2d12);
+            padding: 2px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255,255,255,0.4);
         }
 
-        .harley-twin-thumb {
-            width: 40px;
-            height: 40px;
+        .harley-3d-twin-thumb {
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid #ea580c;
+            border: 1.5px solid #fdba74;
         }
 
-        .harley-twin-pulse-dot {
+        .harley-3d-twin-led {
             position: absolute;
-            bottom: 0px;
-            right: 0px;
-            width: 10px;
-            height: 10px;
-            background-color: #ea580c;
+            bottom: -1px;
+            right: -1px;
+            width: 11px;
+            height: 11px;
+            background: radial-gradient(circle at 35% 35%, #fff 0%, #fb923c 45%, #ea580c 100%);
             border: 2px solid #0f172a;
             border-radius: 50%;
             box-shadow: 0 0 8px #ea580c;
-            animation: harleyDotPulse 1.8s infinite;
+            animation: ledBlink 1.8s infinite;
         }
 
-        @keyframes harleyDotPulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 6px #ea580c; }
-            50% { transform: scale(1.3); box-shadow: 0 0 12px #f97316; }
-        }
-
-        .harley-twin-text {
+        .harley-3d-twin-text {
             text-align: left;
         }
 
-        .harley-twin-text span {
+        .harley-3d-twin-text span {
             display: block;
             font-size: 10.5px;
             text-transform: uppercase;
             letter-spacing: 0.6px;
             color: #fb923c;
-            font-weight: 700;
+            font-weight: 800;
         }
 
-        .harley-twin-text strong {
+        .harley-3d-twin-text strong {
             font-size: 13.5px;
             color: #ffffff;
+            font-weight: 800;
             letter-spacing: 0.3px;
         }
 
         /* -------------------------------------------------------------
-           OPTION 3: Grand Trunk Chapter Deluxe Banner
+           3D OPTION 3: Machined Billet Aluminum & Carbon Console Frame
            ------------------------------------------------------------- */
-        .harley-opt3-wrap {
+        .harley-3d-opt3-wrap {
             margin-bottom: 34px;
             display: inline-block;
         }
 
-        .harley-btn-opt3 {
+        .harley-3d-btn-opt3 {
             display: inline-flex;
             align-items: center;
-            gap: 14px;
-            background: linear-gradient(135deg, rgba(30, 27, 75, 0.7) 0%, rgba(15, 23, 42, 0.85) 100%);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(234, 88, 12, 0.4);
-            padding: 8px 18px 8px 10px;
-            border-radius: var(--radius-full);
+            gap: 16px;
+            background: 
+                linear-gradient(180deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%);
+            border: 2px solid #475569;
+            border-top: 2px solid #94a3b8;
+            border-bottom: 2px solid #0f172a;
+            padding: 8px 20px 8px 10px;
+            border-radius: var(--radius-lg);
             text-decoration: none;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 15px rgba(234, 88, 12, 0.15);
-            transition: all var(--transition-normal);
+            box-shadow: 
+                0 6px 0 #1e293b,
+                0 12px 25px rgba(0, 0, 0, 0.7),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 0 15px rgba(0, 0, 0, 0.6);
+            transition: all 0.15s ease;
             cursor: pointer;
+            user-select: none;
+            position: relative;
         }
 
-        .harley-btn-opt3:hover {
+        .harley-3d-btn-opt3:hover {
             border-color: #ea580c;
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 25px rgba(234, 88, 12, 0.45);
+            border-top-color: #fdba74;
+            transform: translateY(-2px);
+            box-shadow: 
+                0 8px 0 #7c2d12,
+                0 16px 30px rgba(0, 0, 0, 0.8),
+                0 0 25px rgba(234, 88, 12, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
 
-        .harley-opt3-dual-logos {
+        .harley-3d-btn-opt3:active {
+            transform: translateY(6px) !important;
+            box-shadow: 0 0 0 #7c2d12, 0 2px 6px rgba(0, 0, 0, 0.8), inset 0 2px 4px rgba(0,0,0,0.8) !important;
+        }
+
+        .harley-3d-opt3-dual-logos {
             display: flex;
             align-items: center;
         }
 
-        .harley-opt3-logo1 {
-            width: 38px;
-            height: 38px;
+        .harley-3d-opt3-logo1 {
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid #ea580c;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.4);
             z-index: 2;
         }
 
-        .harley-opt3-logo2 {
-            width: 38px;
-            height: 38px;
+        .harley-3d-opt3-logo2 {
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid #fbbf24;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.4);
             margin-left: -14px;
             z-index: 1;
         }
 
-        .harley-opt3-text-box {
+        .harley-3d-opt3-text-box {
             text-align: left;
         }
 
-        .harley-opt3-header {
+        .harley-3d-opt3-header {
             font-size: 10px;
             text-transform: uppercase;
             letter-spacing: 0.8px;
             color: #fbbf24;
-            font-weight: 700;
+            font-weight: 800;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
         }
 
-        .harley-opt3-headline {
-            font-size: 13px;
-            font-weight: 700;
+        .harley-3d-opt3-headline {
+            font-size: 13.5px;
+            font-weight: 800;
             color: #ffffff;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
         }
 
-        .harley-opt3-badge-btn {
-            background: rgba(234, 88, 12, 0.18);
-            border: 1px solid rgba(234, 88, 12, 0.6);
-            color: #fed7aa;
-            padding: 5px 12px;
-            border-radius: var(--radius-full);
+        .harley-3d-opt3-badge-btn {
+            background: linear-gradient(180deg, #d97706 0%, #b45309 100%);
+            border: 1px solid #fef3c7;
+            color: #ffffff;
+            padding: 6px 14px;
+            border-radius: var(--radius-md);
             font-size: 11px;
-            font-weight: 700;
+            font-weight: 800;
             display: inline-flex;
             align-items: center;
             gap: 5px;
-            transition: all var(--transition-fast);
+            box-shadow: 0 3px 0 #78350f, 0 4px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.5);
+            transition: all 0.15s ease;
         }
 
-        .harley-btn-opt3:hover .harley-opt3-badge-btn {
-            background: #ea580c;
-            color: #ffffff;
-            box-shadow: 0 0 12px rgba(234, 88, 12, 0.7);
+        .harley-3d-btn-opt3:hover .harley-3d-opt3-badge-btn {
+            background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
+            box-shadow: 0 4px 0 #78350f, 0 6px 14px rgba(245, 158, 11, 0.6), inset 0 1px 0 rgba(255,255,255,0.7);
         }
 
         /* -------------------------------------------------------------
-           OPTION 4: Sleek Metallic Gradient Button (Solid CTA Style)
+           3D OPTION 4: Glossy 3D Cylindrical Capsule Button
            ------------------------------------------------------------- */
-        .harley-opt4-wrap {
+        .harley-3d-opt4-wrap {
             margin-bottom: 34px;
             display: inline-block;
         }
 
-        .harley-btn-opt4 {
+        .harley-3d-btn-opt4 {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            padding: 11px 24px 11px 16px;
-            background: linear-gradient(135deg, rgba(234, 88, 12, 0.25) 0%, rgba(15, 23, 42, 0.85) 100%);
-            border: 1px solid rgba(234, 88, 12, 0.5);
+            gap: 14px;
+            padding: 10px 24px 10px 14px;
+            background: linear-gradient(180deg, #ea580c 0%, #c2410c 50%, #9a3412 100%);
+            border: 1px solid #fdba74;
             border-radius: var(--radius-full);
             color: #ffffff;
             font-family: var(--font-heading);
-            font-size: 13px;
-            font-weight: 700;
+            font-size: 14px;
+            font-weight: 800;
             letter-spacing: 0.5px;
             text-decoration: none;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 16px rgba(234, 88, 12, 0.2);
-            transition: all var(--transition-normal);
-            cursor: pointer;
             position: relative;
+            cursor: pointer;
+            user-select: none;
             overflow: hidden;
+            box-shadow: 
+                0 6px 0 #7c2d12,
+                0 7px 0 #431407,
+                0 14px 28px rgba(0, 0, 0, 0.6),
+                0 0 25px rgba(234, 88, 12, 0.5),
+                inset 0 1px 1px rgba(255, 255, 255, 0.75),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.4);
+            transition: all 0.15s ease;
         }
 
-        .harley-btn-opt4::before {
+        /* Top 3D Specular Curved Gloss Highlight Arc */
+        .harley-3d-btn-opt4::after {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(60deg, transparent, rgba(255, 255, 255, 0.15), transparent);
-            transform: rotate(30deg);
-            transition: all 0.7s ease;
+            top: 2px;
+            left: 10%;
+            right: 10%;
+            height: 45%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.05) 100%);
+            border-radius: var(--radius-full);
+            pointer-events: none;
         }
 
-        .harley-btn-opt4:hover::before {
-            left: 100%;
+        .harley-3d-btn-opt4:hover {
+            background: linear-gradient(180deg, #f97316 0%, #ea580c 50%, #c2410c 100%);
+            transform: translateY(-2px);
+            box-shadow: 
+                0 8px 0 #7c2d12,
+                0 9px 0 #431407,
+                0 18px 34px rgba(0, 0, 0, 0.7),
+                0 0 35px rgba(234, 88, 12, 0.7),
+                inset 0 1px 1px rgba(255, 255, 255, 0.9);
         }
 
-        .harley-btn-opt4:hover {
-            border-color: #f97316;
-            background: linear-gradient(135deg, rgba(234, 88, 12, 0.4) 0%, rgba(15, 23, 42, 0.95) 100%);
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 26px rgba(234, 88, 12, 0.5);
-            color: #ffffff;
+        .harley-3d-btn-opt4:active {
+            transform: translateY(6px) !important;
+            box-shadow: 0 0 0 #7c2d12, 0 2px 6px rgba(0, 0, 0, 0.8), inset 0 2px 6px rgba(0,0,0,0.6) !important;
         }
 
-        .harley-opt4-icon {
-            width: 28px;
-            height: 28px;
-            border-radius: 6px;
+        .harley-3d-opt4-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
             object-fit: cover;
-            border: 1.5px solid #ea580c;
+            border: 2px solid #ffffff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.5);
         }
 
-        .harley-opt4-arrow {
-            color: #ea580c;
-            transition: transform var(--transition-fast);
-        }
-
-        .harley-btn-opt4:hover .harley-opt4-arrow {
+        .harley-3d-opt4-arrow {
             color: #ffffff;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.6));
+            transition: transform 0.2s ease;
+        }
+
+        .harley-3d-btn-opt4:hover .harley-3d-opt4-arrow {
             transform: translateX(4px);
+        }
+
+        /* -------------------------------------------------------------
+           3D OPTION 5: "Engine Start / Ignition Trigger" Switch
+           ------------------------------------------------------------- */
+        .harley-3d-opt5-wrap {
+            margin-bottom: 34px;
+            display: inline-block;
+        }
+
+        .harley-3d-btn-opt5 {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            background: linear-gradient(180deg, #2a1b14 0%, #150d09 100%);
+            border: 2px solid #ea580c;
+            padding: 8px 18px 8px 10px;
+            border-radius: var(--radius-full);
+            text-decoration: none;
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            box-shadow: 
+                0 6px 0 #541c09,
+                0 12px 24px rgba(0, 0, 0, 0.7),
+                0 0 20px rgba(234, 88, 12, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transition: all 0.15s ease;
+        }
+
+        .harley-3d-btn-opt5:hover {
+            background: linear-gradient(180deg, #3d2319 0%, #1e110b 100%);
+            transform: translateY(-2px);
+            box-shadow: 
+                0 8px 0 #541c09,
+                0 16px 30px rgba(0, 0, 0, 0.8),
+                0 0 30px rgba(234, 88, 12, 0.55),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        .harley-3d-btn-opt5:active {
+            transform: translateY(6px) !important;
+            box-shadow: 0 0 0 #541c09, 0 2px 6px rgba(0,0,0,0.8), inset 0 2px 4px rgba(0,0,0,0.8) !important;
+        }
+
+        .harley-3d-opt5-switch {
+            background: linear-gradient(180deg, #ea580c 0%, #9a3412 100%);
+            border: 1.5px solid #fdba74;
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 900;
+            padding: 6px 14px;
+            border-radius: var(--radius-full);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 3px 0 #541c09, 0 4px 8px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.5);
         }
 
         /* -------------------------------------------------------------
@@ -480,12 +643,12 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 16px;
+            gap: 20px;
             margin-bottom: 30px;
-            padding: 16px;
+            padding: 24px;
             background: rgba(255, 255, 255, 0.03);
             border-radius: var(--radius-lg);
-            border: 1px dashed rgba(234, 88, 12, 0.3);
+            border: 1px dashed rgba(234, 88, 12, 0.4);
         }
 
         @media (max-width: 640px) {
@@ -502,14 +665,16 @@
                 padding: 6px 10px;
                 justify-content: center;
             }
-            .harley-btn-opt1,
-            .harley-btn-opt3,
-            .harley-btn-opt4 {
+            .harley-3d-btn-opt1,
+            .harley-3d-btn-opt3,
+            .harley-3d-btn-opt4,
+            .harley-3d-btn-opt5 {
                 max-width: 100%;
                 flex-wrap: wrap;
                 justify-content: center;
             }
-            .harley-opt1-action-tag {
+            .harley-3d-subpill,
+            .harley-3d-opt5-switch {
                 margin-left: 0;
             }
         }
@@ -563,34 +728,37 @@
         </div>
     </nav>
 
-    <!-- LIVE DEMO CONTROLLER TOOLBAR -->
-    <aside class="trial-control-panel" aria-label="Harley Button Options Switcher">
+    <!-- LIVE 3D DEMO CONTROLLER TOOLBAR -->
+    <aside class="trial-control-panel" aria-label="3D Harley Button Options Switcher">
         <div class="trial-control-inner">
             <div class="trial-control-title">
-                <span class="trial-control-tag">Live Preview</span>
-                <span>Select Harley Button Style:</span>
+                <span class="trial-control-tag">3D Laboratory</span>
+                <span>Select 3D Tactile Button Style:</span>
             </div>
             <div class="trial-btn-group">
                 <button type="button" class="trial-opt-btn active" data-opt="1" onclick="switchHarleyOption(1)">
-                    <span>1️⃣ Neon Action Pill (Explore →)</span>
+                    <span>1️⃣ 3D Ignition Push Button (Extruded Lip)</span>
                 </button>
                 <button type="button" class="trial-opt-btn" data-opt="2" onclick="switchHarleyOption(2)">
-                    <span>2️⃣ Twin Button (Beside PLC)</span>
+                    <span>2️⃣ 3D Twin Heavy-Duty (Beside PLC)</span>
                 </button>
                 <button type="button" class="trial-opt-btn" data-opt="3" onclick="switchHarleyOption(3)">
-                    <span>3️⃣ GT Chapter Deluxe Banner</span>
+                    <span>3️⃣ 3D Billet Aluminum Console</span>
                 </button>
                 <button type="button" class="trial-opt-btn" data-opt="4" onclick="switchHarleyOption(4)">
-                    <span>4️⃣ Metallic Carbon CTA</span>
+                    <span>4️⃣ 3D Glossy Flame Capsule</span>
+                </button>
+                <button type="button" class="trial-opt-btn" data-opt="5" onclick="switchHarleyOption(5)">
+                    <span>5️⃣ 3D Engine Start Trigger</span>
                 </button>
                 <button type="button" class="trial-opt-btn" data-opt="all" onclick="switchHarleyOption('all')">
-                    <span>👀 Show All Together</span>
+                    <span>👀 Show All 3D Together</span>
                 </button>
             </div>
         </div>
         <div class="trial-control-inner">
             <div class="trial-desc-bar" id="optionDescription">
-                <strong>Option 1 (Active):</strong> "V-Twin Edition" Neon Action Pill — Premium frosted glass with rotating amber pulse ring, two-tier headline, and glowing "Explore →" action tag.
+                <strong>Option 1 (Active):</strong> 3D "Ignition Push Button" — Heavy 6px extrusion shelf, embossed coin medallion, glowing LED lens, and physical tactile push-down click effect on click!
             </div>
         </div>
     </aside>
@@ -611,22 +779,22 @@
                 Digital Manufacturing (BITS Pilani).</p>
 
             <!-- =============================================================
-                 HARLEY BUTTON PREVIEW CONTAINER (Dynamically Switched)
+                 3D HARLEY BUTTON PREVIEW CONTAINER (Dynamically Switched)
                  ============================================================= -->
 
-            <!-- OPTION 1: Neon Action Pill (Explore →) -->
-            <div class="harley-opt1-wrap option-target" id="opt1Wrap">
-                <a href="harley.html" class="harley-btn-opt1" title="Explore Harley-Davidson X440 S Showcase & Video">
-                    <div class="harley-opt1-thumb-wrap">
-                        <img src="Harley_davidson_logo.jpg" alt="Harley-Davidson Logo" class="harley-opt1-thumb" />
-                        <span class="harley-opt1-pulse-ring"></span>
+            <!-- 3D OPTION 1: 3D Ignition Push Button (Extruded Lip) -->
+            <div class="harley-3d-opt1-wrap option-target" id="opt1Wrap">
+                <a href="harley.html" class="harley-3d-btn-opt1" title="Explore Harley-Davidson X440 S Showcase & Video">
+                    <div class="harley-3d-coin-wrap">
+                        <img src="Harley_davidson_logo.jpg" alt="Harley-Davidson Logo" class="harley-3d-coin-img" />
+                        <span class="harley-3d-pulse-led"></span>
                     </div>
-                    <div class="harley-opt1-content">
-                        <span class="harley-opt1-tag">Passion &amp; Motorcycling</span>
-                        <span class="harley-opt1-title">Harley-Davidson X440 S Showcase</span>
+                    <div class="harley-3d-content">
+                        <span class="harley-3d-tag">Passion &amp; Motorcycling</span>
+                        <span class="harley-3d-title">Harley-Davidson X440 S</span>
                     </div>
-                    <span class="harley-opt1-action-tag">
-                        <span>Explore</span>
+                    <span class="harley-3d-subpill">
+                        <span>EXPLORE RIDE</span>
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="5" y1="12" x2="19" y2="12"></line>
                             <polyline points="12 5 19 12 12 19"></polyline>
@@ -635,19 +803,19 @@
                 </a>
             </div>
 
-            <!-- OPTION 3: Grand Trunk Chapter Deluxe Banner -->
-            <div class="harley-opt3-wrap option-target option-hidden" id="opt3Wrap">
-                <a href="harley.html" class="harley-btn-opt3" title="Grand Trunk Chapter H.O.G. Ludhiana Showcase">
-                    <div class="harley-opt3-dual-logos">
-                        <img src="Harley_davidson_logo.jpg" alt="Harley Logo" class="harley-opt3-logo1" />
-                        <img src="hog_grand_trunk_ludhiana.jpg" alt="HOG Ludhiana" class="harley-opt3-logo2" />
+            <!-- 3D OPTION 3: Billet Aluminum & Carbon Console Frame -->
+            <div class="harley-3d-opt3-wrap option-target option-hidden" id="opt3Wrap">
+                <a href="harley.html" class="harley-3d-btn-opt3" title="Grand Trunk Chapter H.O.G. Ludhiana Showcase">
+                    <div class="harley-3d-opt3-dual-logos">
+                        <img src="Harley_davidson_logo.jpg" alt="Harley Logo" class="harley-3d-opt3-logo1" />
+                        <img src="hog_grand_trunk_ludhiana.jpg" alt="HOG Ludhiana" class="harley-3d-opt3-logo2" />
                     </div>
-                    <div class="harley-opt3-text-box">
-                        <div class="harley-opt3-header">Grand Trunk Chapter • H.O.G. Ludhiana</div>
-                        <div class="harley-opt3-headline">The Machine, The Ride &amp; Open Road</div>
+                    <div class="harley-3d-opt3-text-box">
+                        <div class="harley-3d-opt3-header">Grand Trunk Chapter • H.O.G. Ludhiana</div>
+                        <div class="harley-3d-opt3-headline">The Machine, The Ride &amp; Open Road</div>
                     </div>
-                    <span class="harley-opt3-badge-btn">
-                        <span>Watch Reel</span>
+                    <span class="harley-3d-opt3-badge-btn">
+                        <span>WATCH REEL</span>
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
                             <polygon points="5 3 19 12 5 21 5 3"></polygon>
                         </svg>
@@ -655,15 +823,35 @@
                 </a>
             </div>
 
-            <!-- OPTION 4: Sleek Metallic Carbon Button -->
-            <div class="harley-opt4-wrap option-target option-hidden" id="opt4Wrap">
-                <a href="harley.html" class="harley-btn-opt4" title="Explore Harley-Davidson X440 S Page">
-                    <img src="Harley_davidson_logo.jpg" alt="Harley Logo" class="harley-opt4-icon" />
-                    <span>Explore Harley-Davidson X440 S</span>
-                    <svg class="harley-opt4-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <!-- 3D OPTION 4: Glossy 3D Cylindrical Flame Capsule -->
+            <div class="harley-3d-opt4-wrap option-target option-hidden" id="opt4Wrap">
+                <a href="harley.html" class="harley-3d-btn-opt4" title="Explore Harley-Davidson X440 S Page">
+                    <img src="Harley_davidson_logo.jpg" alt="Harley Logo" class="harley-3d-opt4-icon" />
+                    <span>EXPLORE HARLEY X440 S SHOWCASE</span>
+                    <svg class="harley-3d-opt4-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="5" y1="12" x2="19" y2="12"></line>
                         <polyline points="12 5 19 12 12 19"></polyline>
                     </svg>
+                </a>
+            </div>
+
+            <!-- 3D OPTION 5: Engine Start Trigger Switch -->
+            <div class="harley-3d-opt5-wrap option-target option-hidden" id="opt5Wrap">
+                <a href="harley.html" class="harley-3d-btn-opt5" title="Start Engine & View Ride">
+                    <div class="harley-3d-coin-wrap">
+                        <img src="Harley_davidson_logo.jpg" alt="Harley-Davidson Logo" class="harley-3d-coin-img" />
+                        <span class="harley-3d-pulse-led"></span>
+                    </div>
+                    <div class="harley-3d-content">
+                        <span class="harley-3d-tag">440cc Oil-Cooled Single</span>
+                        <span class="harley-3d-title">Harley-Davidson X440 S</span>
+                    </div>
+                    <span class="harley-3d-opt5-switch">
+                        <span>⚡ START ENGINE</span>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                    </span>
                 </a>
             </div>
 
@@ -703,13 +891,13 @@
                     </div>
                 </a>
 
-                <!-- OPTION 2: Harley Twin Badge in Button Row -->
-                <a href="harley.html" class="harley-badge-twin option-target option-hidden" id="opt2Btn" title="Explore Harley-Davidson X440 S Showcase">
-                    <div class="harley-twin-thumb-wrap">
-                        <img src="Harley_davidson_logo.jpg" alt="Harley-Davidson Logo" class="harley-twin-thumb" />
-                        <span class="harley-twin-pulse-dot"></span>
+                <!-- 3D OPTION 2: Harley 3D Twin Badge in Button Row -->
+                <a href="harley.html" class="harley-3d-badge-twin option-target option-hidden" id="opt2Btn" title="Explore Harley-Davidson X440 S Showcase">
+                    <div class="harley-3d-twin-thumb-wrap">
+                        <img src="Harley_davidson_logo.jpg" alt="Harley-Davidson Logo" class="harley-3d-twin-thumb" />
+                        <span class="harley-3d-twin-led"></span>
                     </div>
-                    <div class="harley-twin-text">
+                    <div class="harley-3d-twin-text">
                         <span>Harley X440 S</span>
                         <strong>TOUR &amp; REEL 🎬</strong>
                     </div>
@@ -898,13 +1086,14 @@
 
     <script src="script.js?v=3.3"></script>
     <script>
-        // Interactive Harley Button Option Switcher
+        // Interactive 3D Harley Button Option Switcher
         const descriptions = {
-            1: "<strong>Option 1 (Active):</strong> 'V-Twin Edition' Neon Action Pill — Frosted glass with rotating amber pulse ring, two-tier text ('Passion &amp; Motorcycling' / 'Harley-Davidson X440 S Showcase'), and glowing 'Explore →' tag.",
-            2: "<strong>Option 2 (Active):</strong> Twin Flagship Badge — Sits directly in the main hero buttons row next to Siemens S7-1200 PLC, creating a balanced dual-flagship row with live amber pulse dot.",
-            3: "<strong>Option 3 (Active):</strong> GT Chapter Deluxe Banner — Features dual badge thumbnails (Harley + Grand Trunk Chapter H.O.G. Ludhiana) and 'Watch Reel ▶' action tag.",
-            4: "<strong>Option 4 (Active):</strong> Metallic Carbon CTA — Full primary-style button with fiery orange border, shimmer light sweep animation on hover, and motorcycle emblem.",
-            all: "<strong>All Options Active:</strong> Showing all 4 Harley button design options simultaneously so you can compare their visual weight, typography, and hover effects."
+            1: "<strong>3D Option 1 (Active):</strong> 3D 'Ignition Push Button' — Heavy 6px extrusion shelf, embossed coin medallion, glowing LED lens, and physical tactile push-down click effect on click!",
+            2: "<strong>3D Option 2 (Active):</strong> 3D Twin Heavy-Duty Button — Sits directly in the hero buttons row next to Siemens PLC, with 5px 3D bottom bevel and tactile press response.",
+            3: "<strong>3D Option 3 (Active):</strong> 3D Billet Aluminum Console — Machined console aesthetic with dual 3D metallic coins, chamfered rim, and amber 3D push switch.",
+            4: "<strong>3D Option 4 (Active):</strong> 3D Glossy Flame Capsule — Cylindrical 3D convex glass bubble highlight, solid orange depth, and high-gloss specular arc reflection.",
+            5: "<strong>3D Option 5 (Active):</strong> 3D Engine Start Trigger — Motorcycle handlebar ignition trigger switch with '⚡ START ENGINE' tactile push action.",
+            all: "<strong>All 3D Options Active:</strong> Showing all 5 3D tactile button variations together. Click on each to experience their physical tactile push-down animations!"
         };
 
         function switchHarleyOption(opt) {
@@ -924,17 +1113,20 @@
             const opt2 = document.getElementById('opt2Btn');
             const opt3 = document.getElementById('opt3Wrap');
             const opt4 = document.getElementById('opt4Wrap');
+            const opt5 = document.getElementById('opt5Wrap');
 
             if (opt === 'all') {
                 opt1.classList.remove('option-hidden');
                 opt2.classList.remove('option-hidden');
                 opt3.classList.remove('option-hidden');
                 opt4.classList.remove('option-hidden');
+                opt5.classList.remove('option-hidden');
             } else {
                 opt1.classList.toggle('option-hidden', opt !== 1);
                 opt2.classList.toggle('option-hidden', opt !== 2);
                 opt3.classList.toggle('option-hidden', opt !== 3);
                 opt4.classList.toggle('option-hidden', opt !== 4);
+                opt5.classList.toggle('option-hidden', opt !== 5);
             }
         }
     </script>

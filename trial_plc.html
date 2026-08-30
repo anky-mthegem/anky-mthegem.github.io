@@ -1,0 +1,2727 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PLC Push Button Control Design Studio | Amandeep Singh</title>
+    <meta name="description"
+        content="Interactive Industrial Push Button Design Studio & Suggestions for Siemens S7-1200 Star-Delta Starter PLC Simulator by Amandeep Singh.">
+    <meta name="author" content="Amandeep Singh">
+    <link rel="icon" type="image/png" href="profile_logo.png">
+
+    <!-- Fonts: Plus Jakarta Sans, Outfit, JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=3.3">
+
+    <style>
+        /* ==========================================================================
+           PLC PUSH BUTTON DESIGN STUDIO & REALISTIC INDUSTRIAL CONTROLS
+           ========================================================================== */
+
+        :root {
+            --siemens-petrol: #00646e;
+            --siemens-teal: #00a3b4;
+            --siemens-cyan: #38bdf8;
+            --siemens-green: #10b981;
+            --siemens-amber: #f59e0b;
+            --siemens-red: #ef4444;
+            --font-mono-code: 'JetBrains Mono', monospace;
+        }
+
+        .studio-section {
+            padding: 30px 0 80px;
+        }
+
+        /* --------------------------------------------------------------------------
+           TOP CONTROLLER & STYLE SELECTOR BANNER
+           -------------------------------------------------------------------------- */
+        .studio-nav-banner {
+            background-color: var(--card-bg, #ffffff);
+            border: 1px solid var(--border-color, #e2e8f0);
+            border-radius: 16px;
+            padding: 18px 24px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 75px;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+        }
+
+        [data-theme="dark"] .studio-nav-banner {
+            background-color: rgba(15, 23, 42, 0.92);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .studio-title-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .studio-badge {
+            background-color: var(--siemens-petrol);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 5px 12px;
+            border-radius: 6px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            font-family: var(--font-mono-code);
+            box-shadow: 0 2px 8px rgba(0, 100, 110, 0.3);
+        }
+
+        .studio-style-picker {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .style-picker-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .style-tab-btn {
+            background-color: var(--bg-primary, #f8fafc);
+            border: 1px solid var(--border-color, #cbd5e1);
+            color: var(--text-primary);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 7px 13px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            user-select: none;
+        }
+
+        [data-theme="dark"] .style-tab-btn {
+            background-color: #1e293b;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .style-tab-btn:hover {
+            border-color: var(--siemens-teal);
+            transform: translateY(-1px);
+        }
+
+        .style-tab-btn.active {
+            background-color: var(--siemens-petrol);
+            border-color: var(--siemens-petrol);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(0, 100, 110, 0.35);
+        }
+
+        .sound-toggle-btn {
+            background-color: var(--bg-primary, #f8fafc);
+            border: 1px solid var(--border-color, #cbd5e1);
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 7px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        [data-theme="dark"] .sound-toggle-btn {
+            background-color: #1e293b;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .sound-toggle-btn.sound-on {
+            color: var(--siemens-green);
+            border-color: var(--siemens-green);
+        }
+
+        /* --------------------------------------------------------------------------
+           MAIN WORKBENCH CARD & GRID
+           -------------------------------------------------------------------------- */
+        .sim-workbench-card {
+            background-color: var(--card-bg, #ffffff);
+            border: 1px solid var(--border-color, #e2e8f0);
+            border-radius: 16px;
+            padding: 24px 28px 28px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+            margin-bottom: 40px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        [data-theme="dark"] .sim-workbench-card {
+            background-color: #0f172a;
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 12px 32px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        .sim-cpu-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color, #e2e8f0);
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .sim-cpu-title-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .siemens-chip {
+            background-color: var(--siemens-petrol);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 5px 12px;
+            border-radius: 6px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            box-shadow: 0 2px 8px rgba(0, 100, 110, 0.3);
+        }
+
+        .sim-cpu-heading {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .sim-led-strip {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            flex-wrap: wrap;
+        }
+
+        .sim-led-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .sim-led-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #cbd5e1;
+            transition: all 0.25s ease;
+        }
+
+        [data-theme="dark"] .sim-led-dot {
+            background-color: #334155;
+        }
+
+        .sim-led-dot.active-green {
+            background-color: var(--siemens-green);
+            box-shadow: 0 0 10px var(--siemens-green);
+        }
+
+        .sim-led-dot.active-amber {
+            background-color: var(--siemens-amber);
+            box-shadow: 0 0 10px var(--siemens-amber);
+        }
+
+        .sim-led-dot.active-red {
+            background-color: var(--siemens-red);
+            box-shadow: 0 0 10px var(--siemens-red);
+            animation: pulseLedFault 1s infinite alternate;
+        }
+
+        @keyframes pulseLedFault {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.2); opacity: 0.6; }
+        }
+
+        .sim-main-grid {
+            display: grid;
+            grid-template-columns: 310px 1fr 280px;
+            gap: 22px;
+            align-items: stretch;
+        }
+
+        @media (max-width: 1100px) {
+            .sim-main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* --------------------------------------------------------------------------
+           LEFT CONTROL PANEL CONTAINER
+           -------------------------------------------------------------------------- */
+        .sim-panel {
+            background-color: var(--bg-primary, #f8fafc);
+            border: 1px solid var(--border-color, #e2e8f0);
+            border-radius: 12px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        [data-theme="dark"] .sim-panel {
+            background-color: #0b1120;
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .sim-panel-title {
+            font-size: 12.5px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-color, #e2e8f0);
+            padding-bottom: 8px;
+            margin: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sim-panel-title span.tag {
+            font-size: 10px;
+            color: var(--siemens-green);
+            font-weight: 700;
+            font-family: var(--font-mono-code);
+        }
+
+        /* ==========================================================================
+           STYLE 1: 22MM INDUSTRIAL METALLIC CHROME BEZEL PUSH BUTTONS (SIEMENS SIRIUS)
+           ========================================================================== */
+        .btn-style-1-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .ind-pb-card {
+            background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 9px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            transition: all 0.2s ease;
+            user-select: none;
+            position: relative;
+        }
+
+        [data-theme="dark"] .ind-pb-card {
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            border-color: #334155;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .ind-pb-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .ind-legend-plate {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background-color: #1e293b;
+            color: #f8fafc;
+            border: 1px solid #475569;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-family: var(--font-mono-code);
+            font-size: 9px;
+            font-weight: 700;
+            width: fit-content;
+            letter-spacing: 0.5px;
+        }
+
+        .ind-legend-plate.yellow-plate {
+            background-color: #fef08a;
+            color: #854d0e;
+            border-color: #eab308;
+            font-weight: 800;
+        }
+
+        .ind-pb-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .ind-pb-status-text {
+            font-size: 10px;
+            font-family: var(--font-mono-code);
+            color: var(--text-secondary);
+        }
+
+        /* 3D Circular Push Button Physical Assembly */
+        .pb-22mm-wrapper {
+            position: relative;
+            width: 54px;
+            height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            outline: none;
+            background: transparent;
+            border: none;
+            padding: 0;
+        }
+
+        /* Outer 22mm Chrome Bezel Ring */
+        .pb-22mm-bezel {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: conic-gradient(from 180deg, #94a3b8, #f8fafc, #64748b, #f8fafc, #94a3b8);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.35), inset 0 2px 2px rgba(255, 255, 255, 0.8), inset 0 -2px 3px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s ease;
+        }
+
+        [data-theme="dark"] .pb-22mm-bezel {
+            background: conic-gradient(from 180deg, #475569, #cbd5e1, #1e293b, #cbd5e1, #475569);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6), inset 0 2px 2px rgba(255, 255, 255, 0.3), inset 0 -2px 3px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Recessed Inner Chamfer Cup */
+        .pb-22mm-well {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #0f172a;
+            box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.9), inset 0 -1px 2px rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 3D Convex Plunger / Actuator Cap */
+        .pb-22mm-actuator {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-family: var(--font-mono-code);
+            font-weight: 800;
+            font-size: 13px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4), inset 0 2px 3px rgba(255, 255, 255, 0.6), inset 0 -3px 5px rgba(0, 0, 0, 0.5);
+            transform: translateY(-2px);
+            transition: transform 0.08s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.08s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s ease;
+            position: relative;
+        }
+
+        /* Tactile Press Down State */
+        .pb-22mm-wrapper:active .pb-22mm-actuator,
+        .pb-22mm-wrapper.is-pressed .pb-22mm-actuator {
+            transform: translateY(2px) scale(0.96);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), inset 0 3px 6px rgba(0, 0, 0, 0.8), inset 0 -1px 2px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Color Variations */
+        .pb-green {
+            background: radial-gradient(circle at 35% 30%, #34d399 0%, #10b981 50%, #047857 100%);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+        }
+
+        .pb-red {
+            background: radial-gradient(circle at 35% 30%, #f87171 0%, #ef4444 50%, #b91c1c 100%);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+        }
+
+        .pb-amber {
+            background: radial-gradient(circle at 35% 30%, #fbbf24 0%, #f59e0b 50%, #b45309 100%);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Mushroom Head E-Stop (40mm Safety Button) */
+        .pb-mushroom-bezel {
+            background: conic-gradient(from 180deg, #facc15, #fef08a, #ca8a04, #fef08a, #facc15);
+            box-shadow: 0 0 0 2px #ca8a04, 0 6px 12px rgba(0, 0, 0, 0.35);
+        }
+
+        .pb-mushroom-actuator {
+            width: 42px;
+            height: 42px;
+            background: radial-gradient(circle at 35% 30%, #ff6b6b 0%, #dc2626 50%, #7f1d1d 100%);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.6), inset 0 -4px 6px rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            transform: translateY(-3px);
+        }
+
+        .pb-mushroom-wrapper.is-latched .pb-mushroom-actuator {
+            transform: translateY(2px) scale(0.94);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), inset 0 4px 8px rgba(0, 0, 0, 0.9);
+            filter: brightness(0.85);
+        }
+
+        .twist-arrows-svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: #ffffff;
+            stroke-width: 2;
+            opacity: 0.9;
+        }
+
+        /* --------------------------------------------------------------------------
+           ANIMATED POPPING PROMPT ARROW ON RIGHT SIDE OF START PB
+           -------------------------------------------------------------------------- */
+        .start-pb-prompt {
+            position: absolute;
+            left: calc(100% + 14px);
+            top: 50%;
+            transform: translateY(-50%);
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: linear-gradient(135deg, #059669 0%, #00646e 100%);
+            color: #ffffff;
+            font-size: 11.5px;
+            font-weight: 800;
+            padding: 7px 14px;
+            border-radius: 24px;
+            white-space: nowrap;
+            box-shadow: 0 4px 18px rgba(5, 150, 105, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.25);
+            z-index: 50;
+            pointer-events: none;
+            animation: popBouncePulse 1.6s infinite ease-in-out;
+            transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .start-pb-prompt::before {
+            content: '';
+            position: absolute;
+            right: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            border-width: 6px 7px 6px 0;
+            border-style: solid;
+            border-color: transparent #059669 transparent transparent;
+        }
+
+        .prompt-arrow-icon {
+            font-size: 13px;
+            display: inline-block;
+            animation: arrowNudge 0.8s infinite alternate ease-in-out;
+        }
+
+        @keyframes popBouncePulse {
+            0% {
+                transform: translateY(-50%) translateX(0) scale(1);
+                box-shadow: 0 4px 14px rgba(5, 150, 105, 0.4);
+            }
+            50% {
+                transform: translateY(-50%) translateX(8px) scale(1.04);
+                box-shadow: 0 8px 24px rgba(5, 150, 105, 0.7);
+            }
+            100% {
+                transform: translateY(-50%) translateX(0) scale(1);
+                box-shadow: 0 4px 14px rgba(5, 150, 105, 0.4);
+            }
+        }
+
+        @keyframes arrowNudge {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-4px); }
+        }
+
+        .start-pb-prompt.is-hidden {
+            opacity: 0;
+            transform: translateY(-50%) translateX(-8px) scale(0.9);
+            pointer-events: none;
+        }
+
+        @media (max-width: 1200px) {
+            .start-pb-prompt {
+                position: static;
+                transform: none;
+                margin-top: 8px;
+                justify-content: center;
+                animation: popBounceVertical 1.6s infinite ease-in-out;
+            }
+            .start-pb-prompt::before {
+                display: none;
+            }
+            @keyframes popBounceVertical {
+                0%, 100% { transform: translateY(0) scale(1); }
+                50% { transform: translateY(-4px) scale(1.02); }
+            }
+            .start-pb-prompt.is-hidden {
+                display: none;
+            }
+        }
+
+        /* ==========================================================================
+           STYLE 2: MODERN ILLUMINATED LED HALO-RING FLUSH PUSH BUTTONS
+           ========================================================================== */
+        .btn-style-2-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .halo-pb-card {
+            background: var(--bg-surface, #ffffff);
+            border: 1px solid var(--border-color, #e2e8f0);
+            border-radius: 12px;
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            transition: all 0.25s ease;
+        }
+
+        [data-theme="dark"] .halo-pb-card {
+            background: #131d31;
+            border-color: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .halo-pb-wrapper {
+            width: 52px;
+            height: 52px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            outline: none;
+            padding: 0;
+        }
+
+        .halo-anodized-bezel {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #334155, #0f172a);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .halo-led-ring {
+            position: absolute;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 3px solid #64748b;
+            box-shadow: none;
+            transition: all 0.25s ease;
+        }
+
+        .halo-led-ring.ring-green.active {
+            border-color: #10b981;
+            box-shadow: 0 0 14px #10b981, inset 0 0 6px #10b981;
+        }
+
+        .halo-led-ring.ring-red.active {
+            border-color: #ef4444;
+            box-shadow: 0 0 14px #ef4444, inset 0 0 6px #ef4444;
+        }
+
+        .halo-led-ring.ring-amber.active {
+            border-color: #f59e0b;
+            box-shadow: 0 0 14px #f59e0b, inset 0 0 6px #f59e0b;
+        }
+
+        .halo-flush-actuator {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.2) 0%, rgba(15, 23, 42, 0.9) 100%), #1e293b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f8fafc;
+            font-size: 11px;
+            font-weight: 800;
+            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.2), inset 0 -2px 4px rgba(0, 0, 0, 0.6);
+            transition: transform 0.08s ease;
+            z-index: 2;
+        }
+
+        .halo-pb-wrapper:active .halo-flush-actuator,
+        .halo-pb-wrapper.is-pressed .halo-flush-actuator {
+            transform: scale(0.92);
+            box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.9);
+        }
+
+        /* ==========================================================================
+           STYLE 3: INDUSTRIAL ENCLOSURE STATION (CAST YELLOW/GREY OPERATOR PENDANT)
+           ========================================================================== */
+        .btn-style-3-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .pendant-enclosure {
+            background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
+            border: 3px solid #a16207;
+            border-radius: 16px;
+            padding: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), inset 0 2px 3px rgba(255, 255, 255, 0.5);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: relative;
+        }
+
+        .pendant-enclosure::before {
+            content: "";
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            border-radius: 12px;
+            pointer-events: none;
+        }
+
+        .pendant-bolt {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #cbd5e1 30%, #475569 100%);
+            box-shadow: inset 0 1px 1px #ffffff, 0 1px 2px rgba(0, 0, 0, 0.4);
+            position: absolute;
+        }
+
+        .bolt-tl { top: 6px; left: 6px; }
+        .bolt-tr { top: 6px; right: 6px; }
+        .bolt-bl { bottom: 6px; left: 6px; }
+        .bolt-br { bottom: 6px; right: 6px; }
+
+        .pendant-btn-row {
+            background: #1e293b;
+            border-radius: 10px;
+            padding: 7px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.8), 0 1px 2px rgba(255, 255, 255, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .pendant-guard-bezel {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #0f172a;
+            border: 2px solid #334155;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .pendant-guard-raised {
+            position: relative;
+        }
+
+        .pendant-guard-raised::after {
+            content: "";
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 50%;
+            border: 2px solid #64748b;
+            pointer-events: none;
+        }
+
+        /* ==========================================================================
+           STYLE 4: TACTILE PLUNGERS & KNURLED BEZEL WITH PILOT DOME LIGHTS
+           ========================================================================== */
+        .btn-style-4-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .pilot-pb-card {
+            background: var(--bg-surface, #ffffff);
+            border: 1px solid var(--border-color, #e2e8f0);
+            border-radius: 12px;
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        [data-theme="dark"] .pilot-pb-card {
+            background: #111827;
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .pilot-lamp-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .pilot-lamp-dome {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #ffffff 0%, #cbd5e1 50%, #64748b 100%);
+            border: 2px solid #475569;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .pilot-lamp-dome.lit-green {
+            background: radial-gradient(circle at 35% 35%, #86efac 0%, #10b981 60%, #047857 100%);
+            border-color: #10b981;
+            box-shadow: 0 0 12px #10b981, 0 0 24px rgba(16, 185, 129, 0.5);
+        }
+
+        .pilot-lamp-dome.lit-red {
+            background: radial-gradient(circle at 35% 35%, #fca5a5 0%, #ef4444 60%, #991b1b 100%);
+            border-color: #ef4444;
+            box-shadow: 0 0 12px #ef4444, 0 0 24px rgba(239, 68, 68, 0.5);
+        }
+
+        .pilot-lamp-dome.lit-amber {
+            background: radial-gradient(circle at 35% 35%, #fde047 0%, #f59e0b 60%, #92400e 100%);
+            border-color: #f59e0b;
+            box-shadow: 0 0 12px #f59e0b, 0 0 24px rgba(245, 158, 11, 0.5);
+        }
+
+        .knurled-bezel {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: repeating-conic-gradient(#94a3b8 0% 2.5%, #475569 2.5% 5%);
+            border: 2px solid #334155;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* --------------------------------------------------------------------------
+           CENTER PANEL: LADDER LOGIC (LAD) ENGINE
+           -------------------------------------------------------------------------- */
+        .sim-ladder-panel {
+            background-color: var(--bg-primary, #f8fafc);
+            border: 1px solid var(--border-color, #e2e8f0);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-x: auto;
+        }
+
+        [data-theme="dark"] .sim-ladder-panel {
+            background-color: #060a14;
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .ladder-rung {
+            background-color: var(--card-bg, #ffffff);
+            border: 1px solid var(--border-color, #e2e8f0);
+            border-left: 4px solid #94a3b8;
+            border-radius: 8px;
+            padding: 9px 12px;
+            transition: all 0.25s ease;
+        }
+
+        [data-theme="dark"] .ladder-rung {
+            background-color: #0f172a;
+            border-color: rgba(255, 255, 255, 0.06);
+            border-left-color: #334155;
+        }
+
+        .ladder-rung.energized {
+            border-left-color: var(--siemens-green);
+            background-color: rgba(16, 185, 129, 0.04);
+        }
+
+        .ladder-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-mono-code);
+        }
+
+        .ladder-row {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-family: var(--font-mono-code);
+            font-size: 11px;
+        }
+
+        .wire-line {
+            width: 8px;
+            height: 2px;
+            background-color: #cbd5e1;
+            transition: background-color 0.2s ease;
+        }
+
+        [data-theme="dark"] .wire-line {
+            background-color: #334155;
+        }
+
+        .wire-line.hot {
+            background-color: var(--siemens-green);
+        }
+
+        .ladder-contact {
+            border: 1px solid var(--border-color, #cbd5e1);
+            background-color: var(--bg-primary, #f8fafc);
+            padding: 3px 6px;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 54px;
+            transition: all 0.2s ease;
+        }
+
+        [data-theme="dark"] .ladder-contact {
+            background-color: #1e293b;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .ladder-contact.closed {
+            border-color: var(--siemens-green);
+            background-color: rgba(16, 185, 129, 0.12);
+        }
+
+        .ladder-branch-container {
+            display: inline-flex;
+            flex-direction: column;
+            gap: 5px;
+            position: relative;
+            border-left: 2px solid #cbd5e1;
+            border-right: 2px solid #cbd5e1;
+            padding: 3px 5px;
+            border-radius: 4px;
+            transition: border-color 0.2s ease;
+        }
+
+        [data-theme="dark"] .ladder-branch-container {
+            border-color: #334155;
+        }
+
+        .ladder-branch-container.hot {
+            border-color: var(--siemens-green);
+        }
+
+        .ladder-branch-row {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .contact-sym {
+            font-weight: 800;
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .ladder-contact.closed .contact-sym {
+            color: var(--siemens-green);
+        }
+
+        .contact-label {
+            font-size: 9px;
+            color: var(--text-secondary);
+        }
+
+        .ladder-coil {
+            border: 2px solid var(--border-color, #cbd5e1);
+            background-color: var(--bg-primary, #f8fafc);
+            padding: 3px 9px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-left: auto;
+            min-width: 72px;
+            transition: all 0.2s ease;
+        }
+
+        [data-theme="dark"] .ladder-coil {
+            background-color: #1e293b;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .ladder-coil.energized {
+            border-color: var(--siemens-green);
+            background-color: rgba(16, 185, 129, 0.2);
+        }
+
+        .ladder-coil.energized-amber {
+            border-color: var(--siemens-amber);
+            background-color: rgba(245, 158, 11, 0.2);
+        }
+
+        .ladder-coil.energized-red {
+            border-color: var(--siemens-red);
+            background-color: rgba(239, 68, 68, 0.2);
+        }
+
+        /* --------------------------------------------------------------------------
+           RIGHT PANEL: MOTOR TELEMETRY & SCADA LOG
+           -------------------------------------------------------------------------- */
+        .sim-telemetry-panel {
+            background-color: var(--bg-primary, #f8fafc);
+            border: 1px solid var(--border-color, #e2e8f0);
+            border-radius: 12px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+        }
+
+        [data-theme="dark"] .sim-telemetry-panel {
+            background-color: #0b1120;
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .motor-display-box {
+            background-color: var(--card-bg, #ffffff);
+            border: 1px solid var(--border-color, #e2e8f0);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        [data-theme="dark"] .motor-display-box {
+            background-color: #1e293b;
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .motor-icon-spin {
+            font-size: 30px;
+            display: inline-block;
+            margin-bottom: 4px;
+            transition: transform 0.3s ease;
+        }
+
+        .motor-icon-spin.spin-star {
+            animation: spinMotor 0.7s infinite linear;
+        }
+
+        .motor-icon-spin.spin-delta {
+            animation: spinMotor 0.25s infinite linear;
+        }
+
+        @keyframes spinMotor {
+            100% { transform: rotate(360deg); }
+        }
+
+        .telemetry-stat-tile {
+            background-color: var(--bg-primary, #f8fafc);
+            border: 1px solid var(--border-color, #e2e8f0);
+            border-radius: 6px;
+            padding: 7px 8px;
+            text-align: center;
+        }
+
+        [data-theme="dark"] .telemetry-stat-tile {
+            background-color: #0f172a;
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .stat-tile-label {
+            font-size: 9.5px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .stat-tile-val {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-top: 1px;
+            font-family: var(--font-mono-code);
+        }
+
+        .stat-tile-val.star-val { color: var(--siemens-amber); }
+        .stat-tile-val.delta-val { color: var(--siemens-green); }
+        .stat-tile-val.trip-val { color: var(--siemens-red); }
+
+        .scada-log-window {
+            background-color: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            padding: 10px;
+            font-family: var(--font-mono-code);
+            font-size: 9.5px;
+            color: #a7f3d0;
+            flex: 1;
+            min-height: 180px;
+            max-height: 260px;
+            overflow-y: auto;
+            text-align: left;
+            line-height: 1.4;
+        }
+
+        .log-line {
+            margin-bottom: 2px;
+        }
+
+        .log-ts {
+            color: #64748b;
+        }
+
+        /* --------------------------------------------------------------------------
+           SHOWCASE SECTION: 4 BUTTON DESIGN PROFILES WITH COMPARISON MATRIX
+           -------------------------------------------------------------------------- */
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-top: 30px;
+        }
+
+        .showcase-card {
+            background-color: var(--card-bg, #ffffff);
+            border: 1px solid var(--border-color, #e2e8f0);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        [data-theme="dark"] .showcase-card {
+            background-color: #0f172a;
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .showcase-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--siemens-teal);
+            box-shadow: 0 16px 32px -5px rgba(0, 100, 110, 0.15);
+        }
+
+        .showcase-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .showcase-pill {
+            font-size: 11px;
+            font-weight: 800;
+            background-color: rgba(0, 100, 110, 0.12);
+            color: var(--siemens-petrol);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-family: var(--font-mono-code);
+        }
+
+        [data-theme="dark"] .showcase-pill {
+            background-color: rgba(56, 189, 248, 0.15);
+            color: var(--siemens-cyan);
+        }
+
+        .showcase-interactive-stage {
+            background: var(--bg-primary, #f8fafc);
+            border: 1px solid var(--border-color, #e2e8f0);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            min-height: 120px;
+        }
+
+        [data-theme="dark"] .showcase-interactive-stage {
+            background: #060a14;
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .showcase-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .showcase-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .showcase-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: auto;
+        }
+
+        .spec-tag {
+            font-size: 10.5px;
+            font-family: var(--font-mono-code);
+            padding: 3px 8px;
+            border-radius: 4px;
+            background-color: var(--bg-primary, #f1f5f9);
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        [data-theme="dark"] .spec-tag {
+            background-color: #1e293b;
+        }
+
+        /* --------------------------------------------------------------------------
+           COMPARISON MATRIX TABLE
+           -------------------------------------------------------------------------- */
+        .spec-matrix-card {
+            background-color: var(--card-bg, #ffffff);
+            border: 1px solid var(--border-color, #e2e8f0);
+            border-radius: 16px;
+            padding: 28px;
+            margin-top: 40px;
+            overflow-x: auto;
+        }
+
+        [data-theme="dark"] .spec-matrix-card {
+            background-color: #0f172a;
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            text-align: left;
+        }
+
+        .spec-table th, .spec-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-color, #e2e8f0);
+        }
+
+        [data-theme="dark"] .spec-table th, 
+        [data-theme="dark"] .spec-table td {
+            border-bottom-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .spec-table th {
+            font-weight: 800;
+            color: var(--text-primary);
+            background-color: var(--bg-primary, #f8fafc);
+        }
+
+        [data-theme="dark"] .spec-table th {
+            background-color: #0b1120;
+        }
+
+        .spec-table td {
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar" aria-label="Main Navigation">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="profile_logo.png" alt="Amandeep Singh" class="logo-img" width="40" height="40"
+                    style="width:40px;height:40px;max-width:40px;max-height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;">
+                <span class="logo-text">Amandeep Singh</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="experience.html" class="nav-link">Experience</a></li>
+                <li class="nav-item-plc">
+                    <a href="plc.html" class="nav-plc-badge-btn" title="Live Siemens S7-1200 PLC Simulator">
+                        <span class="plc-nav-text">PLC</span>
+                        <span class="plc-nav-led"></span>
+                    </a>
+                </li>
+                <li><a href="projects.html" class="nav-link">Projects</a></li>
+                <li><a href="skills.html" class="nav-link">Skills</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle light/dark theme">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                <a href="Resume_Amandeep.pdf" download="Resume_Amandeep.pdf" class="btn-nav-resume" target="_blank"
+                    rel="noopener noreferrer">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    <span>Resume</span>
+                </a>
+                <button class="hamburger" aria-label="Open navigation menu" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <div style="display: inline-flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                <span class="studio-badge">DESIGN STUDIO TRIAL</span>
+                <span style="font-family: var(--font-mono-code); font-size: 12px; color: var(--siemens-cyan); font-weight: 700;">IEC 60947-5-1 COMPLIANT</span>
+            </div>
+            <h1>PLC Control Push Button Design Studio</h1>
+            <p class="subtitle">Realistic Industrial Push Buttons &bull; 3D Tactile Depressions &bull; Sound Synthesis &bull; Live Star-Delta Integration</p>
+        </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <main class="studio-section">
+        <div class="container">
+
+            <!-- Sticky Top Style Switcher & Audio Bar -->
+            <div class="studio-nav-banner">
+                <div class="studio-title-group">
+                    <span class="style-picker-label">Active Button Style in PLC:</span>
+                    <div class="studio-style-picker">
+                        <button class="style-tab-btn active" onclick="switchButtonStyle('style1', this)">
+                            <span>🔘 Style 1: 22mm Chrome Bezel</span>
+                        </button>
+                        <button class="style-tab-btn" onclick="switchButtonStyle('style2', this)">
+                            <span>✨ Style 2: LED Halo Ring</span>
+                        </button>
+                        <button class="style-tab-btn" onclick="switchButtonStyle('style3', this)">
+                            <span>📦 Style 3: Pendant Enclosure</span>
+                        </button>
+                        <button class="style-tab-btn" onclick="switchButtonStyle('style4', this)">
+                            <span>🔴 Style 4: Pilot Dome &amp; Plunger</span>
+                        </button>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- Interactive Live PLC Simulator with Dynamic Buttons -->
+            <div class="sim-workbench-card">
+                <!-- CPU Strip -->
+                <div class="sim-cpu-header">
+                    <div class="sim-cpu-title-group">
+                        <span class="siemens-chip">SIEMENS S7-1200</span>
+                        <div>
+                            <h2 class="sim-cpu-heading">CPU 1214C DC/DC/DC &bull; Star-Delta Starter (Υ-Δ)</h2>
+                        </div>
+                    </div>
+                    <div class="sim-led-strip">
+                        <div class="sim-led-item">
+                            <span class="sim-led-dot active-green" id="ledRun"></span>
+                            <span>RUN</span>
+                        </div>
+                        <div class="sim-led-item">
+                            <span class="sim-led-dot" id="ledKm"></span>
+                            <span>Km (%Q0.0)</span>
+                        </div>
+                        <div class="sim-led-item">
+                            <span class="sim-led-dot" id="ledKy"></span>
+                            <span>Ky (%Q0.1)</span>
+                        </div>
+                        <div class="sim-led-item">
+                            <span class="sim-led-dot" id="ledKd"></span>
+                            <span>KΔ (%Q0.2)</span>
+                        </div>
+                        <div class="sim-led-item">
+                            <span class="sim-led-dot" id="ledFault"></span>
+                            <span>FAULT (OLR)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3-Column Simulator Workbench -->
+                <div class="sim-main-grid">
+                    <!-- Column 1: Operator Desk Controls (Dynamic Push Button Housing) -->
+                    <div class="sim-panel">
+                        <h3 class="sim-panel-title">
+                            <span>MCC Operator Controls</span>
+                            <span class="tag">24V DC TACTILE</span>
+                        </h3>
+
+                        <!-- DYNAMIC CONTAINER FOR CHOSEN PUSH BUTTON STYLE -->
+                        <div id="dynamicControlsHousing">
+                            <!-- Injected by JavaScript switchButtonStyle() -->
+                        </div>
+
+                        <!-- Timer Preset Selector -->
+                        <div style="margin-top: 4px; padding-top: 10px; border-top: 1px solid var(--border-color, #e2e8f0);">
+                            <span style="font-size: 10.5px; font-family: var(--font-mono-code); color: var(--text-secondary); display: block; margin-bottom: 6px;">Transition Timer (TON_1 PT)</span>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;">
+                                <button class="style-tab-btn" style="justify-content: center; padding: 6px 0; font-size: 11px;" onclick="setTimerPreset(3000, this)">3.0s</button>
+                                <button class="style-tab-btn active" style="justify-content: center; padding: 6px 0; font-size: 11px;" onclick="setTimerPreset(5000, this)">5.0s</button>
+                                <button class="style-tab-btn" style="justify-content: center; padding: 6px 0; font-size: 11px;" onclick="setTimerPreset(8000, this)">8.0s</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2: Live Animated Ladder Logic (LAD) -->
+                    <div class="sim-ladder-panel">
+                        <!-- Network 1: Main Contactor Latch -->
+                        <div class="ladder-rung" id="rung1">
+                            <div class="ladder-title">
+                                <span>NET 1: Main Contactor (%Q0.0) &bull; Permissives &amp; Latch</span>
+                                <span id="r1Status">OFFLINE</span>
+                            </div>
+                            <div class="ladder-row">
+                                <div class="wire-line hot"></div>
+
+                                <div class="ladder-contact closed" id="cntEStop" title="E-Stop NC (%I0.3)">
+                                    <span class="contact-sym">| / |</span>
+                                    <span class="contact-label">%I0.3 (E-Stop)</span>
+                                </div>
+
+                                <div class="wire-line" id="w1"></div>
+
+                                <div class="ladder-contact closed" id="cntOLR" title="Thermal OLR NC (%I0.2)">
+                                    <span class="contact-sym">| / |</span>
+                                    <span class="contact-label">%I0.2 (OLR)</span>
+                                </div>
+
+                                <div class="wire-line" id="w2"></div>
+
+                                <div class="ladder-contact closed" id="cntStop" title="Stop PB NC (%I0.1)">
+                                    <span class="contact-sym">| / |</span>
+                                    <span class="contact-label">%I0.1 (Stop)</span>
+                                </div>
+
+                                <div class="wire-line" id="w3"></div>
+
+                                <!-- Parallel Start PB & Km Seal-In / Latch Branch -->
+                                <div class="ladder-branch-container" id="branchKm">
+                                    <div class="ladder-branch-row">
+                                        <div class="ladder-contact" id="cntStartPB" title="Start Pushbutton (%I0.0 NO)">
+                                            <span class="contact-sym">| |</span>
+                                            <span class="contact-label">%I0.0 (Start PB)</span>
+                                        </div>
+                                    </div>
+                                    <div class="ladder-branch-row">
+                                        <div class="ladder-contact" id="cntKmSealIn" title="Km Seal-In Latch Contact (%Q0.0 NO)">
+                                            <span class="contact-sym">| |</span>
+                                            <span class="contact-label">%Q0.0 (Km Latch)</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="wire-line" id="w4"></div>
+
+                                <div class="ladder-coil" id="coilKm">
+                                    <span class="contact-sym">( %Q 0.0 )</span>
+                                    <span class="contact-label">Main Km</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Network 2: Star Contactor with Delta Interlock -->
+                        <div class="ladder-rung" id="rung2">
+                            <div class="ladder-title">
+                                <span>NET 2: Star Contactor (%Q0.1) &bull; Delta Interlock</span>
+                                <span id="r2Status">OPEN</span>
+                            </div>
+                            <div class="ladder-row">
+                                <div class="wire-line hot"></div>
+
+                                <div class="ladder-contact" id="cntKmToStar">
+                                    <span class="contact-sym">| |</span>
+                                    <span class="contact-label">%Q0.0 (Km)</span>
+                                </div>
+
+                                <div class="wire-line" id="w5"></div>
+
+                                <div class="ladder-contact closed" id="cntTimerNC">
+                                    <span class="contact-sym">| / |</span>
+                                    <span class="contact-label">TON_1.DN</span>
+                                </div>
+
+                                <div class="wire-line" id="w6"></div>
+
+                                <div class="ladder-contact closed" id="cntKdInterlock">
+                                    <span class="contact-sym">| / |</span>
+                                    <span class="contact-label">%Q0.2 (KΔ Int)</span>
+                                </div>
+
+                                <div class="wire-line" id="w7"></div>
+
+                                <div class="ladder-coil" id="coilKy">
+                                    <span class="contact-sym">( %Q 0.1 )</span>
+                                    <span class="contact-label">Star Ky</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Network 3: TON Transition Timer -->
+                        <div class="ladder-rung" id="rung3">
+                            <div class="ladder-title">
+                                <span>NET 3: Transition Timer (TON_1)</span>
+                                <span id="r3Status">INACTIVE</span>
+                            </div>
+                            <div class="ladder-row">
+                                <div class="wire-line hot"></div>
+
+                                <div class="ladder-contact" id="cntKmToTimer">
+                                    <span class="contact-sym">| |</span>
+                                    <span class="contact-label">%Q0.0 (Km)</span>
+                                </div>
+
+                                <div class="wire-line" id="w8"></div>
+
+                                <div class="ladder-contact" style="min-width: 80px;" id="cntTimerBlock">
+                                    <span class="contact-sym">[ TON_1 ]</span>
+                                    <span class="contact-label" id="timerLabel">PT: 5.0s</span>
+                                </div>
+
+                                <div class="wire-line" id="w9"></div>
+
+                                <div class="ladder-coil" id="coilTimerDone">
+                                    <span class="contact-sym">[ TON_1.DN ]</span>
+                                    <span class="contact-label">Timer Bit</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Network 4: Delta Contactor with Star Interlock -->
+                        <div class="ladder-rung" id="rung4">
+                            <div class="ladder-title">
+                                <span>NET 4: Delta Contactor (%Q0.2) &bull; Star Interlock</span>
+                                <span id="r4Status">OPEN</span>
+                            </div>
+                            <div class="ladder-row">
+                                <div class="wire-line hot"></div>
+
+                                <div class="ladder-contact" id="cntKmToDelta">
+                                    <span class="contact-sym">| |</span>
+                                    <span class="contact-label">%Q0.0 (Km)</span>
+                                </div>
+
+                                <div class="wire-line" id="w10"></div>
+
+                                <div class="ladder-contact" id="cntTimerNO">
+                                    <span class="contact-sym">| |</span>
+                                    <span class="contact-label">TON_1.DN</span>
+                                </div>
+
+                                <div class="wire-line" id="w11"></div>
+
+                                <div class="ladder-contact closed" id="cntKyInterlock">
+                                    <span class="contact-sym">| / |</span>
+                                    <span class="contact-label">%Q0.1 (Ky Int)</span>
+                                </div>
+
+                                <div class="wire-line" id="w12"></div>
+
+                                <div class="ladder-coil" id="coilKd">
+                                    <span class="contact-sym">( %Q 0.2 )</span>
+                                    <span class="contact-label">Delta KΔ</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Network 5: Overload Alarm Siren -->
+                        <div class="ladder-rung" id="rung5">
+                            <div class="ladder-title">
+                                <span>NET 5: Overload Alarm Siren</span>
+                                <span id="r5Status">NORMAL</span>
+                            </div>
+                            <div class="ladder-row">
+                                <div class="wire-line hot"></div>
+
+                                <div class="ladder-contact" id="cntTripAlarm">
+                                    <span class="contact-sym">| / |</span>
+                                    <span class="contact-label">%I0.2 (OLR Trip)</span>
+                                </div>
+
+                                <div class="wire-line" id="w13"></div>
+
+                                <div class="ladder-coil" id="coilTrip">
+                                    <span class="contact-sym">( %Q 0.3 )</span>
+                                    <span class="contact-label">Fault Siren</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 3: Motor Telemetry & Diagnostics -->
+                    <div class="sim-telemetry-panel">
+                        <h3 class="sim-panel-title">
+                            <span>Motor &amp; Telemetry</span>
+                            <span class="tag">SCADA ACTIVE</span>
+                        </h3>
+
+                        <!-- Motor Visualizer -->
+                        <div class="motor-display-box">
+                            <div class="motor-icon-spin" id="motorIcon">⚙️</div>
+                            <div class="telemetry-stat-tile" style="margin-top: 8px; text-align: center;">
+                                <div class="stat-tile-label">Operating Mode</div>
+                                <div class="stat-tile-val" id="valMode" style="font-size: 16px; margin-top: 2px;">OFF</div>
+                            </div>
+                        </div>
+
+                        <!-- SCADA Diagnostics Log Directly Below -->
+                        <div style="display: flex; flex-direction: column; flex: 1;">
+                            <div style="font-size: 11px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; display: flex; justify-content: space-between;">
+                                <span>Diagnostics Log</span>
+                                <span style="color: var(--siemens-green);">● 10ms Scan</span>
+                            </div>
+                            <div class="scada-log-window" id="scadaLog">
+                                <div class="log-line"><span class="log-ts">[00:00:01]</span> S7-1200 CPU: RUN MODE READY.</div>
+                                <div class="log-line"><span class="log-ts">[00:00:02]</span> Tactile Push Button System Initialized.</div>
+                                <div class="log-line"><span class="log-ts">[00:00:03]</span> Press START PB (Green) to begin Star-Delta sequence.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SHOWCASE SECTION: 4 PUSH BUTTON DESIGN SUGGESTIONS -->
+            <div style="margin-top: 60px;">
+                <div style="text-align: center; max-width: 700px; margin: 0 auto 30px;">
+                    <span class="studio-badge">DESIGN COMPARISON &amp; ARCHITECTURAL OPTIONS</span>
+                    <h2 style="font-size: 26px; font-weight: 800; margin: 10px 0 8px;">Explore 4 Industrial Push Button Styles</h2>
+                    <p style="color: var(--text-secondary); font-size: 14px;">Compare tactile feedback, industrial standards (Siemens SIRIUS, Schneider Harmony, Allen-Bradley 800F), and choose your preferred design for the main simulator.</p>
+                </div>
+
+                <div class="showcase-grid">
+                    <!-- Suggestion 1: 22mm Metallic Bezel -->
+                    <div class="showcase-card">
+                        <div class="showcase-header">
+                            <span class="showcase-pill">RECOMMENDED &bull; STYLE 1</span>
+                            <span style="font-size: 11px; font-family: var(--font-mono-code); color: var(--siemens-green); font-weight: 700;">IEC 60417</span>
+                        </div>
+                        <h3 class="showcase-title">22mm Heavy-Duty Metallic Bezel</h3>
+                        <p class="showcase-desc">Modeled after Siemens SIRIUS ACT &amp; Schneider Harmony 9001K. Conic-gradient chrome collar, recessed well, 3D convex plunger with spring depression depth, and engraved IEC symbols (⏽ / ⭘).</p>
+                        
+                        <div class="showcase-interactive-stage">
+                            <!-- Green Start PB -->
+                            <div style="text-align: center;">
+                                <div class="pb-22mm-wrapper" onclick="triggerStartPB()">
+                                    <div class="pb-22mm-bezel">
+                                        <div class="pb-22mm-well">
+                                            <div class="pb-22mm-actuator pb-green">⏽</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="font-size: 10px; font-weight: 700; margin-top: 4px; font-family: var(--font-mono-code);">START</div>
+                            </div>
+
+                            <!-- Red Stop PB -->
+                            <div style="text-align: center;">
+                                <div class="pb-22mm-wrapper" onclick="toggleStopPB()">
+                                    <div class="pb-22mm-bezel">
+                                        <div class="pb-22mm-well">
+                                            <div class="pb-22mm-actuator pb-red">⭘</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="font-size: 10px; font-weight: 700; margin-top: 4px; font-family: var(--font-mono-code);">STOP</div>
+                            </div>
+
+                            <!-- Mushroom E-Stop -->
+                            <div style="text-align: center;">
+                                <div class="pb-22mm-wrapper pb-mushroom-wrapper" id="showcaseEstop1" onclick="toggleEStop()">
+                                    <div class="pb-22mm-bezel pb-mushroom-bezel">
+                                        <div class="pb-22mm-well">
+                                            <div class="pb-22mm-actuator pb-mushroom-actuator">
+                                                <svg class="twist-arrows-svg" viewBox="0 0 24 24">
+                                                    <path d="M4 12a8 8 0 0 1 14.93-4M20 12a8 8 0 0 1-14.93 4" />
+                                                    <polyline points="19 4 19 8 15 8" />
+                                                    <polyline points="5 20 5 16 9 16" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="font-size: 10px; font-weight: 700; margin-top: 4px; font-family: var(--font-mono-code); color: var(--siemens-red);">E-STOP</div>
+                            </div>
+                        </div>
+
+                        <div class="showcase-tags">
+                            <span class="spec-tag">Chrome Chamfer</span>
+                            <span class="spec-tag">3D Actuator Dome</span>
+                            <span class="spec-tag">Twist-to-Release</span>
+                        </div>
+                    </div>
+
+                    <!-- Suggestion 2: LED Halo-Ring -->
+                    <div class="showcase-card">
+                        <div class="showcase-header">
+                            <span class="showcase-pill">MODERN IP65 &bull; STYLE 2</span>
+                            <span style="font-size: 11px; font-family: var(--font-mono-code); color: var(--siemens-cyan); font-weight: 700;">ILLUMINATED</span>
+                        </div>
+                        <h3 class="showcase-title">LED Halo-Ring Flush Push Buttons</h3>
+                        <p class="showcase-desc">High-tech cyber-industrial flush design inspired by Allen-Bradley 800F. 360-degree high-lumen glowing halo ring that illuminates when circuits are energized, with dark anodized aluminum bezels.</p>
+                        
+                        <div class="showcase-interactive-stage">
+                            <!-- Green Start Halo -->
+                            <div style="text-align: center;">
+                                <div class="halo-pb-wrapper" onclick="triggerStartPB()">
+                                    <div class="halo-anodized-bezel">
+                                        <div class="halo-led-ring ring-green active"></div>
+                                        <div class="halo-flush-actuator" style="color: #34d399;">START</div>
+                                    </div>
+                                </div>
+                                <div style="font-size: 10px; font-weight: 700; margin-top: 4px; font-family: var(--font-mono-code);">HALO GREEN</div>
+                            </div>
+
+                            <!-- Red Stop Halo -->
+                            <div style="text-align: center;">
+                                <div class="halo-pb-wrapper" onclick="toggleStopPB()">
+                                    <div class="halo-anodized-bezel">
+                                        <div class="halo-led-ring ring-red active"></div>
+                                        <div class="halo-flush-actuator" style="color: #f87171;">STOP</div>
+                                    </div>
+                                </div>
+                                <div style="font-size: 10px; font-weight: 700; margin-top: 4px; font-family: var(--font-mono-code);">HALO RED</div>
+                            </div>
+
+                            <!-- Amber Overload Halo -->
+                            <div style="text-align: center;">
+                                <div class="halo-pb-wrapper" onclick="toggleThermalOLR()">
+                                    <div class="halo-anodized-bezel">
+                                        <div class="halo-led-ring ring-amber active"></div>
+                                        <div class="halo-flush-actuator" style="color: #fbbf24;">OLR</div>
+                                    </div>
+                                </div>
+                                <div style="font-size: 10px; font-weight: 700; margin-top: 4px; font-family: var(--font-mono-code);">HALO AMBER</div>
+                            </div>
+                        </div>
+
+                        <div class="showcase-tags">
+                            <span class="spec-tag">360° Neon Glow</span>
+                            <span class="spec-tag">Anodized Bezel</span>
+                            <span class="spec-tag">Flush Actuator</span>
+                        </div>
+                    </div>
+
+                    <!-- Suggestion 3: Pendant Enclosure -->
+                    <div class="showcase-card">
+                        <div class="showcase-header">
+                            <span class="showcase-pill">HEAVY PLANT &bull; STYLE 3</span>
+                            <span style="font-size: 11px; font-family: var(--font-mono-code); color: var(--siemens-amber); font-weight: 700;">STATION BOX</span>
+                        </div>
+                        <h3 class="showcase-title">Industrial Push Button Station Box</h3>
+                        <p class="showcase-desc">Die-cast industrial control station pendant enclosure with corner hex-bolts, raised protective finger guards preventing accidental touch, and integrated rotary mode selector knob.</p>
+                        
+                        <div class="showcase-interactive-stage">
+                            <!-- Mini Pendant Sample -->
+                            <div class="pendant-enclosure" style="padding: 10px; width: 100%; max-width: 240px;">
+                                <div class="pendant-bolt bolt-tl"></div>
+                                <div class="pendant-bolt bolt-tr"></div>
+                                <div class="pendant-bolt bolt-bl"></div>
+                                <div class="pendant-bolt bolt-br"></div>
+                                
+                                <div class="pendant-btn-row">
+                                    <div class="pendant-guard-bezel pendant-guard-raised">
+                                        <div class="pb-22mm-actuator pb-green" style="width: 32px; height: 32px; font-size: 10px;" onclick="triggerStartPB()">I</div>
+                                    </div>
+                                    <div class="pendant-guard-bezel pendant-guard-raised">
+                                        <div class="pb-22mm-actuator pb-red" style="width: 32px; height: 32px; font-size: 10px;" onclick="toggleStopPB()">O</div>
+                                    </div>
+                                    <div class="pendant-guard-bezel">
+                                        <div class="pb-22mm-actuator pb-mushroom-actuator" style="width: 34px; height: 34px;" onclick="toggleEStop()">
+                                            <span style="font-size: 8px;">STOP</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="showcase-tags">
+                            <span class="spec-tag">Pendant Enclosure</span>
+                            <span class="spec-tag">Finger Guards</span>
+                            <span class="spec-tag">Heavy Duty</span>
+                        </div>
+                    </div>
+
+                    <!-- Suggestion 4: Pilot Dome & Plunger -->
+                    <div class="showcase-card">
+                        <div class="showcase-header">
+                            <span class="showcase-pill">SKEUOMORPHIC &bull; STYLE 4</span>
+                            <span style="font-size: 11px; font-family: var(--font-mono-code); color: var(--siemens-cyan); font-weight: 700;">TACTILE DOME</span>
+                        </div>
+                        <h3 class="showcase-title">Knurled Bezel &amp; Pilot Dome Station</h3>
+                        <p class="showcase-desc">High tactile contrast with knurled textured grip bezels, deep mechanical depression, and individual industrial acrylic dome pilot lamps showing active power telemetry above each control.</p>
+                        
+                        <div class="showcase-interactive-stage">
+                            <!-- Green Pilot Station -->
+                            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                <div class="pilot-lamp-dome lit-green" id="showcasePilotKm"></div>
+                                <div class="knurled-bezel" onclick="triggerStartPB()" style="cursor: pointer;">
+                                    <div class="pb-22mm-actuator pb-green" style="width: 34px; height: 34px;">START</div>
+                                </div>
+                            </div>
+
+                            <!-- Amber Pilot Station -->
+                            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                <div class="pilot-lamp-dome lit-amber" id="showcasePilotKy"></div>
+                                <div class="knurled-bezel" onclick="toggleThermalOLR()" style="cursor: pointer;">
+                                    <div class="pb-22mm-actuator pb-amber" style="width: 34px; height: 34px;">RESET</div>
+                                </div>
+                            </div>
+
+                            <!-- Red Pilot Station -->
+                            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                <div class="pilot-lamp-dome lit-red" id="showcasePilotTrip"></div>
+                                <div class="knurled-bezel" onclick="toggleStopPB()" style="cursor: pointer;">
+                                    <div class="pb-22mm-actuator pb-red" style="width: 34px; height: 34px;">STOP</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="showcase-tags">
+                            <span class="spec-tag">Knurled Bezel</span>
+                            <span class="spec-tag">Dome Pilot Lamps</span>
+                            <span class="spec-tag">Tactile Grip</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COMPARISON SPECIFICATION MATRIX TABLE -->
+            <div class="spec-matrix-card">
+                <h3 style="font-size: 18px; font-weight: 800; margin: 0 0 16px;">Push Button Engineering &amp; UI Architecture Comparison</h3>
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>Design Profile</th>
+                            <th>Aesthetic &amp; Visual Style</th>
+                            <th>Tactile Mechanics</th>
+                            <th>Industrial Reference Standard</th>
+                            <th>Recommended Portfolio Context</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-weight: 700; color: var(--siemens-petrol);">Style 1: 22mm Chrome Bezel</td>
+                            <td>Polished metallic chamfer, conic gradients, convex actuator caps</td>
+                            <td>3D downward Z-axis depression (translateY: 2px) &amp; spring bounce</td>
+                            <td>Siemens SIRIUS ACT 3SU1 / Schneider Harmony XB4</td>
+                            <td><strong>Best Overall:</strong> Authentic industrial look matching physical automation cabinets.</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 700; color: var(--siemens-cyan);">Style 2: LED Halo Ring</td>
+                            <td>Flush dark anodized ring with 360° glowing neon LED light ring</td>
+                            <td>Micro-travel flush click with high-intensity halo illumination</td>
+                            <td>Allen-Bradley Bulletin 800F / IP65 Illuminated Flush PB</td>
+                            <td><strong>Modern SCADA:</strong> High-tech cyber-industrial look for dark mode enthusiasts.</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 700; color: var(--siemens-amber);">Style 3: Pendant Enclosure</td>
+                            <td>Heavy-duty yellow/grey cast station with corner hex-bolts &amp; guards</td>
+                            <td>Guarded well to prevent accidental contact, mushroom twist-release</td>
+                            <td>Eaton M22 Pendant Station / ABB Compact Push Button Enclosures</td>
+                            <td><strong>Heavy Machinery:</strong> Simulates field crane pendants or conveyor start boxes.</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 700; color: var(--siemens-red);">Style 4: Knurled &amp; Pilot Dome</td>
+                            <td>Heavy diamond knurled collar with separate acrylic pilot light domes</td>
+                            <td>Deep tactile depression with independent live status glow</td>
+                            <td>NEMA 4X Heavy-Duty Oiltight 30.5mm Control Units</td>
+                            <td><strong>Vintage / Skeuomorphic:</strong> Tactile physical realism with high mechanical feedback.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-box">
+                <div class="cta-content">
+                    <h2>Ready to Apply This Design to the Main PLC Page?</h2>
+                    <p>Select your favorite push button style above, test the simulation, and let me know if you would like me to update `plc.html` with your chosen design!</p>
+                </div>
+                <div class="cta-actions">
+                    <a href="plc.html" class="btn btn-primary">View Original plc.html</a>
+                    <a href="contact.html" class="btn btn-secondary">Get in Touch</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Amandeep Singh</h4>
+                <p>Associate Manager — Projects &amp; Automation</p>
+                <p>Godrej &amp; Boyce Mfg. Co. Ltd | M.Tech (Digital Mfg) BITS Pilani | B.Tech Mechatronics</p>
+            </div>
+            <div class="footer-section">
+                <h4>Get in Touch</h4>
+                <p>Email: <a href="mailto:anky_mthegem2@yahoo.co.uk">anky_mthegem2@yahoo.co.uk</a></p>
+                <p>Phone: <a href="tel:+919653080919">+91-9653080919</a></p>
+                <p>Location: Ludhiana, Punjab, India</p>
+            </div>
+            <div class="footer-section">
+                <h4>Professional Links</h4>
+                <p>Connect with me for collaborations &amp; technical opportunities.</p>
+                <div class="footer-social-links">
+                    <a href="https://www.linkedin.com/in/anky-mthegem/" target="_blank" rel="noopener noreferrer"
+                        class="footer-social-link" title="LinkedIn Profile" aria-label="LinkedIn Profile">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                        </svg>
+                    </a>
+                    <a href="https://github.com/anky-mthegem/" target="_blank" rel="noopener noreferrer"
+                        class="footer-social-link" title="GitHub Profile" aria-label="GitHub Profile">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Amandeep Singh. All rights reserved. | Ludhiana, Punjab, India</p>
+        </div>
+    </footer>
+
+    <!-- Scripts: Theme, Sound Synthesizer & Star-Delta PLC Simulation Engine -->
+    <script src="script.js?v=3.3"></script>
+    <script>
+        // ==========================================================================
+        // 1. WEB AUDIO API SYNTHESIZER FOR MECHANICAL SWITCH FEEDBACK
+        // ==========================================================================
+        let audioCtx = null;
+        let soundEnabled = true;
+
+        function getAudioContext() {
+            if (!audioCtx) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (AudioContext) {
+                    audioCtx = new AudioContext();
+                }
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
+
+        function playMechanicalClick(type = 'push') {
+            if (!soundEnabled) return;
+            try {
+                const ctx = getAudioContext();
+                if (!ctx) return;
+
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+
+                if (type === 'push') {
+                    // Crisp 22mm Push Button Click
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(800, ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(120, ctx.currentTime + 0.04);
+                    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.04);
+                } else if (type === 'estop') {
+                    // Heavy Mushroom Latch Clunk
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(220, ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(40, ctx.currentTime + 0.08);
+                    gain.gain.setValueAtTime(0.4, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.08);
+                } else if (type === 'release') {
+                    // Spring Release Pop
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(400, ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(700, ctx.currentTime + 0.03);
+                    gain.gain.setValueAtTime(0.2, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.03);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.03);
+                }
+            } catch (e) {
+                // Ignore audio context errors gracefully
+            }
+        }
+
+        // Mechanical audio feedback is permanently active
+
+        // ==========================================================================
+        // 2. SIEMENS S7-1200 STAR-DELTA SIMULATION ENGINE
+        // ==========================================================================
+        const plc = {
+            I0_0_Start: false,       // %I0.0: Start PB (NO)
+            I0_1_Stop: true,         // %I0.1: Stop PB (NC)
+            I0_2_OLR: true,          // %I0.2: Thermal Overload (NC)
+            I0_3_EStop: true,        // %I0.3: Safety E-Stop (NC)
+
+            Q0_0_Km: false,          // %Q0.0: Main Contactor
+            Q0_1_Ky: false,          // %Q0.1: Star Contactor
+            Q0_2_Kd: false,          // %Q0.2: Delta Contactor
+            Q0_3_Trip: false,        // %Q0.3: Overload Alarm Siren
+
+            timerStartTime: null,
+            timerPresetMs: 5000,     // Default 5.0s
+            timerDone: false
+        };
+
+        let currentActiveStyle = 'style1';
+
+        function addLog(msg) {
+            const box = document.getElementById('scadaLog');
+            if (!box) return;
+            const time = new Date().toLocaleTimeString('en-US', { hour12: false });
+            const line = document.createElement('div');
+            line.className = 'log-line';
+            line.innerHTML = `<span class="log-ts">[${time}]</span> ${msg}`;
+            box.appendChild(line);
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function setTimerPreset(ms, btn) {
+            playMechanicalClick('push');
+            plc.timerPresetMs = ms;
+            document.querySelectorAll('.sim-preset-btn, .style-tab-btn').forEach(b => {
+                if (b.innerText && b.innerText.includes('s')) b.classList.remove('active');
+            });
+            if (btn) btn.classList.add('active');
+            addLog(`Timer Preset Updated: TON_1 PT = ${(ms/1000).toFixed(1)}s`);
+            const label = document.getElementById('timerLabel');
+            if (label && !plc.Q0_0_Km) {
+                label.textContent = `PT: ${(ms/1000).toFixed(1)}s`;
+            }
+        }
+
+        // ==========================================================================
+        // 3. OPERATOR CONTROLS ACTIONS
+        // ==========================================================================
+        function triggerStartPB() {
+            playMechanicalClick('push');
+            if (!plc.I0_3_EStop) {
+                addLog('⚠️ Start Inhibited: Safety E-Stop Loop is Tripped!');
+                return;
+            }
+            if (!plc.I0_2_OLR) {
+                addLog('⚠️ Start Inhibited: Thermal Overload Relay F1 is Tripped!');
+                return;
+            }
+            if (!plc.I0_1_Stop) {
+                addLog('⚠️ Start Inhibited: Stop button is engaged.');
+                return;
+            }
+
+            plc.I0_0_Start = true;
+            updateButtonPressVisuals('start', true);
+            addLog('🟢 Start PB Pressed (%I0.0) -> Initiating STAR (Υ) Start Sequence');
+            evaluateScan();
+
+            setTimeout(() => {
+                plc.I0_0_Start = false;
+                updateButtonPressVisuals('start', false);
+                playMechanicalClick('release');
+                evaluateScan();
+            }, 300);
+        }
+
+        function toggleStopPB() {
+            plc.I0_1_Stop = !plc.I0_1_Stop;
+            playMechanicalClick(plc.I0_1_Stop ? 'release' : 'push');
+
+            if (plc.I0_1_Stop) {
+                addLog('Stop PB Released (NC Loop Closed)');
+            } else {
+                addLog('🔴 Stop PB Engaged (%I0.1) -> Dropping all contactors (Coast to stop)');
+            }
+            updateButtonPressVisuals('stop', !plc.I0_1_Stop);
+            evaluateScan();
+        }
+
+        function toggleThermalOLR() {
+            plc.I0_2_OLR = !plc.I0_2_OLR;
+            playMechanicalClick(plc.I0_2_OLR ? 'release' : 'estop');
+
+            if (plc.I0_2_OLR) {
+                addLog('Thermal Overload Reset (NC Healthy)');
+            } else {
+                addLog('🚨 THERMAL OVERLOAD RELAY TRIPPED (%I0.2)! Current exceeded threshold.');
+            }
+            updateButtonPressVisuals('olr', !plc.I0_2_OLR);
+            evaluateScan();
+        }
+
+        function toggleEStop() {
+            plc.I0_3_EStop = !plc.I0_3_EStop;
+            playMechanicalClick(plc.I0_3_EStop ? 'release' : 'estop');
+
+            if (plc.I0_3_EStop) {
+                addLog('🛡️ Safety E-Stop Reset (%I0.3 NC Healthy) - Twist Released');
+            } else {
+                addLog('🛑 EMERGENCY STOP ACTIVATED (%I0.3)! Main power disconnected.');
+            }
+            updateButtonPressVisuals('estop', !plc.I0_3_EStop);
+            evaluateScan();
+        }
+
+        function updateButtonPressVisuals(btnType, isEngaged) {
+            // Update across any active elements
+            if (btnType === 'start') {
+                document.querySelectorAll('.pb-start-btn').forEach(el => el.classList.toggle('is-pressed', isEngaged));
+            } else if (btnType === 'stop') {
+                document.querySelectorAll('.pb-stop-btn').forEach(el => el.classList.toggle('is-pressed', isEngaged));
+                document.querySelectorAll('.pb-stop-card').forEach(el => el.classList.toggle('active', isEngaged));
+            } else if (btnType === 'olr') {
+                document.querySelectorAll('.pb-olr-btn').forEach(el => el.classList.toggle('is-pressed', isEngaged));
+                document.querySelectorAll('.pb-olr-card').forEach(el => el.classList.toggle('active', isEngaged));
+            } else if (btnType === 'estop') {
+                document.querySelectorAll('.pb-mushroom-wrapper').forEach(el => el.classList.toggle('is-latched', isEngaged));
+                document.querySelectorAll('.pb-estop-card').forEach(el => el.classList.toggle('active', isEngaged));
+            }
+        }
+
+        // ==========================================================================
+        // 4. DYNAMIC TEMPLATES FOR THE 4 BUTTON DESIGNS IN LIVE SIMULATOR
+        // ==========================================================================
+        const buttonTemplates = {
+            style1: `
+                <!-- STYLE 1: 22MM METALLIC CHROME BEZEL PUSH BUTTONS -->
+                <div class="btn-style-1-container">
+                    <!-- Start PB -->
+                    <div class="ind-pb-card">
+                        <div class="ind-pb-meta">
+                            <span class="ind-legend-plate">%I 0.0 &bull; NO CONTACT</span>
+                            <span class="ind-pb-title">Motor Start</span>
+                            <span class="ind-pb-status-text">Momentary Push</span>
+                        </div>
+                        <button type="button" class="pb-22mm-wrapper pb-start-btn" onclick="triggerStartPB()" title="Press to Start Motor">
+                            <div class="pb-22mm-bezel">
+                                <div class="pb-22mm-well">
+                                    <div class="pb-22mm-actuator pb-green">⏽</div>
+                                </div>
+                            </div>
+                        </button>
+                        <!-- Popping Prompt Arrow on Right Side of Start Push Button -->
+                        <div class="start-pb-prompt" id="startPromptBadge">
+                            <span class="prompt-arrow-icon">👈</span>
+                            <span>Push me to start motor</span>
+                        </div>
+                    </div>
+
+                    <!-- Stop PB -->
+                    <div class="ind-pb-card pb-stop-card">
+                        <div class="ind-pb-meta">
+                            <span class="ind-legend-plate">%I 0.1 &bull; NC CONTACT</span>
+                            <span class="ind-pb-title">Motor Stop</span>
+                            <span class="ind-pb-status-text" id="txtStopStatus">Normal (Closed Loop)</span>
+                        </div>
+                        <button type="button" class="pb-22mm-wrapper pb-stop-btn" onclick="toggleStopPB()" title="Toggle Motor Stop">
+                            <div class="pb-22mm-bezel">
+                                <div class="pb-22mm-well">
+                                    <div class="pb-22mm-actuator pb-red">⭘</div>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+
+                    <!-- Thermal Overload Relay -->
+                    <div class="ind-pb-card pb-olr-card">
+                        <div class="ind-pb-meta">
+                            <span class="ind-legend-plate yellow-plate">%I 0.2 &bull; OLR</span>
+                            <span class="ind-pb-title">Thermal Overload</span>
+                            <span class="ind-pb-status-text" id="txtOlrStatus">Healthy (Closed)</span>
+                        </div>
+                        <button type="button" class="pb-22mm-wrapper pb-olr-btn" onclick="toggleThermalOLR()" title="Simulate Overload Trip / Reset">
+                            <div class="pb-22mm-bezel">
+                                <div class="pb-22mm-well">
+                                    <div class="pb-22mm-actuator pb-amber" style="font-size: 10px;">TEST</div>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+
+                    <!-- Mushroom E-Stop -->
+                    <div class="ind-pb-card pb-estop-card">
+                        <div class="ind-pb-meta">
+                            <span class="ind-legend-plate yellow-plate">%I 0.3 &bull; SAFETY LOOP</span>
+                            <span class="ind-pb-title" style="color: var(--siemens-red);">Emergency Stop</span>
+                            <span class="ind-pb-status-text" id="txtEstopStatus">Armed (Ready)</span>
+                        </div>
+                        <button type="button" class="pb-22mm-wrapper pb-mushroom-wrapper" onclick="toggleEStop()" title="Push to Lock, Twist to Reset">
+                            <div class="pb-22mm-bezel pb-mushroom-bezel">
+                                <div class="pb-22mm-well">
+                                    <div class="pb-22mm-actuator pb-mushroom-actuator">
+                                        <svg class="twist-arrows-svg" viewBox="0 0 24 24">
+                                            <path d="M4 12a8 8 0 0 1 14.93-4M20 12a8 8 0 0 1-14.93 4" />
+                                            <polyline points="19 4 19 8 15 8" />
+                                            <polyline points="5 20 5 16 9 16" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            `,
+
+            style2: `
+                <!-- STYLE 2: MODERN LED HALO-RING FLUSH PUSH BUTTONS -->
+                <div class="btn-style-2-container">
+                    <!-- Start Halo -->
+                    <div class="halo-pb-card">
+                        <div class="ind-pb-meta">
+                            <span class="ind-legend-plate">%I 0.0 &bull; HALO GREEN</span>
+                            <span class="ind-pb-title">Start Motor</span>
+                            <span class="ind-pb-status-text">Illuminated Flush Ring</span>
+                        </div>
+                        <button type="button" class="halo-pb-wrapper pb-start-btn" onclick="triggerStartPB()">
+                            <div class="halo-anodized-bezel">
+                                <div class="halo-led-ring ring-green active" id="haloStartRing"></div>
+                                <div class="halo-flush-actuator" style="color: #34d399;">START</div>
+                            </div>
+                        </button>
+                    </div>
+
+                    <!-- Stop Halo -->
+                    <div class="halo-pb-card pb-stop-card">
+                        <div class="ind-pb-meta">
+                            <span class="ind-legend-plate">%I 0.1 &bull; HALO RED</span>
+                            <span class="ind-pb-title">Stop Motor</span>
+                            <span class="ind-pb-status-text" id="txtStopStatus">NC Loop Active</span>
+                        </div>
+                        <button type="button" class="halo-pb-wrapper pb-stop-btn" onclick="toggleStopPB()">
+                            <div class="halo-anodized-bezel">
+                                <div class="halo-led-ring ring-red active" id="haloStopRing"></div>
+                                <div class="halo-flush-actuator" style="color: #f87171;">STOP</div>
+                            </div>
+                        </button>
+                    </div>
+
+                    <!-- OLR Halo -->
+                    <div class="halo-pb-card pb-olr-card">
+                        <div class="ind-pb-meta">
+                            <span class="ind-legend-plate yellow-plate">%I 0.2 &bull; HALO AMBER</span>
+                            <span class="ind-pb-title">Overload Sensor</span>
+                            <span class="ind-pb-status-text" id="txtOlrStatus">Healthy</span>
+                        </div>
+                        <button type="button" class="halo-pb-wrapper pb-olr-btn" onclick="toggleThermalOLR()">
+                            <div class="halo-anodized-bezel">
+                                <div class="halo-led-ring ring-amber active" id="haloOlrRing"></div>
+                                <div class="halo-flush-actuator" style="color: #fbbf24; font-size: 10px;">TRIP</div>
+                            </div>
+                        </button>
+                    </div>
+
+                    <!-- E-Stop Halo -->
+                    <div class="halo-pb-card pb-estop-card">
+                        <div class="ind-pb-meta">
+                            <span class="ind-legend-plate yellow-plate">%I 0.3 &bull; HIGH LUMEN</span>
+                            <span class="ind-pb-title" style="color: var(--siemens-red);">Safety E-Stop</span>
+                            <span class="ind-pb-status-text" id="txtEstopStatus">Armed</span>
+                        </div>
+                        <button type="button" class="halo-pb-wrapper pb-mushroom-wrapper" onclick="toggleEStop()">
+                            <div class="halo-anodized-bezel">
+                                <div class="halo-led-ring ring-red active" style="box-shadow: 0 0 18px #ef4444;"></div>
+                                <div class="halo-flush-actuator" style="background: #dc2626; color: #ffffff; font-size: 9px;">E-STOP</div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            `,
+
+            style3: `
+                <!-- STYLE 3: INDUSTRIAL ENCLOSURE STATION (CAST YELLOW/GREY PENDANT) -->
+                <div class="btn-style-3-container">
+                    <div class="pendant-enclosure">
+                        <div class="pendant-bolt bolt-tl"></div>
+                        <div class="pendant-bolt bolt-tr"></div>
+                        <div class="pendant-bolt bolt-bl"></div>
+                        <div class="pendant-bolt bolt-br"></div>
+
+                        <div style="text-align: center; margin-bottom: 2px;">
+                            <span style="font-size: 10.5px; font-weight: 800; color: #78350f; letter-spacing: 1px; font-family: var(--font-mono-code);">MCC LOCAL CONTROL STATION</span>
+                        </div>
+
+                        <!-- Start Button in Guard -->
+                        <div class="pendant-btn-row">
+                            <div class="ind-pb-meta">
+                                <span class="ind-legend-plate" style="background: #0f172a; color: #34d399;">%I 0.0 &bull; FORWARD START</span>
+                                <span class="ind-pb-title" style="color: #f8fafc;">Start (Υ-Δ)</span>
+                            </div>
+                            <div class="pendant-guard-bezel pendant-guard-raised">
+                                <button type="button" class="pb-22mm-actuator pb-green pb-start-btn" style="width: 36px; height: 36px; font-size: 11px; border: none; cursor: pointer;" onclick="triggerStartPB()">
+                                    START
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Stop Button in Guard -->
+                        <div class="pendant-btn-row">
+                            <div class="ind-pb-meta">
+                                <span class="ind-legend-plate" style="background: #0f172a; color: #f87171;">%I 0.1 &bull; COAST STOP</span>
+                                <span class="ind-pb-title" style="color: #f8fafc;">Stop Motor</span>
+                            </div>
+                            <div class="pendant-guard-bezel pendant-guard-raised">
+                                <button type="button" class="pb-22mm-actuator pb-red pb-stop-btn" style="width: 36px; height: 36px; font-size: 11px; border: none; cursor: pointer;" onclick="toggleStopPB()">
+                                    STOP
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Overload Test -->
+                        <div class="pendant-btn-row">
+                            <div class="ind-pb-meta">
+                                <span class="ind-legend-plate" style="background: #0f172a; color: #fbbf24;">%I 0.2 &bull; OLR TRIP SIM</span>
+                                <span class="ind-pb-title" style="color: #f8fafc;">Thermal OLR</span>
+                            </div>
+                            <div class="pendant-guard-bezel">
+                                <button type="button" class="pb-22mm-actuator pb-amber pb-olr-btn" style="width: 34px; height: 34px; font-size: 10px; border: none; cursor: pointer;" onclick="toggleThermalOLR()">
+                                    TEST
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Heavy Mushroom E-Stop -->
+                        <div class="pendant-btn-row" style="background: #0f172a; border: 1px solid #dc2626;">
+                            <div class="ind-pb-meta">
+                                <span class="ind-legend-plate yellow-plate">%I 0.3 &bull; EMERGENCY</span>
+                                <span class="ind-pb-title" style="color: #f87171;">Twist-Reset E-Stop</span>
+                            </div>
+                            <div class="pb-22mm-wrapper pb-mushroom-wrapper" onclick="toggleEStop()">
+                                <div class="pb-22mm-bezel pb-mushroom-bezel" style="width: 46px; height: 46px;">
+                                    <div class="pb-22mm-well" style="width: 38px; height: 38px;">
+                                        <div class="pb-22mm-actuator pb-mushroom-actuator" style="width: 36px; height: 36px;">
+                                            <span style="font-size: 8px;">STOP</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `,
+
+            style4: `
+                <!-- STYLE 4: SKEUOMORPHIC KNURLED BEZEL & DOME PILOT LAMPS -->
+                <div class="btn-style-4-container">
+                    <!-- Start PB with Green Pilot -->
+                    <div class="pilot-pb-card">
+                        <div class="pilot-lamp-group">
+                            <div class="pilot-lamp-dome" id="pilotStartLamp"></div>
+                            <div class="ind-pb-meta">
+                                <span class="ind-legend-plate">%I 0.0 &bull; PILOT MONITORED</span>
+                                <span class="ind-pb-title">Start Motor</span>
+                            </div>
+                        </div>
+                        <div class="knurled-bezel" onclick="triggerStartPB()" style="cursor: pointer;">
+                            <button type="button" class="pb-22mm-actuator pb-green pb-start-btn" style="width: 36px; height: 36px; font-size: 11px; border: none; cursor: pointer;">
+                                START
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Stop PB with Red Pilot -->
+                    <div class="pilot-pb-card pb-stop-card">
+                        <div class="pilot-lamp-group">
+                            <div class="pilot-lamp-dome lit-red" id="pilotStopLamp"></div>
+                            <div class="ind-pb-meta">
+                                <span class="ind-legend-plate">%I 0.1 &bull; NC SAFETY LOOP</span>
+                                <span class="ind-pb-title">Stop Motor</span>
+                            </div>
+                        </div>
+                        <div class="knurled-bezel" onclick="toggleStopPB()" style="cursor: pointer;">
+                            <button type="button" class="pb-22mm-actuator pb-red pb-stop-btn" style="width: 36px; height: 36px; font-size: 11px; border: none; cursor: pointer;">
+                                STOP
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- OLR Test with Amber Pilot -->
+                    <div class="pilot-pb-card pb-olr-card">
+                        <div class="pilot-lamp-group">
+                            <div class="pilot-lamp-dome" id="pilotOlrLamp"></div>
+                            <div class="ind-pb-meta">
+                                <span class="ind-legend-plate yellow-plate">%I 0.2 &bull; TRIP RESET</span>
+                                <span class="ind-pb-title">Overload Relay</span>
+                            </div>
+                        </div>
+                        <div class="knurled-bezel" onclick="toggleThermalOLR()" style="cursor: pointer;">
+                            <button type="button" class="pb-22mm-actuator pb-amber pb-olr-btn" style="width: 34px; height: 34px; font-size: 10px; border: none; cursor: pointer;">
+                                RESET
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- E-Stop with Flashing Pilot -->
+                    <div class="pilot-pb-card pb-estop-card">
+                        <div class="pilot-lamp-group">
+                            <div class="pilot-lamp-dome lit-red" id="pilotEstopLamp"></div>
+                            <div class="ind-pb-meta">
+                                <span class="ind-legend-plate yellow-plate">%I 0.3 &bull; MASTER CUT</span>
+                                <span class="ind-pb-title" style="color: var(--siemens-red);">Emergency Stop</span>
+                            </div>
+                        </div>
+                        <div class="pb-22mm-wrapper pb-mushroom-wrapper" onclick="toggleEStop()">
+                            <div class="pb-22mm-bezel pb-mushroom-bezel" style="width: 50px; height: 50px;">
+                                <div class="pb-22mm-well" style="width: 40px; height: 40px;">
+                                    <div class="pb-22mm-actuator pb-mushroom-actuator" style="width: 38px; height: 38px;">
+                                        <svg class="twist-arrows-svg" viewBox="0 0 24 24">
+                                            <path d="M4 12a8 8 0 0 1 14.93-4M20 12a8 8 0 0 1-14.93 4" />
+                                            <polyline points="19 4 19 8 15 8" />
+                                            <polyline points="5 20 5 16 9 16" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `
+        };
+
+        function switchButtonStyle(styleId, tabBtn) {
+            playMechanicalClick('push');
+            currentActiveStyle = styleId;
+            document.querySelectorAll('.style-tab-btn').forEach(b => {
+                if (b.innerText && !b.innerText.includes('s')) b.classList.remove('active');
+            });
+            if (tabBtn) tabBtn.classList.add('active');
+
+            const housing = document.getElementById('dynamicControlsHousing');
+            if (housing && buttonTemplates[styleId]) {
+                housing.innerHTML = buttonTemplates[styleId];
+            }
+            addLog(`Switched PLC Push Button Style to: [${styleId.toUpperCase()}]`);
+            evaluateScan();
+        }
+
+        // ==========================================================================
+        // 5. SCAN CYCLE & LADDER LOGIC SOLVER
+        // ==========================================================================
+        function evaluateScan() {
+            const permissives = plc.I0_3_EStop && plc.I0_2_OLR && plc.I0_1_Stop;
+
+            // NET 1: Main Contactor Km (%Q0.0)
+            if (permissives && (plc.I0_0_Start || plc.Q0_0_Km)) {
+                if (!plc.Q0_0_Km) {
+                    addLog('⚡ Main Contactor Km Energized -> 3-Phase Applied to U1, V1, W1');
+                    plc.timerStartTime = Date.now();
+                    plc.timerDone = false;
+                }
+                plc.Q0_0_Km = true;
+            } else {
+                if (plc.Q0_0_Km) {
+                    addLog('Main Contactor Km Dropped -> Power Cut');
+                }
+                plc.Q0_0_Km = false;
+                plc.timerStartTime = null;
+                plc.timerDone = false;
+            }
+
+            // NET 3: Timer Evaluation (TON_1)
+            if (plc.Q0_0_Km && plc.timerStartTime) {
+                const elapsed = Date.now() - plc.timerStartTime;
+                if (elapsed >= plc.timerPresetMs) {
+                    if (!plc.timerDone) {
+                        addLog('⏱️ Timer TON_1 Done -> Breaking Star (Ky) & Latching DELTA (KΔ)');
+                    }
+                    plc.timerDone = true;
+                }
+            }
+
+            // NET 2: Star Contactor Ky (%Q0.1)
+            if (plc.Q0_0_Km && !plc.timerDone && !plc.Q0_2_Kd) {
+                if (!plc.Q0_1_Ky) {
+                    addLog('⭐ Star Contactor Ky Closed -> Star Point Shorted (240V/phase)');
+                }
+                plc.Q0_1_Ky = true;
+            } else {
+                plc.Q0_1_Ky = false;
+            }
+
+            // NET 4: Delta Contactor Kd (%Q0.2)
+            if (plc.Q0_0_Km && plc.timerDone && !plc.Q0_1_Ky) {
+                if (!plc.Q0_2_Kd) {
+                    addLog('🔺 Delta Contactor KΔ Latched -> Full 415V RMS Run (1,450 RPM)');
+                }
+                plc.Q0_2_Kd = true;
+            } else {
+                plc.Q0_2_Kd = false;
+            }
+
+            // NET 5: Fault Siren (%Q0.3)
+            plc.Q0_3_Trip = !plc.I0_2_OLR;
+
+            // Render
+            renderUI();
+        }
+
+        function renderUI() {
+            // CPU Header LEDs
+            const ledKm = document.getElementById('ledKm');
+            const ledKy = document.getElementById('ledKy');
+            const ledKd = document.getElementById('ledKd');
+            const ledFault = document.getElementById('ledFault');
+            if (ledKm) ledKm.className = plc.Q0_0_Km ? 'sim-led-dot active-green' : 'sim-led-dot';
+            if (ledKy) ledKy.className = plc.Q0_1_Ky ? 'sim-led-dot active-amber' : 'sim-led-dot';
+            if (ledKd) ledKd.className = plc.Q0_2_Kd ? 'sim-led-dot active-green' : 'sim-led-dot';
+            if (ledFault) ledFault.className = plc.Q0_3_Trip ? 'sim-led-dot active-red' : 'sim-led-dot';
+
+            // Network 1 (Main Contactor & Seal-In Latch)
+            const p1 = plc.I0_3_EStop;
+            const p2 = p1 && plc.I0_2_OLR;
+            const p3 = p2 && plc.I0_1_Stop;
+            const p4 = plc.Q0_0_Km;
+
+            const w1 = document.getElementById('w1');
+            const w2 = document.getElementById('w2');
+            const w3 = document.getElementById('w3');
+            const w4 = document.getElementById('w4');
+            if (w1) w1.classList.toggle('hot', p1);
+            if (w2) w2.classList.toggle('hot', p2);
+            if (w3) w3.classList.toggle('hot', p3);
+            if (w4) w4.classList.toggle('hot', p4);
+
+            const cEStop = document.getElementById('cntEStop');
+            const cOLR = document.getElementById('cntOLR');
+            const cStop = document.getElementById('cntStop');
+            const cStartPB = document.getElementById('cntStartPB');
+            const cKmSeal = document.getElementById('cntKmSealIn');
+            const brKm = document.getElementById('branchKm');
+            const clKm = document.getElementById('coilKm');
+            const rg1 = document.getElementById('rung1');
+            const r1St = document.getElementById('r1Status');
+
+            if (cEStop) cEStop.classList.toggle('closed', plc.I0_3_EStop);
+            if (cOLR) cOLR.classList.toggle('closed', plc.I0_2_OLR);
+            if (cStop) cStop.classList.toggle('closed', plc.I0_1_Stop);
+            if (cStartPB) cStartPB.classList.toggle('closed', plc.I0_0_Start);
+            if (cKmSeal) cKmSeal.classList.toggle('closed', plc.Q0_0_Km);
+            if (brKm) brKm.classList.toggle('hot', (plc.I0_0_Start || plc.Q0_0_Km) && p3);
+            if (clKm) clKm.classList.toggle('energized', plc.Q0_0_Km);
+            if (rg1) rg1.classList.toggle('energized', plc.Q0_0_Km);
+            if (r1St) {
+                r1St.textContent = plc.Q0_0_Km ? 'ENERGIZED' : 'OFFLINE';
+                r1St.style.color = plc.Q0_0_Km ? 'var(--siemens-green)' : '#64748b';
+            }
+
+            // Network 2 (Star Contactor)
+            const cKmStar = document.getElementById('cntKmToStar');
+            const cTmrNC = document.getElementById('cntTimerNC');
+            const cKdInt = document.getElementById('cntKdInterlock');
+            const clKy = document.getElementById('coilKy');
+            const rg2 = document.getElementById('rung2');
+            const r2St = document.getElementById('r2Status');
+
+            if (cKmStar) cKmStar.classList.toggle('closed', plc.Q0_0_Km);
+            if (cTmrNC) cTmrNC.classList.toggle('closed', !plc.timerDone);
+            if (cKdInt) cKdInt.classList.toggle('closed', !plc.Q0_2_Kd);
+            if (clKy) clKy.classList.toggle('energized-amber', plc.Q0_1_Ky);
+            if (rg2) rg2.classList.toggle('energized', plc.Q0_1_Ky);
+            if (r2St) {
+                r2St.textContent = plc.Q0_1_Ky ? 'STAR (CLOSED)' : 'OPEN';
+                r2St.style.color = plc.Q0_1_Ky ? 'var(--siemens-amber)' : '#64748b';
+            }
+
+            // Network 3 (TON Timer)
+            const cKmTmr = document.getElementById('cntKmToTimer');
+            const cTmrBlk = document.getElementById('cntTimerBlock');
+            const clTmrDn = document.getElementById('coilTimerDone');
+            const rg3 = document.getElementById('rung3');
+            const r3St = document.getElementById('r3Status');
+
+            if (cKmTmr) cKmTmr.classList.toggle('closed', plc.Q0_0_Km);
+            if (cTmrBlk) cTmrBlk.classList.toggle('closed', plc.timerDone);
+            if (clTmrDn) clTmrDn.classList.toggle('energized', plc.timerDone);
+            if (rg3) rg3.classList.toggle('energized', plc.Q0_0_Km);
+            if (r3St) {
+                r3St.textContent = plc.timerDone ? 'TIMER DONE' : (plc.Q0_0_Km ? 'TIMING...' : 'INACTIVE');
+                r3St.style.color = plc.timerDone ? 'var(--siemens-green)' : (plc.Q0_0_Km ? 'var(--siemens-amber)' : '#64748b');
+            }
+
+            // Network 4 (Delta Contactor)
+            const cKmDlta = document.getElementById('cntKmToDelta');
+            const cTmrNO = document.getElementById('cntTimerNO');
+            const cKyInt = document.getElementById('cntKyInterlock');
+            const clKd = document.getElementById('coilKd');
+            const rg4 = document.getElementById('rung4');
+            const r4St = document.getElementById('r4Status');
+
+            if (cKmDlta) cKmDlta.classList.toggle('closed', plc.Q0_0_Km);
+            if (cTmrNO) cTmrNO.classList.toggle('closed', plc.timerDone);
+            if (cKyInt) cKyInt.classList.toggle('closed', !plc.Q0_1_Ky);
+            if (clKd) clKd.classList.toggle('energized', plc.Q0_2_Kd);
+            if (rg4) rg4.classList.toggle('energized', plc.Q0_2_Kd);
+            if (r4St) {
+                r4St.textContent = plc.Q0_2_Kd ? 'DELTA (FULL RUN)' : 'OPEN';
+                r4St.style.color = plc.Q0_2_Kd ? 'var(--siemens-green)' : '#64748b';
+            }
+
+            // Network 5 (Overload Siren)
+            const cTrpAlm = document.getElementById('cntTripAlarm');
+            const clTrp = document.getElementById('coilTrip');
+            const rg5 = document.getElementById('rung5');
+            const r5St = document.getElementById('r5Status');
+
+            if (cTrpAlm) cTrpAlm.classList.toggle('closed', plc.Q0_3_Trip);
+            if (clTrp) clTrp.classList.toggle('energized-red', plc.Q0_3_Trip);
+            if (rg5) rg5.classList.toggle('energized', plc.Q0_3_Trip);
+            if (r5St) {
+                r5St.textContent = plc.Q0_3_Trip ? 'ALARM ACTIVE!' : 'NORMAL';
+                r5St.style.color = plc.Q0_3_Trip ? 'var(--siemens-red)' : '#64748b';
+            }
+
+            // Motor Visualizer & Mode Telemetry
+            const icon = document.getElementById('motorIcon');
+            const vMode = document.getElementById('valMode');
+            if (icon && vMode) {
+                if (plc.Q0_3_Trip) {
+                    icon.className = 'motor-icon-spin';
+                    icon.textContent = '⚠️';
+                    vMode.textContent = 'FAULT';
+                    vMode.className = 'stat-tile-val trip-val';
+                } else if (!plc.I0_3_EStop) {
+                    icon.className = 'motor-icon-spin';
+                    icon.textContent = '🛑';
+                    vMode.textContent = 'E-STOP';
+                    vMode.className = 'stat-tile-val trip-val';
+                } else if (plc.Q0_2_Kd) {
+                    icon.className = 'motor-icon-spin spin-delta';
+                    icon.textContent = '⚡';
+                    vMode.textContent = 'DELTA (Δ)';
+                    vMode.className = 'stat-tile-val delta-val';
+                } else if (plc.Q0_1_Ky) {
+                    icon.className = 'motor-icon-spin spin-star';
+                    icon.textContent = '⭐';
+                    vMode.textContent = 'STAR (Υ)';
+                    vMode.className = 'stat-tile-val star-val';
+                } else {
+                    icon.className = 'motor-icon-spin';
+                    icon.textContent = '⚙️';
+                    vMode.textContent = 'OFF';
+                    vMode.className = 'stat-tile-val';
+                }
+            }
+
+            // Popping Prompt Arrow Badge (visible only if motor is OFF and Stop, OLR, E-Stop are closed/healthy)
+            const isReadyToStart = !plc.Q0_0_Km && plc.I0_1_Stop && plc.I0_2_OLR && plc.I0_3_EStop;
+            const promptBadge = document.getElementById('startPromptBadge');
+            if (promptBadge) {
+                promptBadge.classList.toggle('is-hidden', !isReadyToStart);
+            }
+
+            // Pilot Lamp Domes for Style 4 & Showcase
+            const pStart = document.getElementById('pilotStartLamp');
+            const pStop = document.getElementById('pilotStopLamp');
+            const pOlr = document.getElementById('pilotOlrLamp');
+            const pEstop = document.getElementById('pilotEstopLamp');
+            if (pStart) pStart.className = plc.Q0_0_Km ? 'pilot-lamp-dome lit-green' : 'pilot-lamp-dome';
+            if (pStop) pStop.className = !plc.I0_1_Stop ? 'pilot-lamp-dome lit-red' : 'pilot-lamp-dome';
+            if (pOlr) pOlr.className = !plc.I0_2_OLR ? 'pilot-lamp-dome lit-amber' : 'pilot-lamp-dome';
+            if (pEstop) pEstop.className = !plc.I0_3_EStop ? 'pilot-lamp-dome lit-red' : 'pilot-lamp-dome';
+
+            const scKm = document.getElementById('showcasePilotKm');
+            const scKy = document.getElementById('showcasePilotKy');
+            const scTrip = document.getElementById('showcasePilotTrip');
+            if (scKm) scKm.className = plc.Q0_0_Km ? 'pilot-lamp-dome lit-green' : 'pilot-lamp-dome';
+            if (scKy) scKy.className = plc.Q0_1_Ky ? 'pilot-lamp-dome lit-amber' : 'pilot-lamp-dome';
+            if (scTrip) scTrip.className = plc.Q0_3_Trip ? 'pilot-lamp-dome lit-red' : 'pilot-lamp-dome';
+
+            // Text Labels Status Updates
+            const txtStop = document.getElementById('txtStopStatus');
+            const txtOlr = document.getElementById('txtOlrStatus');
+            const txtEstop = document.getElementById('txtEstopStatus');
+            if (txtStop) txtStop.textContent = plc.I0_1_Stop ? 'Normal (Closed Loop)' : 'ENGAGED (OPEN LOOP)';
+            if (txtOlr) txtOlr.textContent = plc.I0_2_OLR ? 'Healthy (Closed)' : 'TRIPPED OVERLOAD!';
+            if (txtEstop) txtEstop.textContent = plc.I0_3_EStop ? 'Armed (Ready)' : 'E-STOPPED (TRIPPED)';
+        }
+
+        // Live Timer Loop for TON_1
+        setInterval(() => {
+            if (plc.Q0_0_Km && plc.timerStartTime) {
+                const elapsed = Date.now() - plc.timerStartTime;
+                const total = plc.timerPresetMs;
+                const s = (Math.min(elapsed, total) / 1000).toFixed(1);
+                const maxS = (total / 1000).toFixed(1);
+                const label = document.getElementById('timerLabel');
+                if (label) {
+                    label.textContent = `ET: ${s}s / ${maxS}s`;
+                }
+                evaluateScan();
+            }
+        }, 80);
+
+        // Initial setup
+        switchButtonStyle('style1');
+    </script>
+</body>
+
+</html>

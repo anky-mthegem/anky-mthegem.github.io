@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/badge/License-MIT-lightgrey?style=for-the-badge)](LICENSE)
 
 > **Associate Manager — Projects & Automation**  
-> *Godrej & Boyce Mfg. Co. Ltd. | M.Tech (Digital Manufacturing, BITS Pilani) | B.Tech (Mechatronics)*
+> *Godrej & Boyce Mfg. Co. Ltd. | M.Tech (Digital Manufacturing, BITS Pilani) | B.Tech (Mechatronics, LPU)*
 
 ---
 

@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initIntersectionAnimations();
     initContactForm();
     initFloatingScrollPill();
+    initProjectFilters();
 });
 
 /* ==========================================================================
@@ -396,4 +397,50 @@ function initFloatingScrollPill() {
     updatePillState();
 }
 
+/* ==========================================================================
+   PROJECT CATEGORY FILTER TABS
+   ========================================================================== */
+function initProjectFilters() {
+    const filterSection = document.getElementById('projectsFilterSection');
+    if (!filterSection) return;
 
+    const filterBtns = filterSection.querySelectorAll('.project-filter-btn');
+    const projectCards = document.querySelectorAll('.projects-grid .project-card-large');
+    const statusText = document.getElementById('filterStatusText');
+
+    if (!filterBtns.length || !projectCards.length) return;
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filter = btn.getAttribute('data-filter') || 'all';
+
+            // Update active state
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            let visibleCount = 0;
+
+            projectCards.forEach(card => {
+                const category = card.getAttribute('data-category') || '';
+                const isMatch = filter === 'all' || category.split(' ').includes(filter);
+
+                if (isMatch) {
+                    card.classList.remove('filter-hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('filter-hidden');
+                }
+            });
+
+            // Update status text
+            if (statusText) {
+                const categoryName = btn.querySelector('span:first-child')?.textContent?.trim() || filter;
+                if (filter === 'all') {
+                    statusText.innerHTML = `Showing <strong>${visibleCount}</strong> engineering deployments across all disciplines`;
+                } else {
+                    statusText.innerHTML = `Showing <strong>${visibleCount}</strong> deployment${visibleCount === 1 ? '' : 's'} under <strong>${categoryName}</strong>`;
+                }
+            }
+        });
+    });
+}

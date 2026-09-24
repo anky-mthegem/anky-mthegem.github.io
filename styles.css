@@ -1469,6 +1469,107 @@ img {
     }
 }
 
+/* Category Filter Tabs Toolbar */
+.projects-filter-section {
+    margin: 10px 0 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+.projects-filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-sm);
+    max-width: 100%;
+}
+
+.project-filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    border-radius: var(--radius-full);
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-secondary);
+    font-family: var(--font-heading);
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+}
+
+.project-filter-btn:hover {
+    color: var(--primary);
+    background: rgba(99, 102, 241, 0.08);
+}
+
+.project-filter-btn.active {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+    border-color: transparent;
+}
+
+.project-filter-btn .filter-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    background: rgba(0, 0, 0, 0.08);
+    color: var(--text-primary);
+    transition: all var(--transition-fast);
+}
+
+[data-theme="dark"] .project-filter-btn .filter-count {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+}
+
+.project-filter-btn.active .filter-count {
+    background: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+}
+
+.filter-status-text {
+    font-size: 14px;
+    color: var(--text-muted);
+    font-weight: 500;
+    text-align: center;
+}
+
+.filter-status-text strong {
+    color: var(--primary);
+}
+
+@media (max-width: 680px) {
+    .projects-filter-bar {
+        border-radius: var(--radius-md);
+        padding: 8px 10px;
+        gap: 6px;
+        width: 100%;
+    }
+    .project-filter-btn {
+        padding: 6px 12px;
+        font-size: 12.5px;
+    }
+}
+
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -1483,7 +1584,13 @@ img {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    transition: all var(--transition-normal);
+    transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow var(--transition-normal);
+}
+
+.project-card-large.filter-hidden {
+    display: none !important;
+    opacity: 0;
+    transform: scale(0.95);
 }
 
 .project-card-large:hover {
@@ -2074,6 +2181,38 @@ img {
     transform: translateY(-2px);
 }
 
+.social-link-whatsapp:hover {
+    background: #25D366 !important;
+    border-color: #25D366 !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+}
+
+/* WhatsApp Direct Action Button */
+.btn-whatsapp-direct {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 8px;
+    padding: 7px 15px;
+    border-radius: var(--radius-full);
+    background: #25D366;
+    color: #ffffff !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    text-decoration: none;
+    box-shadow: 0 3px 10px rgba(37, 211, 102, 0.28);
+    transition: all var(--transition-fast);
+    width: fit-content;
+}
+
+.btn-whatsapp-direct:hover {
+    background: #20ba5a;
+    color: #ffffff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(37, 211, 102, 0.45);
+}
+
 /* Contact Form */
 .contact-form-card {
     background: var(--bg-surface);
@@ -2226,6 +2365,12 @@ textarea.form-control {
     background: var(--primary);
     transform: translateY(-2px);
     color: #ffffff;
+}
+
+.footer-social-link.footer-whatsapp:hover {
+    background: #25D366;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
 }
 
 .footer-bottom {

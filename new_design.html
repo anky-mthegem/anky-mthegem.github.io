@@ -8,10 +8,14 @@
     <meta name="author" content="Amandeep Singh">
     <title>Harley-Davidson X440 S | New Design Showcase</title>
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts Fast Non-Blocking Preconnect & Preload -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+    </noscript>
 
     <!-- Favicon & Stylesheet -->
     <link rel="icon" type="image/png" href="profile_logo.png">
@@ -708,7 +712,10 @@
     <nav class="navbar" aria-label="Main Navigation">
         <div class="nav-container">
             <a href="index.html" class="logo">
-                <img src="profile_logo.png" alt="Amandeep Singh" class="logo-img" width="40" height="40" style="width:40px;height:40px;max-width:40px;max-height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;">
+                <picture>
+                    <source srcset="profile_logo.webp" type="image/webp">
+                    <img src="profile_logo.png" alt="Amandeep Singh" class="logo-img" width="40" height="40" style="width:40px;height:40px;max-width:40px;max-height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;">
+                </picture>
                 <span class="logo-text">Amandeep Singh</span>
             </a>
             <ul class="nav-menu">
@@ -1256,7 +1263,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="script.js?v=3.4"></script>
+    <script src="script.js?v=3.6" defer></script>
 
     <!-- Page Specific Interactive Scripts -->
     <script>

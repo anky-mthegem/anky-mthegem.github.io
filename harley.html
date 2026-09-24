@@ -8,10 +8,17 @@
     <meta name="author" content="Amandeep Singh">
     <title>Harley-Davidson X440 S | Amandeep Singh Portfolio</title>
 
-    <!-- Google Fonts -->
+    <!-- Preload Critical LCP Hero Image -->
+    <link rel="preload" as="image" href="amandeep_harley_rider.webp" type="image/webp" fetchpriority="high">
+
+    <!-- Google Fonts Non-Blocking Optimization -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon & Stylesheet with Cache-Buster -->
     <link rel="icon" type="image/png" href="profile_logo.png">
@@ -22,7 +29,10 @@
     <nav class="navbar" aria-label="Main Navigation">
         <div class="nav-container">
             <a href="index.html" class="logo">
-                <img src="profile_logo.png" alt="Amandeep Singh" class="logo-img" width="40" height="40" style="width:40px;height:40px;max-width:40px;max-height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;">
+                <picture>
+                    <source srcset="profile_logo.webp" type="image/webp">
+                    <img src="profile_logo.png" alt="Amandeep Singh" class="logo-img" width="40" height="40" style="width:40px;height:40px;max-width:40px;max-height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;">
+                </picture>
                 <span class="logo-text">Amandeep Singh</span>
             </a>
             <ul class="nav-menu">
@@ -65,15 +75,24 @@
                 <div class="harley-hero-content">
                     <div class="harley-hero-badges-wrapper">
                         <div class="harley-badge-pill-hero">
-                            <img src="Harley_davidson_logo.jpg" alt="Harley-Davidson Official Logo" class="harley-hero-logo" />
+                            <picture>
+                                <source srcset="Harley_davidson_logo.webp" type="image/webp">
+                                <img src="Harley_davidson_logo.jpg" alt="Harley-Davidson Official Logo" class="harley-hero-logo" width="22" height="22" loading="eager" />
+                            </picture>
                             <span>Harley-Davidson X440 S</span>
                         </div>
                         <div class="harley-badge-pill-hero chapter-badge-pill">
-                            <img src="hog_grand_trunk_ludhiana.jpg" alt="Grand Trunk Chapter HOG" class="harley-hero-logo" />
+                            <picture>
+                                <source srcset="hog_grand_trunk_ludhiana.webp" type="image/webp">
+                                <img src="hog_grand_trunk_ludhiana.jpg" alt="Grand Trunk Chapter HOG" class="harley-hero-logo" width="22" height="22" loading="eager" />
+                            </picture>
                             <span>Grand Trunk Chapter • Ludhiana</span>
                         </div>
                         <div class="harley-badge-pill-hero punjab-badge-pill">
-                            <img src="harley_davidson_punjab_patch.jpg" alt="Harley Punjab Patch" class="harley-hero-logo" />
+                            <picture>
+                                <source srcset="harley_davidson_punjab_patch.webp" type="image/webp">
+                                <img src="harley_davidson_punjab_patch.jpg" alt="Harley Punjab Patch" class="harley-hero-logo" width="22" height="22" loading="eager" />
+                            </picture>
                             <span>Harley-Davidson Punjab</span>
                         </div>
                     </div>
@@ -105,13 +124,17 @@
                 <!-- Rider & Harley Machine Photo on Right Side -->
                 <div class="harley-hero-image-wrapper">
                     <div class="harley-hero-image-card">
-                        <img src="amandeep_harley_rider.jpg" 
-                             alt="Amandeep Singh with Harley-Davidson X440 S motorcycle" 
-                             class="harley-hero-rider-img" 
-                             width="767" 
-                             height="1024"
-                             fetchpriority="high"
-                             loading="eager" />
+                        <picture>
+                            <source srcset="amandeep_harley_rider.webp" type="image/webp">
+                            <img src="amandeep_harley_rider.jpg" 
+                                 alt="Amandeep Singh with Harley-Davidson X440 S motorcycle" 
+                                 class="harley-hero-rider-img" 
+                                 width="767" 
+                                 height="1024"
+                                 fetchpriority="high"
+                                 loading="eager"
+                                 decoding="async" />
+                        </picture>
                         <div class="harley-hero-image-caption">
                             <strong>Amandeep Singh</strong>
                             <span>Harley X440 S • H.O.G. Ludhiana</span>
@@ -138,7 +161,10 @@
                     <!-- Chapter Card 1: Grand Trunk Chapter Ludhiana -->
                     <div class="harley-chapter-card">
                         <div class="chapter-image-wrapper">
-                            <img src="hog_grand_trunk_ludhiana.jpg" alt="Grand Trunk Chapter Ludhiana Punjab - Harley Owners Group H.O.G." class="chapter-badge-img" />
+                            <picture>
+                                <source srcset="hog_grand_trunk_ludhiana.webp" type="image/webp">
+                                <img src="hog_grand_trunk_ludhiana.jpg" alt="Grand Trunk Chapter Ludhiana Punjab - Harley Owners Group H.O.G." class="chapter-badge-img" width="500" height="500" loading="lazy" decoding="async" />
+                            </picture>
                         </div>
                         <div class="chapter-card-body">
                             <span class="chapter-tag">Official H.O.G. Chapter</span>
@@ -158,7 +184,10 @@
                     <!-- Chapter Card 2: Harley-Davidson Punjab Insignia -->
                     <div class="harley-chapter-card">
                         <div class="chapter-image-wrapper">
-                            <img src="harley_davidson_punjab_patch.jpg" alt="Harley-Davidson Punjab Embroidered Crest with Lion &amp; Khanda" class="chapter-badge-img" />
+                            <picture>
+                                <source srcset="harley_davidson_punjab_patch.webp" type="image/webp">
+                                <img src="harley_davidson_punjab_patch.jpg" alt="Harley-Davidson Punjab Embroidered Crest with Lion &amp; Khanda" class="chapter-badge-img" width="460" height="422" loading="lazy" decoding="async" />
+                            </picture>
                         </div>
                         <div class="chapter-card-body">
                             <span class="chapter-tag">Regional Insignia</span>
@@ -210,8 +239,14 @@
                     <div class="harley-phil-card">
                         <div class="harley-card-inner">
                             <div class="phil-badges-row">
-                                <img src="hog_grand_trunk_ludhiana.jpg" alt="Grand Trunk Chapter" class="harley-phil-mini-badge" />
-                                <img src="harley_davidson_punjab_patch.jpg" alt="Punjab Patch" class="harley-phil-mini-badge" />
+                                <picture>
+                                    <source srcset="hog_grand_trunk_ludhiana.webp" type="image/webp">
+                                    <img src="hog_grand_trunk_ludhiana.jpg" alt="Grand Trunk Chapter" class="harley-phil-mini-badge" width="80" height="80" loading="lazy" decoding="async" />
+                                </picture>
+                                <picture>
+                                    <source srcset="harley_davidson_punjab_patch.webp" type="image/webp">
+                                    <img src="harley_davidson_punjab_patch.jpg" alt="Punjab Patch" class="harley-phil-mini-badge" width="80" height="80" loading="lazy" decoding="async" />
+                                </picture>
                             </div>
                             <h3>The Rider's Creed</h3>
                             <p class="harley-quote">
@@ -237,7 +272,7 @@
                 <!-- Featured HD-MUMBAI Video Player Container -->
                 <div class="harley-featured-video-card">
                     <div class="harley-video-frame">
-                        <video controls controlsList="nodownload" oncontextmenu="return false;" playsinline preload="metadata" class="harley-video-element" poster="Harley_davidson_logo.jpg">
+                        <video controls controlsList="nodownload" oncontextmenu="return false;" playsinline preload="none" loading="lazy" class="harley-video-element" poster="Harley_davidson_logo.webp">
                             <source src="HD-MUMBAI.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
@@ -249,7 +284,10 @@
                                 <h3>Harley-Davidson Ride &amp; Road Experience — Mumbai</h3>
                             </div>
                             <span class="harley-badge-pill" style="margin: 0; pointer-events: none;">
-                                <img src="hog_grand_trunk_ludhiana.jpg" alt="HOG Ludhiana" class="harley-thumb" style="width: 28px; height: 28px;" />
+                                <picture>
+                                    <source srcset="hog_grand_trunk_ludhiana.webp" type="image/webp">
+                                    <img src="hog_grand_trunk_ludhiana.jpg" alt="HOG Ludhiana" class="harley-thumb" style="width: 28px; height: 28px;" width="28" height="28" loading="lazy" decoding="async" />
+                                </picture>
                                 <div class="harley-badge-text">
                                     <span>Ride Edition</span>
                                     <strong>HD-MUMBAI</strong>
@@ -328,6 +366,6 @@
         </button>
     </div>
 
-    <script src="script.js?v=3.3"></script>
+    <script src="script.js?v=3.6" defer></script>
 </body>
 </html>

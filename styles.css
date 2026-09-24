@@ -90,6 +90,9 @@
 html {
     scroll-behavior: smooth;
     scroll-padding-top: 80px;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 body {
@@ -98,7 +101,10 @@ body {
     color: var(--text-primary);
     line-height: 1.65;
     transition: background-color var(--transition-normal), color var(--transition-normal);
+    width: 100%;
+    max-width: 100%;
     overflow-x: hidden;
+    position: relative;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -127,8 +133,10 @@ img {
 
 .container {
     max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
     padding: 0 24px;
+    box-sizing: border-box;
 }
 
 /* --- Header & Navigation --- */
@@ -2318,6 +2326,10 @@ textarea.form-control {
     background: radial-gradient(circle at 50% 20%, rgba(234, 88, 12, 0.15) 0%, rgba(15, 23, 42, 0) 70%), var(--hero-bg-gradient);
     position: relative;
     border-bottom: 1px solid var(--border-color);
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
 }
 
 .harley-hero-wrapper {
@@ -2326,13 +2338,19 @@ textarea.form-control {
     gap: 48px;
     align-items: center;
     max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 .harley-hero-wrapper .harley-hero-content {
     max-width: 100%;
+    width: 100%;
+    min-width: 0;
     margin: 0;
     text-align: left;
+    box-sizing: border-box;
 }
 
 .harley-hero-wrapper .harley-hero-badges-wrapper {
@@ -2348,6 +2366,10 @@ textarea.form-control {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 .harley-hero-image-card {
@@ -2359,6 +2381,7 @@ textarea.form-control {
     border: 1px solid rgba(234, 88, 12, 0.4);
     max-width: 440px;
     width: 100%;
+    box-sizing: border-box;
     transition: transform var(--transition-normal), box-shadow var(--transition-normal);
 }
 
@@ -2400,25 +2423,24 @@ textarea.form-control {
 
 .harley-hero-content {
     max-width: 900px;
+    width: 100%;
+    min-width: 0;
     margin: 0 auto;
     text-align: center;
+    box-sizing: border-box;
 }
 
 .harley-hero-badges-wrapper {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     gap: 8px;
     margin-bottom: 24px;
+    width: 100%;
     max-width: 100%;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-.harley-hero-badges-wrapper::-webkit-scrollbar {
-    display: none;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 .chapter-badge-pill {
@@ -2448,6 +2470,7 @@ textarea.form-control {
     box-shadow: 0 4px 16px rgba(234, 88, 12, 0.15);
     white-space: nowrap;
     flex-shrink: 0;
+    box-sizing: border-box;
 }
 
 .harley-hero-logo {
@@ -2465,6 +2488,7 @@ textarea.form-control {
     line-height: 1.15;
     margin-bottom: 18px;
     letter-spacing: -0.5px;
+    word-break: break-word;
 }
 
 .harley-hero-subtitle {
@@ -2473,8 +2497,10 @@ textarea.form-control {
     line-height: 1.6;
     margin-bottom: 36px;
     max-width: 760px;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
+    box-sizing: border-box;
 }
 
 .harley-quick-stats {
@@ -2482,6 +2508,9 @@ textarea.form-control {
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
     margin-top: 24px;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 .harley-stat-card {
@@ -2491,6 +2520,8 @@ textarea.form-control {
     border-radius: var(--radius-md);
     padding: 20px 16px;
     text-align: center;
+    min-width: 0;
+    box-sizing: border-box;
     transition: transform var(--transition-fast), border-color var(--transition-fast);
 }
 
@@ -3029,14 +3060,19 @@ body:has(.harley-hero) .floating-pill-btn:hover .floating-pill-label,
     .harley-hero-wrapper {
         grid-template-columns: 1fr;
         gap: 36px;
+        width: 100%;
+        min-width: 0;
     }
 
     .harley-hero-wrapper .harley-hero-content {
         text-align: center;
+        width: 100%;
+        min-width: 0;
     }
 
     .harley-hero-wrapper .harley-hero-badges-wrapper {
         justify-content: center;
+        width: 100%;
     }
 
     .harley-hero-wrapper .harley-hero-subtitle {
@@ -3046,7 +3082,9 @@ body:has(.harley-hero) .floating-pill-btn:hover .floating-pill-label,
 
     .harley-hero-image-wrapper {
         max-width: 420px;
+        width: 100%;
         margin: 0 auto;
+        min-width: 0;
     }
 
     .cta-box {
@@ -3292,36 +3330,96 @@ body:has(.harley-hero) .floating-pill-btn:hover .floating-pill-label,
         padding-left: 38px;
     }
 
-    .harley-quick-stats {
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
+    .harley-hero {
+        padding: 95px 16px 45px;
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
     }
 
-    .harley-stat-card {
-        padding: 14px 10px;
+    .harley-hero-wrapper {
+        gap: 28px;
+        width: 100%;
     }
 
-    .harley-stat-val {
-        font-size: 20px;
-    }
-
-    /* Keep Harley badges strictly horizontal across all devices */
     .harley-hero-badges-wrapper {
         display: flex;
         flex-direction: row;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         align-items: center;
-        justify-content: flex-start;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        -ms-overflow-style: none;
+        justify-content: center;
         gap: 8px;
-        padding-bottom: 4px;
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 20px;
     }
 
-    .harley-hero-badges-wrapper::-webkit-scrollbar {
-        display: none;
+    .harley-badge-pill-hero {
+        font-size: 11px;
+        padding: 4px 10px 4px 6px;
+        gap: 6px;
+        max-width: 100%;
+    }
+
+    .harley-hero-logo {
+        width: 20px;
+        height: 20px;
+    }
+
+    .harley-hero-title {
+        font-size: clamp(22px, 6.8vw, 29px);
+        margin-bottom: 14px;
+        line-height: 1.22;
+        word-break: break-word;
+    }
+
+    .harley-hero-subtitle {
+        font-size: 14px;
+        line-height: 1.55;
+        margin-bottom: 24px;
+    }
+
+    .harley-quick-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .harley-stat-card {
+        padding: 12px 8px;
+        min-width: 0;
+    }
+
+    .harley-stat-val {
+        font-size: 18px;
+    }
+
+    .harley-stat-lbl {
+        font-size: 11px;
+    }
+
+    .harley-hero-image-wrapper {
+        max-width: 100%;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .harley-hero-image-card {
+        max-width: 360px;
+        width: 100%;
+        padding: 6px;
+        border-radius: 16px;
+        margin: 0 auto;
+    }
+
+    .harley-hero-rider-img {
+        max-height: 440px;
+        border-radius: 12px;
+    }
+
+    .harley-hero-image-caption {
+        font-size: 11px;
+        padding: 6px 8px;
     }
 
     .chapter-image-wrapper {
@@ -3395,6 +3493,41 @@ body:has(.harley-hero) .floating-pill-btn:hover .floating-pill-label,
 
     .hero {
         padding: 75px 12px 40px;
+    }
+
+    .harley-hero {
+        padding: 85px 12px 35px;
+    }
+
+    .harley-badge-pill-hero {
+        font-size: 10px;
+        padding: 3px 8px 3px 5px;
+        gap: 5px;
+    }
+
+    .harley-hero-logo {
+        width: 18px;
+        height: 18px;
+    }
+
+    .harley-hero-title {
+        font-size: 21px;
+    }
+
+    .harley-hero-subtitle {
+        font-size: 13px;
+    }
+
+    .harley-stat-card {
+        padding: 10px 6px;
+    }
+
+    .harley-stat-val {
+        font-size: 16px;
+    }
+
+    .harley-stat-lbl {
+        font-size: 10px;
     }
 
     .timeline-item {

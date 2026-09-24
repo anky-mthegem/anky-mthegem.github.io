@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=3.3">
+    <link rel="stylesheet" href="styles.css?v=3.5">
 
     <style>
         /* ==========================================================================
@@ -797,6 +797,48 @@
         @media (max-width: 1024px) {
             .sim-main-grid {
                 grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sim-stage {
+                padding: 30px 16px 60px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sim-stage {
+                padding: 20px 10px 50px;
+            }
+            .sim-panel {
+                padding: 14px 12px;
+            }
+            .sim-cpu-header {
+                gap: 10px;
+            }
+            .sim-led-strip {
+                gap: 10px;
+                font-size: 11px;
+            }
+            .ind-pb-card {
+                padding: 8px 10px;
+            }
+            .pb-22mm-wrapper {
+                width: 46px;
+                height: 46px;
+            }
+            .pb-22mm-bezel {
+                width: 44px;
+                height: 44px;
+            }
+            .pb-22mm-well {
+                width: 36px;
+                height: 36px;
+            }
+            .pb-22mm-actuator {
+                width: 30px;
+                height: 30px;
+                font-size: 11px;
             }
         }
     </style>

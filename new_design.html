@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Harley-Davidson X440 S — Enhanced Design Showcase featuring Amandeep Singh, motorcycle telemetry, interactive audio, and touring chronicle.">
+    <meta name="keywords" content="Harley Davidson X440, Harley X440s, Amandeep Singh, Motorcycle Touring, Mechatronics, BITS Pilani, Motorcycling, Ludhiana Punjab">
+    <meta name="author" content="Amandeep Singh">
+    <title>Harley-Davidson X440 S | New Design Showcase</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- Favicon & Stylesheet -->
+    <link rel="icon" type="image/png" href="profile_logo.png">
+    <link rel="stylesheet" href="styles.css?v=3.5">
+
+    <!-- Enhanced Design Custom Styles -->
+    <style>
+        :root {
+            --hd-orange: #ea580c;
+            --hd-orange-bright: #ff6a00;
+            --hd-orange-glow: rgba(234, 88, 12, 0.4);
+            --hd-dark: #080a0f;
+            --hd-card-bg: rgba(15, 23, 42, 0.85);
+            --hd-card-border: rgba(234, 88, 12, 0.28);
+        }
+
+        /* Top Design Preview Action Bar */
+        .design-preview-bar {
+            position: sticky;
+            top: 0;
+            z-index: 1100;
+            background: rgba(8, 10, 15, 0.94);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--hd-orange);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 25px rgba(234, 88, 12, 0.2);
+            padding: 10px 20px;
+        }
+
+        .design-preview-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .design-preview-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ffffff;
+            font-family: var(--font-heading);
+            font-size: 13.5px;
+            font-weight: 700;
+        }
+
+        .design-preview-badge {
+            background: linear-gradient(135deg, #ea580c, #f97316);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 3px 10px;
+            border-radius: var(--radius-full);
+            box-shadow: 0 0 12px rgba(234, 88, 12, 0.5);
+        }
+
+        .design-preview-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-live-harley {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: #ea580c;
+            border: 1px solid rgba(234, 88, 12, 0.45);
+            background: rgba(234, 88, 12, 0.08);
+            padding: 6px 14px;
+            border-radius: var(--radius-full);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-live-harley:hover {
+            background: #ea580c;
+            color: #ffffff;
+            box-shadow: 0 0 16px rgba(234, 88, 12, 0.5);
+            transform: translateY(-1px);
+        }
+
+        /* Hero Section Enhanced */
+        .new-harley-hero {
+            padding: 70px 24px 70px;
+            background: radial-gradient(circle at 75% 25%, rgba(234, 88, 12, 0.2) 0%, rgba(8, 10, 15, 0.98) 75%), var(--hd-dark);
+            position: relative;
+            border-bottom: 1px solid var(--hd-card-border);
+            overflow: hidden;
+        }
+
+        .new-hero-grid {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .new-hero-text {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .new-hero-badges {
+            display: flex;
+            align-items: center;
+            flex-wrap: nowrap;
+            gap: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .new-hero-badges::-webkit-scrollbar {
+            display: none;
+        }
+
+        .new-hero-title {
+            font-family: var(--font-heading);
+            font-size: clamp(32px, 4.4vw, 54px);
+            font-weight: 900;
+            color: #ffffff;
+            line-height: 1.12;
+            letter-spacing: -0.8px;
+            margin: 0;
+        }
+
+        .new-hero-title .glow-accent {
+            background: linear-gradient(135deg, #ff7a18 0%, #ea580c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 35px rgba(234, 88, 12, 0.45);
+        }
+
+        .new-hero-subtitle {
+            font-size: clamp(15px, 1.8vw, 17px);
+            color: #cbd5e1;
+            line-height: 1.65;
+            max-width: 640px;
+            margin: 0;
+        }
+
+        /* Hero Action Buttons */
+        .new-hero-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+
+        .btn-rev-engine {
+            background: linear-gradient(135deg, #ea580c, #c2410c);
+            color: #ffffff;
+            border: none;
+            padding: 12px 22px;
+            border-radius: var(--radius-full);
+            font-family: var(--font-heading);
+            font-size: 13.5px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 8px 24px rgba(234, 88, 12, 0.4);
+            transition: all 0.25s ease;
+        }
+
+        .btn-rev-engine:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(234, 88, 12, 0.6);
+        }
+
+        .btn-rev-engine.is-revving {
+            animation: pulseOrange 0.4s infinite alternate;
+        }
+
+        @keyframes pulseOrange {
+            from { box-shadow: 0 0 12px rgba(234, 88, 12, 0.4); }
+            to { box-shadow: 0 0 32px rgba(255, 106, 0, 0.9); }
+        }
+
+        .btn-jump-telem {
+            background: rgba(255, 255, 255, 0.06);
+            color: #f1f5f9;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 12px 20px;
+            border-radius: var(--radius-full);
+            font-family: var(--font-heading);
+            font-size: 13.5px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.25s ease;
+        }
+
+        .btn-jump-telem:hover {
+            background: rgba(234, 88, 12, 0.15);
+            border-color: #ea580c;
+            color: #ffffff;
+        }
+
+        /* Right Column: Hero Photo & Photo Switcher */
+        .new-hero-photo-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+
+        /* Photo Mode Selector Toolbar */
+        .photo-mode-bar {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            padding: 4px;
+            border-radius: var(--radius-full);
+            border: 1px solid rgba(234, 88, 12, 0.3);
+            max-width: 440px;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .photo-mode-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-family: var(--font-heading);
+            font-size: 11.5px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            flex: 1;
+            text-align: center;
+        }
+
+        .photo-mode-btn:hover {
+            color: #ffffff;
+            background: rgba(234, 88, 12, 0.12);
+        }
+
+        .photo-mode-btn.active {
+            background: #ea580c;
+            color: #ffffff;
+            box-shadow: 0 0 12px rgba(234, 88, 12, 0.5);
+        }
+
+        /* HUD Frame for Photo */
+        .photo-hud-frame {
+            position: relative;
+            max-width: 440px;
+            width: 100%;
+            border-radius: 20px;
+            padding: 8px;
+            background: linear-gradient(145deg, rgba(234, 88, 12, 0.45), rgba(15, 23, 42, 0.75) 45%, rgba(234, 88, 12, 0.25));
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 35px rgba(234, 88, 12, 0.25);
+            border: 1px solid rgba(234, 88, 12, 0.4);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .photo-hud-frame:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 45px rgba(234, 88, 12, 0.35);
+        }
+
+        .photo-hud-inner {
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #000000;
+            aspect-ratio: 3 / 4;
+        }
+
+        .photo-hud-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 30%;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+        }
+
+        .photo-hud-frame:hover .photo-hud-img {
+            transform: scale(1.03);
+        }
+
+        /* HUD Overlays */
+        .hud-corner {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-color: #ea580c;
+            pointer-events: none;
+        }
+        .hud-corner.tl { top: -2px; left: -2px; border-top: 2px solid; border-left: 2px solid; }
+        .hud-corner.tr { top: -2px; right: -2px; border-top: 2px solid; border-right: 2px solid; }
+        .hud-corner.bl { bottom: -2px; left: -2px; border-bottom: 2px solid; border-left: 2px solid; }
+        .hud-corner.br { bottom: -2px; right: -2px; border-bottom: 2px solid; border-right: 2px solid; }
+
+        .hud-tag-top {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            right: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            pointer-events: none;
+        }
+
+        .hud-tag-pill {
+            background: rgba(8, 10, 15, 0.88);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(234, 88, 12, 0.45);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .hud-live-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+            box-shadow: 0 0 8px #22c55e;
+            animation: radarPing 1.6s infinite;
+        }
+
+        @keyframes radarPing {
+            0% { transform: scale(0.9); opacity: 0.8; }
+            50% { transform: scale(1.3); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.8; }
+        }
+
+        .hud-tag-bottom {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            right: 12px;
+            background: rgba(8, 10, 15, 0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(234, 88, 12, 0.35);
+            border-radius: 10px;
+            padding: 10px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .photo-mode-indicator {
+            font-size: 11px;
+            color: #ea580c;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        /* Telemetry Interactive Console Section */
+        .telem-section {
+            padding: 70px 0 50px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .telem-tabs-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .telem-tab-btn {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+            padding: 9px 18px;
+            border-radius: var(--radius-full);
+            font-family: var(--font-heading);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .telem-tab-btn:hover {
+            border-color: rgba(234, 88, 12, 0.5);
+            color: #ffffff;
+        }
+
+        .telem-tab-btn.active {
+            background: rgba(234, 88, 12, 0.18);
+            border-color: #ea580c;
+            color: #fb923c;
+            box-shadow: 0 0 20px rgba(234, 88, 12, 0.25);
+        }
+
+        .telem-pane-view {
+            display: none;
+            background: var(--bg-surface);
+            border: 1px solid rgba(234, 88, 12, 0.25);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            box-shadow: var(--shadow-lg);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .telem-pane-view.active {
+            display: block;
+        }
+
+        .telem-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .telem-card-item {
+            background: rgba(9, 11, 16, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 18px 20px;
+            transition: all 0.25s ease;
+        }
+
+        .telem-card-item:hover {
+            border-color: rgba(234, 88, 12, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .telem-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #94a3b8;
+            margin-bottom: 6px;
+        }
+
+        .telem-card-val {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .telem-card-desc {
+            font-size: 13px;
+            color: #94a3b8;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Touring Routes Section */
+        .routes-section {
+            padding: 60px 0 20px;
+        }
+
+        .routes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-top: 30px;
+        }
+
+        .route-card {
+            background: var(--bg-surface);
+            border: 1px solid rgba(234, 88, 12, 0.25);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .route-card:hover {
+            transform: translateY(-4px);
+            border-color: #ea580c;
+            box-shadow: 0 16px 36px rgba(234, 88, 12, 0.15);
+        }
+
+        .route-tag {
+            font-size: 11px;
+            font-weight: 800;
+            color: #ea580c;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .route-title {
+            font-family: var(--font-heading);
+            font-size: 19px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .route-desc {
+            font-size: 13.5px;
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+
+        .route-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        /* Lightbox Modal */
+        .photo-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.94);
+            z-index: 2000;
+            backdrop-filter: blur(16px);
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .photo-modal-overlay.open {
+            display: flex;
+        }
+
+        .photo-modal-inner {
+            position: relative;
+            max-width: 860px;
+            width: 100%;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .photo-modal-img {
+            max-width: 100%;
+            max-height: 78vh;
+            object-fit: contain;
+            border-radius: 14px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
+            border: 1px solid rgba(234, 88, 12, 0.4);
+        }
+
+        .photo-modal-close-btn {
+            position: absolute;
+            top: -46px;
+            right: 0;
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            color: #ffffff;
+            font-size: 26px;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .photo-modal-close-btn:hover {
+            background: #ea580c;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 1024px) {
+            .new-hero-grid {
+                grid-template-columns: 1fr;
+                gap: 36px;
+            }
+            .new-hero-text {
+                text-align: center;
+            }
+            .new-hero-badges {
+                justify-content: center;
+            }
+            .new-hero-subtitle {
+                margin: 0 auto;
+            }
+            .new-hero-actions {
+                justify-content: center;
+            }
+            .photo-hud-frame {
+                max-width: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .design-preview-inner {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .design-preview-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .routes-grid {
+                grid-template-columns: 1fr;
+            }
+            .telem-tabs-nav {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                padding-bottom: 4px;
+            }
+            .sound-console-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .new-harley-hero {
+                padding: 40px 14px 50px;
+            }
+            .new-hero-badges {
+                display: flex !important;
+                flex-direction: row !important;
+                flex-wrap: nowrap !important;
+                overflow-x: auto !important;
+                justify-content: flex-start !important;
+                padding-bottom: 4px;
+            }
+            .photo-switch-tabs {
+                flex-direction: column;
+                width: 100%;
+            }
+            .photo-mode-tab {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Design Preview & Switcher Bar -->
+    <aside class="design-preview-bar" aria-label="Design Preview Navigation">
+        <div class="design-preview-inner">
+            <div class="design-preview-title">
+                <span class="design-preview-badge">Design Preview</span>
+                <span>Harley-Davidson X440 S Showcase — Enhanced Layout</span>
+            </div>
+
+            <div class="design-preview-actions">
+                <a href="harley.html" class="btn-live-harley" title="View standard Harley page">
+                    <span>← Return to Live harley.html</span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Navigation -->
+    <nav class="navbar" aria-label="Main Navigation">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="profile_logo.png" alt="Amandeep Singh" class="logo-img" width="40" height="40" style="width:40px;height:40px;max-width:40px;max-height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;">
+                <span class="logo-text">Amandeep Singh</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="experience.html" class="nav-link">Experience</a></li>
+                <li class="nav-item-plc">
+                    <a href="plc.html" class="nav-plc-badge-btn" title="Launch Siemens S7-1200 PLC Simulator" aria-label="PLC Simulator">
+                        <span class="plc-nav-text">PLC</span>
+                        <span class="plc-nav-led"></span>
+                    </a>
+                </li>
+                <li><a href="projects.html" class="nav-link">Projects</a></li>
+                <li><a href="skills.html" class="nav-link">Skills</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="harley.html" class="nav-link active" style="color: #ea580c; font-weight: 700;">Harley X440 S</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle light/dark theme">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                <a href="Resume_Amandeep.pdf" download="Resume_Amandeep.pdf" class="btn-nav-resume" target="_blank" rel="noopener noreferrer">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    <span>Resume</span>
+                </a>
+                <button class="hamburger" aria-label="Open navigation menu" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Enhanced Harley Page Hero -->
+    <header class="new-harley-hero">
+        <div class="new-hero-grid">
+            <div class="new-hero-text">
+                <div class="new-hero-badges">
+                    <div class="harley-badge-pill-hero">
+                        <img src="Harley_davidson_logo.jpg" alt="Harley-Davidson Official Logo" class="harley-hero-logo" />
+                        <span>Harley-Davidson X440 S</span>
+                    </div>
+                    <div class="harley-badge-pill-hero chapter-badge-pill">
+                        <img src="hog_grand_trunk_ludhiana.jpg" alt="Grand Trunk Chapter HOG" class="harley-hero-logo" />
+                        <span>Grand Trunk Chapter • Ludhiana</span>
+                    </div>
+                    <div class="harley-badge-pill-hero punjab-badge-pill">
+                        <img src="harley_davidson_punjab_patch.jpg" alt="Harley Punjab Patch" class="harley-hero-logo" />
+                        <span>Punjab Insignia</span>
+                    </div>
+                </div>
+
+                <h1 class="new-hero-title">
+                    The Machine, <span class="glow-accent">The Ride</span> &amp; The Open Road
+                </h1>
+
+                <p class="new-hero-subtitle">
+                    Where mechanical precision, mechatronics intuition, and the thunderous pulse of a 440cc single-cylinder converge. Navigating northern corridors, night highway runs, and alpine passes with Amandeep Singh.
+                </p>
+
+                <!-- Quick Stats Ribbon -->
+                <div class="harley-quick-stats" style="margin-top: 6px;">
+                    <div class="harley-stat-card">
+                        <span class="harley-stat-val">440 cc</span>
+                        <span class="harley-stat-lbl">Single-Cylinder Oil-Cooled</span>
+                    </div>
+                    <div class="harley-stat-card">
+                        <span class="harley-stat-val">38 Nm</span>
+                        <span class="harley-stat-lbl">Peak Torque @ 4,000 RPM</span>
+                    </div>
+                    <div class="harley-stat-card">
+                        <span class="harley-stat-val">KYB 43mm</span>
+                        <span class="harley-stat-lbl">Inverted USD Cartridge Forks</span>
+                    </div>
+                    <div class="harley-stat-card">
+                        <span class="harley-stat-val">Dual ABS</span>
+                        <span class="harley-stat-lbl">ByBre Braking System</span>
+                    </div>
+                </div>
+
+                <!-- Interactive Hero Actions -->
+                <div class="new-hero-actions">
+                    <button type="button" class="btn-rev-engine" id="revAudioBtn" aria-label="Fire up engine acoustic rumble">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                        <span id="revAudioText">Fire Up 440cc Exhaust Sound</span>
+                    </button>
+                    <a href="#telemetrySection" class="btn-jump-telem">
+                        <span>Explore Specs &amp; Telemetry ↓</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Column: Hero Photo & Photo Variation Switcher -->
+            <div class="new-hero-photo-col">
+                <!-- Live Photo Enhancement Switcher -->
+                <div class="photo-mode-bar" role="group" aria-label="Photo Background Enhancements">
+                    <button type="button" class="photo-mode-btn" data-img="amandeep_harley_rider.jpg" data-mode="Original Night Pitstop" title="Original authentic night pit stop photo">
+                        📸 Original
+                    </button>
+                    <button type="button" class="photo-mode-btn active" data-img="amandeep_harley_cinematic.jpg" data-mode="Cinematic Vignette (Canopy Dimmed)" title="Cinematic color grade with dimmed overhead lighting">
+                        🎬 Cinematic
+                    </button>
+                    <button type="button" class="photo-mode-btn" data-img="amandeep_harley_dark_studio.jpg" data-mode="Dark Studio Spotlight" title="Dark custom focus with warm ground glow">
+                        🔥 Dark Studio
+                    </button>
+                </div>
+
+                <!-- Photo HUD Frame -->
+                <div class="photo-hud-frame" id="heroPhotoTrigger" title="Click to view full-resolution photo">
+                    <div class="hud-corner tl"></div>
+                    <div class="hud-corner tr"></div>
+                    <div class="hud-corner bl"></div>
+                    <div class="hud-corner br"></div>
+
+                    <div class="photo-hud-inner">
+                        <img src="amandeep_harley_cinematic.jpg" 
+                             alt="Amandeep Singh standing beside his black Harley-Davidson X440 S motorcycle on a night highway pitstop" 
+                             class="photo-hud-img" 
+                             id="heroRiderImg"
+                             width="767" 
+                             height="1024"
+                             fetchpriority="high"
+                             loading="eager" />
+
+                        <!-- Top HUD Tag -->
+                        <div class="hud-tag-top">
+                            <div class="hud-tag-pill">
+                                <span class="hud-live-dot"></span>
+                                <span>NIGHT RIDE TELEMETRY</span>
+                            </div>
+                            <img src="Harley_davidson_logo.jpg" alt="Harley-Davidson Logo" class="harley-hero-logo" style="width: 30px; height: 30px; border-radius: 6px; background: #0f172a; padding: 2px;">
+                        </div>
+
+                        <!-- Bottom HUD Tag -->
+                        <div class="hud-tag-bottom">
+                            <div>
+                                <h4 style="color: #ffffff; font-size: 13.5px; font-weight: 800; margin: 0 0 2px; font-family: var(--font-heading);">Amandeep Singh</h4>
+                                <span style="color: #fb923c; font-size: 11px; font-weight: 600;">Harley X440 S Pilot • H.O.G. Ludhiana</span>
+                            </div>
+                            <span style="font-size: 11px; color: #94a3b8; font-family: 'JetBrains Mono', monospace;">🔍 Tap to Zoom</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Photo Mode Label -->
+                <div class="photo-mode-indicator" id="photoModeIndicator">
+                    Active Photo Mode: <strong>Cinematic Vignette (Canopy Dimmed)</strong>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="harley-page" id="harleyContent">
+        <div class="container">
+
+            <!-- Section 1: Interactive Telemetry & Engineering Specs Console -->
+            <section class="telem-section" id="telemetrySection">
+                <div class="section-header" style="text-align: center; margin-bottom: 32px;">
+                    <span class="section-tag" style="background: rgba(234, 88, 12, 0.12); color: #ea580c; border-color: rgba(234, 88, 12, 0.3);">Engineering Blueprint</span>
+                    <h2 class="section-title">Motorcycle Architecture &amp; Telemetry</h2>
+                    <p class="section-desc">Technical breakdown of the Harley-Davidson X440 S through the analytical lens of a mechatronics engineer.</p>
+                </div>
+
+                <!-- Tab Buttons -->
+                <div class="telem-tabs-row" role="tablist">
+                    <button type="button" class="telem-tab-btn active" data-tab="tabEngine">
+                        <span>⚡ Powertrain &amp; Dyno</span>
+                    </button>
+                    <button type="button" class="telem-tab-btn" data-tab="tabChassis">
+                        <span>🛡️ Suspension &amp; Kinematics</span>
+                    </button>
+                    <button type="button" class="telem-tab-btn" data-tab="tabCockpit">
+                        <span>📟 Cockpit &amp; Electronics</span>
+                    </button>
+                    <button type="button" class="telem-tab-btn" data-tab="tabErgo">
+                        <span>🧭 Touring Ergonomics</span>
+                    </button>
+                </div>
+
+                <!-- Tab 1: Powertrain & Dyno -->
+                <div class="telem-pane-view active" id="tabEngine">
+                    <div class="telem-cards-grid">
+                        <div class="telem-card-item">
+                            <div class="telem-card-header">Displacement &amp; Cycle <span>Single Cyl</span></div>
+                            <div class="telem-card-val">440 cc Long-Stroke</div>
+                            <p class="telem-card-desc">Single-cylinder, 2-valve, air-and-oil-cooled engine with dedicated auxiliary oil cooler radiator for thermal endurance on long highway tours.</p>
+                        </div>
+                        <div class="telem-card-item">
+                            <div class="telem-card-header">Peak Torque Output <span>Dyno Proven</span></div>
+                            <div class="telem-card-val">38 Nm @ 4,000 RPM</div>
+                            <p class="telem-card-desc">Flat, muscular torque curve with over 90% torque available from 2,000 RPM, delivering effortless passing speed and rich exhaust cadence.</p>
+                        </div>
+                        <div class="telem-card-item">
+                            <div class="telem-card-header">Maximum Power <span>Crank Output</span></div>
+                            <div class="telem-card-val">27 BHP @ 6,000 RPM</div>
+                            <p class="telem-card-desc">Linear power curve mapped specifically for unstrained cruising at 100–120 km/h with low engine stress and minimal vibration.</p>
+                        </div>
+                        <div class="telem-card-item">
+                            <div class="telem-card-header">Drivetrain &amp; Clutch <span>Transmission</span></div>
+                            <div class="telem-card-val">6-Speed Assist &amp; Slipper</div>
+                            <p class="telem-card-desc">Feather-light clutch effort reduces city fatigue; integrated slipper mechanism prevents rear-wheel hopping during aggressive downshifts.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Suspension & Kinematics -->
+                <div class="telem-pane-view" id="tabChassis">
+                    <div class="telem-cards-grid">
+                        <div class="telem-card-item">
+                            <div class="telem-card-header">Front Suspension <span>KYB Cartridge</span></div>
+                            <div class="telem-card-val">43mm USD Inverted Forks</div>
+                            <p class="telem-card-desc">Substantial 43mm upside-down cartridge forks minimize unsprung weight, providing rigid chassis tracking and precise front-end cornering bite.</p>
+                        </div>
+                        <div class="telem-card-item">
+                            <div class="telem-card-header">Rear Suspension <span>Twin Shock</span></div>
+                            <div class="telem-card-val">Gas-Charged 7-Step Preload</div>
+                            <p class="telem-card-desc">Twin gas-pressurized shock absorbers with 7 preload adjustments accommodating solo riding or fully loaded touring panniers.</p>
+                        </div>
+                        <div class="telem-card-item">
+                            <div class="telem-card-header">Braking Hardware <span>ByBre Brembo</span></div>
+                            <div class="telem-card-val">320mm Front / 240mm Rear</div>
+                            <p class="telem-card-desc">Large 320mm front rotor actuated by ByBre calipers and managed by dual-channel ABS for immediate, predictable deceleration.</p>
+                        </div>
+                        <div class="telem-card-item">
+                            <div class="telem-card-header">Frame Architecture <span>Backbone</span></div>
+                            <div class="telem-card-val">Steel Trellis Frame</div>
+                            <p class="telem-card-desc">High-tensile tubular steel chassis with the engine serving as a stressed structural member for low center of gravity and high torsional rigidity.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 3: Cockpit & Electronics -->
+                <div class="telem-pane-view" id="tabCockpit">
+                    <div class="telem-cards-grid">
+                        <div class="telem-card-item">
+                            <div class="telem-card-header">Instrumentation <span>Digital Display</span></div>
+                            <div class="telem-card-val">3.5" Circular Color TFT</div>
+                            <p class="telem-card-desc">High-contrast circular TFT with ambient light sensing, real-time speed, tachometer needle animation, gear indicator, and trip telemetry.</p>
+                        </div>
+                        <div class="telem-card-item">
+                            <div class="telem-card-header">Connected Telematics <span>Bluetooth BLE</span></div>
+                            <div class="telem-card-val">Turn-by-Turn Navigation</div>
+                            <p class="telem-card-desc">Displays real-time navigation directions, incoming caller ID, music playback status, and phone battery percentage directly on screen.</p>
+                        </div>
+                        <div class="telem-card-item">
+                            <div class="telem-card-header">Lighting System <span>Signature LED</span></div>
+                            <div class="telem-card-val">Projector Headlamp &amp; DRL Ring</div>
+                            <p class="telem-card-desc">Signature horizontal chrome-trimmed bar with dual LED projectors and full-perimeter daytime running halo for exceptional night vision.</p>
+                        </div>
+                        <div class="telem-card-item">
+                            <div class="telem-card-header">Safety Telemetry <span>Electronic</span></div>
+                            <div class="telem-card-val">Dual-Channel ABS System</div>
+                            <p class="telem-card-desc">Continuous wheel-speed sensors feeding real-time slip calculations to modulate brake line pressure and prevent wheel locking.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 4: Touring Ergonomics -->
+                <div class="telem-pane-view" id="tabErgo">
+                    <div class="telem-cards-grid">
+                        <div class="telem-card-item">
+                            <div class="telem-card-header">Fuel Range <span>Touring Tank</span></div>
+                            <div class="telem-card-val">13.5 Liters (~450 km Range)</div>
+                            <p class="telem-card-desc">Classic sculpted teardrop steel tank with internal fuel anti-surge baffles delivering 400 to 450 km of highway range between pitstops.</p>
+                        </div>
+                        <div class="telem-card-item">
+                            <div class="telem-card-header">Saddle Ergonomics <span>Rider Comfort</span></div>
+                            <div class="telem-card-val">805 mm Seat Height</div>
+                            <p class="telem-card-desc">Contoured touring saddle with mid-set foot controls and wide flat-tracker handlebars ensuring upright posture and minimal back strain.</p>
+                        </div>
+                        <div class="telem-card-item">
+                            <div class="telem-card-header">Underside Clearance <span>Terrain Stance</span></div>
+                            <div class="telem-card-val">170 mm Ground Clearance</div>
+                            <p class="telem-card-desc">Generous clearance allowing confident traversal over rough bypass detours, speed humps, and unpaved mountain roads.</p>
+                        </div>
+                        <div class="telem-card-item">
+                            <div class="telem-card-header">Wheelbase &amp; Geometry <span>Highway Composure</span></div>
+                            <div class="telem-card-val">1,418 mm Wheelbase</div>
+                            <p class="telem-card-desc">Generous straight-line wheelbase ensuring reassuring crosswind stability at expressway speeds and steady tracking through highway sweepers.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: Northern Touring Circuits Log -->
+            <section class="routes-section">
+                <div class="section-header" style="text-align: center; margin-bottom: 24px;">
+                    <span class="section-tag" style="background: rgba(234, 88, 12, 0.12); color: #ea580c; border-color: rgba(234, 88, 12, 0.3);">Touring Itineraries</span>
+                    <h2 class="section-title">Northern Highway &amp; Alpine Corridors</h2>
+                    <p class="section-desc">Selected touring circuits and open-road routes explored on the Harley-Davidson X440 S.</p>
+                </div>
+
+                <div class="routes-grid">
+                    <div class="route-card">
+                        <span class="route-tag">Route 01 • Foothills Run</span>
+                        <h3 class="route-title">Ludhiana → Ropar → Anandpur Sahib</h3>
+                        <p class="route-desc">165 km circuit winding toward the Shivalik foothills. Smooth tarmac curves highlighting the precise feedback and torsional stiffness of the 43mm inverted USD forks.</p>
+                        <div class="route-pills">
+                            <span class="harley-pill">165 km</span>
+                            <span class="harley-pill">Shivalik Foothills</span>
+                            <span class="harley-pill">Chassis Dynamics</span>
+                        </div>
+                    </div>
+
+                    <div class="route-card">
+                        <span class="route-tag">Route 02 • Heritage Expressway</span>
+                        <h3 class="route-title">Grand Trunk Corridor (Ludhiana — Amritsar)</h3>
+                        <p class="route-desc">The historic NH44 / GT Road expressway. Pure high-speed stability testing the 6-speed overdrive ratio, long-stroke torque resilience, and night visibility.</p>
+                        <div class="route-pills">
+                            <span class="harley-pill">140 km</span>
+                            <span class="harley-pill">GT Road NH44</span>
+                            <span class="harley-pill">Night Highway Run</span>
+                        </div>
+                    </div>
+
+                    <div class="route-card">
+                        <span class="route-tag">Route 03 • Coastal Tour</span>
+                        <h3 class="route-title">Mumbai Coastal Run (HD-MUMBAI)</h3>
+                        <p class="route-desc">Featured in the documentary ride video below. Ocean-breeze expressway ride testing thermal oil cooling, throttle response, and urban-to-highway cruising transitions.</p>
+                        <div class="route-pills">
+                            <span class="harley-pill">Video Reel</span>
+                            <span class="harley-pill">Coastal Route</span>
+                            <span class="harley-pill">Exhaust Acoustics</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Chapter Affiliation & Heritage Badges -->
+            <section class="harley-section" style="margin-top: 50px;">
+                <div class="section-header" style="text-align: center; margin-bottom: 36px;">
+                    <span class="section-tag" style="background: rgba(234, 88, 12, 0.12); color: #ea580c; border-color: rgba(234, 88, 12, 0.3);">Official Chapter &amp; Heritage</span>
+                    <h2 class="section-title">Grand Trunk Chapter • H.O.G. Ludhiana</h2>
+                    <p class="section-desc">Riding with pride in the Harley Owners Group (H.O.G.) community across Punjab and the northern highway touring corridors.</p>
+                </div>
+
+                <div class="harley-chapter-grid">
+                    <!-- Chapter Card 1: Grand Trunk Chapter Ludhiana -->
+                    <div class="harley-chapter-card">
+                        <div class="chapter-image-wrapper">
+                            <img src="hog_grand_trunk_ludhiana.jpg" alt="Grand Trunk Chapter Ludhiana Punjab - Harley Owners Group H.O.G." class="chapter-badge-img" />
+                        </div>
+                        <div class="chapter-card-body">
+                            <span class="chapter-tag">Official H.O.G. Chapter</span>
+                            <h3>Grand Trunk Chapter — Ludhiana, Punjab</h3>
+                            <p>
+                                Active rider in the <strong>Grand Trunk Chapter</strong> (Ludhiana, Punjab) of the official Harley Owners Group (H.O.G.). Regular participant in breakfast runs, highway rallies, and multi-state touring circuits across the historic Grand Trunk Road network.
+                            </p>
+                            <div class="chapter-meta-pills">
+                                <span class="harley-pill">H.O.G. Ludhiana</span>
+                                <span class="harley-pill">GT Road Circuit</span>
+                                <span class="harley-pill">Highway Rallies</span>
+                                <span class="harley-pill">Touring Brotherhood</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chapter Card 2: Harley-Davidson Punjab Insignia -->
+                    <div class="harley-chapter-card">
+                        <div class="chapter-image-wrapper">
+                            <img src="harley_davidson_punjab_patch.jpg" alt="Harley-Davidson Punjab Embroidered Crest with Lion &amp; Khanda" class="chapter-badge-img" />
+                        </div>
+                        <div class="chapter-card-body">
+                            <span class="chapter-tag">Regional Insignia</span>
+                            <h3>Harley-Davidson Punjab Crest</h3>
+                            <p>
+                                The iconic embroidered insignia uniting the spirit of Punjab — courage, resilience (Sher / Lion), and heritage (Khanda &amp; Talwars) — with the thunderous V-twin engineering and open-road freedom of Harley-Davidson.
+                            </p>
+                            <div class="chapter-meta-pills">
+                                <span class="harley-pill">Punjab Crest</span>
+                                <span class="harley-pill">Heritage &amp; Pride</span>
+                                <span class="harley-pill">Embroidered Patch</span>
+                                <span class="harley-pill">Northern Riders</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: The Rider's Philosophy -->
+            <section class="harley-section harley-philosophy-section">
+                <div class="harley-phil-grid">
+                    <div class="harley-phil-text">
+                        <span class="section-tag" style="background: rgba(234, 88, 12, 0.12); color: #ea580c; border-color: rgba(234, 88, 12, 0.3);">Philosophy &amp; Focus</span>
+                        <h2 class="section-title">The Engineering of Freedom</h2>
+                        <p class="harley-phil-lead">
+                            "When automating robotic cells or commissioning complex plant lines, every millisecond and mechanical linkage counts. On the motorcycle, that same focus translates into sensory awareness, throttle rhythm, and respect for mechanical synergy."
+                        </p>
+                        <p class="harley-phil-body">
+                            As a Mechatronics Engineer and an Associate Manager in automation, working with industrial kinematics and high-torque servomotors during the week makes operating a precision internal combustion machine on the weekends an organic extension of my craft.
+                        </p>
+                        <div class="harley-phil-bullets">
+                            <div class="harley-phil-bullet">
+                                <span class="bullet-icon">🏃</span>
+                                <div>
+                                    <h4>Endurance &amp; Stamina</h4>
+                                    <p>5-time marathon runner (5K &amp; 10K events for health &amp; anti-drug awareness). Mental stamina for 400+ km highway touring days.</p>
+                                </div>
+                            </div>
+                            <div class="harley-phil-bullet">
+                                <span class="bullet-icon">🧭</span>
+                                <div>
+                                    <h4>Northern Routes &amp; Exploration</h4>
+                                    <p>Weekend highway runs across Punjab, Shivalik foothills, and scenic bypass routes connecting northern heritage corridors.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="harley-phil-card">
+                        <div class="harley-card-inner">
+                            <div class="phil-badges-row">
+                                <img src="hog_grand_trunk_ludhiana.jpg" alt="Grand Trunk Chapter" class="harley-phil-mini-badge" />
+                                <img src="harley_davidson_punjab_patch.jpg" alt="Punjab Patch" class="harley-phil-mini-badge" />
+                            </div>
+                            <h3>The Rider's Creed</h3>
+                            <p class="harley-quote">
+                                "Two wheels move the soul. Engineering builds the machine; discipline commands the journey."
+                            </p>
+                            <div class="rider-meta">
+                                <strong>Amandeep Singh</strong>
+                                <span>Grand Trunk Chapter (Ludhiana) • Harley X440 S Pilot</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Video & Media Showcase -->
+            <section class="harley-section">
+                <div class="section-header" style="text-align: center; margin-bottom: 32px;">
+                    <span class="section-tag" style="background: rgba(234, 88, 12, 0.12); color: #ea580c; border-color: rgba(234, 88, 12, 0.3);">Featured Video Experience</span>
+                    <h2 class="section-title">Ride in Action: HD-MUMBAI</h2>
+                    <p class="section-desc">Experience the machine in motion, highway acoustics, and open-road touring footage.</p>
+                </div>
+
+                <!-- Featured HD-MUMBAI Video Player Container -->
+                <div class="harley-featured-video-card">
+                    <div class="harley-video-frame">
+                        <video controls controlsList="nodownload" oncontextmenu="return false;" playsinline preload="metadata" class="harley-video-element" poster="Harley_davidson_logo.jpg">
+                            <source src="HD-MUMBAI.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="harley-video-details">
+                        <div class="harley-video-header">
+                            <div class="harley-video-titles">
+                                <span class="harley-pill" style="color: #ea580c; border-color: rgba(234, 88, 12, 0.4);">🎬 Featured Video</span>
+                                <h3>Harley-Davidson Ride &amp; Road Experience — Mumbai</h3>
+                            </div>
+                            <span class="harley-badge-pill" style="margin: 0; pointer-events: none;">
+                                <img src="hog_grand_trunk_ludhiana.jpg" alt="HOG Ludhiana" class="harley-thumb" style="width: 28px; height: 28px;" />
+                                <div class="harley-badge-text">
+                                    <span>Ride Edition</span>
+                                    <strong>HD-MUMBAI</strong>
+                                </div>
+                            </span>
+                        </div>
+                        <p class="harley-video-desc">
+                            High-octane ride footage capturing the exhaust resonance, highway stability, and open throttle cadence on the Harley-Davidson journey across the Mumbai touring corridors.
+                        </p>
+                        <div class="harley-video-tags">
+                            <span class="tool-pill">🎬 HD Video</span>
+                            <span class="tool-pill">🔊 Exhaust Acoustics</span>
+                            <span class="tool-pill">📍 Mumbai Route</span>
+                            <span class="tool-pill">🏍️ Harley-Davidson Experience</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 6: Call to Action -->
+            <section class="harley-cta-box">
+                <div class="harley-cta-text">
+                    <h2>Share the Passion for Machines &amp; Motion</h2>
+                    <p>Whether it's industrial automation architecture or motorcycle touring stories, let's connect and collaborate.</p>
+                </div>
+                <div class="harley-cta-buttons">
+                    <a href="contact.html" class="btn btn-primary">Get In Touch</a>
+                    <a href="projects.html" class="btn btn-outline">Explore Industrial Projects</a>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Photo Modal Overlay -->
+    <div class="photo-modal-overlay" id="photoModalOverlay" role="dialog" aria-modal="true" aria-label="Harley Rider Full Resolution Photo">
+        <div class="photo-modal-inner">
+            <button type="button" class="photo-modal-close-btn" id="closePhotoBtn" aria-label="Close photo preview">&times;</button>
+            <img src="amandeep_harley_cinematic.jpg" alt="Amandeep Singh with Harley-Davidson X440 S full view" class="photo-modal-img" id="modalImg">
+            <div style="text-align: center; margin-top: 14px; color: #f8fafc;">
+                <h4 style="margin: 0 0 4px 0; font-family: var(--font-heading); font-size: 16px;">Amandeep Singh • Harley-Davidson X440 S</h4>
+                <p style="margin: 0; font-size: 13px; color: #94a3b8;" id="modalCaption">Grand Trunk Chapter (Ludhiana) • Night Ride Expressway Pitstop</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Amandeep Singh</h4>
+                <p>Associate Manager — Projects &amp; Automation</p>
+                <p>Godrej &amp; Boyce Mfg. Co. Ltd | M.Tech (Digital Mfg) BITS Pilani | B.Tech Mechatronics</p>
+            </div>
+            <div class="footer-section">
+                <h4>Get in Touch</h4>
+                <p>Email: <a href="mailto:anky_mthegem2@yahoo.co.uk">anky_mthegem2@yahoo.co.uk</a></p>
+                <p>Phone: <a href="tel:+919653080919">+91-9653080919</a></p>
+                <p>Location: Ludhiana, Punjab, India</p>
+            </div>
+            <div class="footer-section">
+                <h4>Professional Links</h4>
+                <p>Connect with me for collaborations &amp; technical opportunities.</p>
+                <div class="footer-social-links">
+                    <a href="https://www.linkedin.com/in/anky-mthegem/" target="_blank" rel="noopener noreferrer" class="footer-social-link" title="LinkedIn Profile" aria-label="LinkedIn Profile">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.75-1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    </a>
+                    <a href="https://github.com/anky-mthegem/" target="_blank" rel="noopener noreferrer" class="footer-social-link" title="GitHub Profile" aria-label="GitHub Profile">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Amandeep Singh. All rights reserved. | Ludhiana, Punjab, India</p>
+        </div>
+    </footer>
+
+    <!-- Fixed Floating Pill Scroll Action Widget -->
+    <div class="harley-floating-pill-wrap is-down" id="harleyFloatingPill">
+        <button type="button" class="harley-floating-pill-btn" id="harleyScrollBtn" aria-label="Scroll down to explore page">
+            <span class="harley-pill-icon-box">
+                <svg class="harley-pill-icon-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path id="pillArrowPath" d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+                </svg>
+            </span>
+            <span class="harley-pill-label" id="pillLabel">Scroll Down</span>
+        </button>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js?v=3.4"></script>
+
+    <!-- Page Specific Interactive Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // 1. Live Photo Variation Switcher
+            const modeBtns = document.querySelectorAll('.photo-mode-btn');
+            const heroImg = document.getElementById('heroRiderImg');
+            const modeIndicator = document.getElementById('photoModeIndicator');
+            const modalImg = document.getElementById('modalImg');
+            const modalCaption = document.getElementById('modalCaption');
+
+            modeBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const targetSrc = btn.getAttribute('data-img');
+                    const modeTitle = btn.getAttribute('data-mode');
+
+                    modeBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    // Smooth crossfade
+                    heroImg.style.opacity = '0.4';
+                    setTimeout(() => {
+                        heroImg.src = targetSrc;
+                        heroImg.style.opacity = '1';
+                        if (modalImg) modalImg.src = targetSrc;
+                    }, 150);
+
+                    if (modeIndicator) {
+                        modeIndicator.innerHTML = `Active Photo Mode: <strong>${modeTitle}</strong>`;
+                    }
+                    if (modalCaption) {
+                        modalCaption.textContent = `Mode: ${modeTitle} • Grand Trunk Chapter (Ludhiana)`;
+                    }
+                });
+            });
+
+            // 2. Telemetry Tab Switching
+            const telemTabs = document.querySelectorAll('.telem-tab-btn');
+            const telemPanes = document.querySelectorAll('.telem-pane-view');
+
+            telemTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetId = tab.getAttribute('data-tab');
+                    telemTabs.forEach(t => t.classList.remove('active'));
+                    telemPanes.forEach(p => p.classList.remove('active'));
+
+                    tab.classList.add('active');
+                    const targetPane = document.getElementById(targetId);
+                    if (targetPane) targetPane.classList.add('active');
+                });
+            });
+
+            // 3. Photo Lightbox Modal
+            const heroTrigger = document.getElementById('heroPhotoTrigger');
+            const modal = document.getElementById('photoModalOverlay');
+            const closeBtn = document.getElementById('closePhotoBtn');
+
+            if (heroTrigger && modal) {
+                heroTrigger.addEventListener('click', () => {
+                    modal.classList.add('open');
+                });
+            }
+
+            if (closeBtn && modal) {
+                closeBtn.addEventListener('click', () => {
+                    modal.classList.remove('open');
+                });
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) modal.classList.remove('open');
+                });
+            }
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal && modal.classList.contains('open')) {
+                    modal.classList.remove('open');
+                }
+            });
+
+            // 4. Realistic 440cc Single-Cylinder Exhaust Rumble Synthesizer (Web Audio API)
+            let audioCtx = null;
+            let osc = null;
+            let gain = null;
+            let lfo = null;
+            let isRevving = false;
+
+            function initAudio() {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+            }
+
+            const revBtn = document.getElementById('revAudioBtn');
+            const revText = document.getElementById('revAudioText');
+
+            if (revBtn) {
+                revBtn.addEventListener('click', () => {
+                    if (isRevving) {
+                        stopExhaust();
+                        return;
+                    }
+
+                    initAudio();
+                    if (audioCtx.state === 'suspended') {
+                        audioCtx.resume();
+                    }
+
+                    isRevving = true;
+                    revBtn.classList.add('is-revving');
+                    revText.textContent = 'Revving 440cc Thump...';
+
+                    // Audio nodes
+                    gain = audioCtx.createGain();
+                    gain.gain.setValueAtTime(0.14, audioCtx.currentTime);
+
+                    const filter = audioCtx.createBiquadFilter();
+                    filter.type = 'lowpass';
+                    filter.frequency.setValueAtTime(140, audioCtx.currentTime);
+
+                    osc = audioCtx.createOscillator();
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(45, audioCtx.currentTime); // Base idle freq
+
+                    lfo = audioCtx.createOscillator();
+                    const lfoGain = audioCtx.createGain();
+                    lfo.type = 'triangle';
+                    lfo.frequency.setValueAtTime(13, audioCtx.currentTime); // Piston thump pulse
+                    lfoGain.gain.setValueAtTime(0.09, audioCtx.currentTime);
+
+                    lfo.connect(lfoGain);
+                    lfoGain.connect(gain.gain);
+
+                    osc.connect(filter);
+                    filter.connect(gain);
+                    gain.connect(audioCtx.destination);
+
+                    osc.start();
+                    lfo.start();
+
+                    // Simulate realistic throttle rev curve
+                    setTimeout(() => {
+                        if (osc && audioCtx) {
+                            osc.frequency.linearRampToValueAtTime(80, audioCtx.currentTime + 0.6);
+                        }
+                    }, 400);
+
+                    setTimeout(() => {
+                        if (osc && audioCtx) {
+                            osc.frequency.linearRampToValueAtTime(50, audioCtx.currentTime + 0.8);
+                        }
+                    }, 1200);
+
+                    // Auto shutoff after 3.6s
+                    setTimeout(() => {
+                        stopExhaust();
+                    }, 3600);
+                });
+            }
+
+            function stopExhaust() {
+                if (gain && audioCtx) {
+                    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.3);
+                    setTimeout(() => {
+                        if (osc) { osc.stop(); osc.disconnect(); }
+                        if (lfo) { lfo.stop(); lfo.disconnect(); }
+                        isRevving = false;
+                        if (revBtn) revBtn.classList.remove('is-revving');
+                        if (revText) revText.textContent = 'Fire Up 440cc Exhaust Sound';
+                    }, 300);
+                }
+            }
+
+        });
+    </script>
+</body>
+</html>

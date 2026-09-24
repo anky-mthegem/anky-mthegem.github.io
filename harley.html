@@ -15,7 +15,46 @@
 
     <!-- Favicon & Stylesheet with Cache-Buster -->
     <link rel="icon" type="image/png" href="profile_logo.png">
-    <link rel="stylesheet" href="styles.css?v=3.3">
+    <link rel="stylesheet" href="styles.css?v=3.5">
+
+    <!-- Guarantee Horizontal Alignment for Badges -->
+    <style>
+        .harley-hero-badges-wrapper {
+            display: flex !important;
+            flex-wrap: nowrap !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            gap: 8px !important;
+            max-width: 100% !important;
+            overflow-x: auto !important;
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+            margin-bottom: 24px !important;
+        }
+        .harley-hero-badges-wrapper::-webkit-scrollbar {
+            display: none !important;
+        }
+        .harley-badge-pill-hero {
+            display: inline-flex !important;
+            align-items: center !important;
+            white-space: nowrap !important;
+            flex-shrink: 0 !important;
+            font-size: 11.5px !important;
+            padding: 5px 12px 5px 6px !important;
+            gap: 8px !important;
+            margin-bottom: 0 !important;
+        }
+        .harley-hero-logo {
+            width: 22px !important;
+            height: 22px !important;
+            flex-shrink: 0 !important;
+        }
+        @media (max-width: 1024px) {
+            .harley-hero-badges-wrapper {
+                justify-content: center !important;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -61,42 +100,61 @@
     <!-- Harley Page Hero -->
     <header class="harley-hero">
         <div class="container">
-            <div class="harley-hero-content">
-                <div class="harley-hero-badges-wrapper">
-                    <div class="harley-badge-pill-hero">
-                        <img src="Harley_davidson_logo.jpg" alt="Harley-Davidson Official Logo" class="harley-hero-logo" />
-                        <span>Harley-Davidson X440 S</span>
+            <div class="harley-hero-wrapper">
+                <div class="harley-hero-content">
+                    <div class="harley-hero-badges-wrapper">
+                        <div class="harley-badge-pill-hero">
+                            <img src="Harley_davidson_logo.jpg" alt="Harley-Davidson Official Logo" class="harley-hero-logo" />
+                            <span>Harley-Davidson X440 S</span>
+                        </div>
+                        <div class="harley-badge-pill-hero chapter-badge-pill">
+                            <img src="hog_grand_trunk_ludhiana.jpg" alt="Grand Trunk Chapter HOG" class="harley-hero-logo" />
+                            <span>Grand Trunk Chapter • Ludhiana</span>
+                        </div>
+                        <div class="harley-badge-pill-hero punjab-badge-pill">
+                            <img src="harley_davidson_punjab_patch.jpg" alt="Harley Punjab Patch" class="harley-hero-logo" />
+                            <span>Harley-Davidson Punjab</span>
+                        </div>
                     </div>
-                    <div class="harley-badge-pill-hero chapter-badge-pill">
-                        <img src="hog_grand_trunk_ludhiana.jpg" alt="Grand Trunk Chapter HOG" class="harley-hero-logo" />
-                        <span>Grand Trunk Chapter • Ludhiana</span>
-                    </div>
-                    <div class="harley-badge-pill-hero punjab-badge-pill">
-                        <img src="harley_davidson_punjab_patch.jpg" alt="Harley Punjab Patch" class="harley-hero-logo" />
-                        <span>Harley-Davidson Punjab</span>
+                    <h1 class="harley-hero-title">The Machine, The Ride &amp; The Open Road</h1>
+                    <p class="harley-hero-subtitle">
+                        Where mechanical precision, mechatronics intuition, and the spirit of touring converge. Exploring northern highways, alpine routes, and the art of two-wheeled engineering.
+                    </p>
+
+                    <div class="harley-quick-stats">
+                        <div class="harley-stat-card">
+                            <span class="harley-stat-val">440 cc</span>
+                            <span class="harley-stat-lbl">Single-Cylinder Oil-Cooled</span>
+                        </div>
+                        <div class="harley-stat-card">
+                            <span class="harley-stat-val">38 Nm</span>
+                            <span class="harley-stat-lbl">Peak Torque @ 4,000 RPM</span>
+                        </div>
+                        <div class="harley-stat-card">
+                            <span class="harley-stat-val">KYB 43mm</span>
+                            <span class="harley-stat-lbl">Inverted USD Cartridge Forks</span>
+                        </div>
+                        <div class="harley-stat-card">
+                            <span class="harley-stat-val">Dual ABS</span>
+                            <span class="harley-stat-lbl">ByBre Braking System</span>
+                        </div>
                     </div>
                 </div>
-                <h1 class="harley-hero-title">The Machine, The Ride &amp; The Open Road</h1>
-                <p class="harley-hero-subtitle">
-                    Where mechanical precision, mechatronics intuition, and the spirit of touring converge. Exploring northern highways, alpine routes, and the art of two-wheeled engineering.
-                </p>
 
-                <div class="harley-quick-stats">
-                    <div class="harley-stat-card">
-                        <span class="harley-stat-val">440 cc</span>
-                        <span class="harley-stat-lbl">Single-Cylinder Oil-Cooled</span>
-                    </div>
-                    <div class="harley-stat-card">
-                        <span class="harley-stat-val">38 Nm</span>
-                        <span class="harley-stat-lbl">Peak Torque @ 4,000 RPM</span>
-                    </div>
-                    <div class="harley-stat-card">
-                        <span class="harley-stat-val">KYB 43mm</span>
-                        <span class="harley-stat-lbl">Inverted USD Cartridge Forks</span>
-                    </div>
-                    <div class="harley-stat-card">
-                        <span class="harley-stat-val">Dual ABS</span>
-                        <span class="harley-stat-lbl">ByBre Braking System</span>
+                <!-- Rider & Harley Machine Photo on Right Side -->
+                <div class="harley-hero-image-wrapper">
+                    <div class="harley-hero-image-card">
+                        <img src="amandeep_harley_rider.jpg" 
+                             alt="Amandeep Singh with Harley-Davidson X440 S motorcycle" 
+                             class="harley-hero-rider-img" 
+                             width="767" 
+                             height="1024"
+                             fetchpriority="high"
+                             loading="eager" />
+                        <div class="harley-hero-image-caption">
+                            <strong>Amandeep Singh</strong>
+                            <span>Harley X440 S • H.O.G. Ludhiana</span>
+                        </div>
                     </div>
                 </div>
             </div>

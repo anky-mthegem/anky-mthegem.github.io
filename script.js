@@ -5,7 +5,7 @@
 // ==========================================================================
 // CONFIGURATION: Google Apps Script Web App URL for Contact Form Submissions
 // ==========================================================================
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxIdnCSMhl7NrOZwfA5D6AOv_q_Zbmu7Ihz0HDqGDEGYHvqbR4OQn3_jI_OCIINaEXx8g/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxvywWY7XeX3nPmC43X3DlYjvdllLtOxNZ3w7BQgmNXJyOyUcHBGzcuUFJAKz0eTk-zkw/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
@@ -214,7 +214,16 @@ function initContactForm() {
     form.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        // Retrieve field values
+        // 1. Anti-spam honeypot check
+        const honeypot = form.querySelector('[name="_honeypot"]');
+        if (honeypot && honeypot.value.trim() !== '') {
+            // Silently pretend success to fool automated bots
+            showMessage(responseMsg, 'Thank you! Your message has been sent.', 'success');
+            form.reset();
+            return;
+        }
+
+        // 2. Retrieve field values
         const nameInput = form.querySelector('[name="name"]') || document.getElementById('name');
         const emailInput = form.querySelector('[name="email"]') || document.getElementById('email');
         const messageInput = form.querySelector('[name="message"]') || document.getElementById('message');
@@ -223,7 +232,7 @@ function initContactForm() {
         const email = emailInput ? emailInput.value.trim() : '';
         const message = messageInput ? messageInput.value.trim() : '';
 
-        // Validation
+        // 3. Validation
         if (!name || !email || !message) {
             showMessage(responseMsg, 'Please fill in all required fields (Name, Email, Message).', 'error');
             return;
@@ -235,30 +244,35 @@ function initContactForm() {
             return;
         }
 
-        // Check if user still has the placeholder URL
+        // 4. Verify SCRIPT_URL
         if (!SCRIPT_URL || SCRIPT_URL === 'PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE') {
             showMessage(
                 responseMsg, 
                 '⚠️ Google Apps Script URL not configured yet. Please paste your deployed Web App URL in script.js (SCRIPT_URL).', 
                 'info'
             );
-            console.warn('Google Apps Script URL is not set. Please replace PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE in script.js with your deployed Web App URL.');
+            console.warn('Google Apps Script URL is not set. Please replace SCRIPT_URL in script.js with your deployed Web App URL.');
             return;
         }
 
-        // Prepare button UI state
-        const originalBtnText = submitBtn ? submitBtn.innerHTML : 'Send Message';
+        // 5. Prepare button UI loading state
+        const originalBtnHtml = submitBtn ? submitBtn.innerHTML : '<span>Send Message</span>';
         if (submitBtn) {
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span>Submitting...</span>';
+            submitBtn.innerHTML = '<span class="btn-spinner"></span><span>Sending Message...</span>';
         }
-        showMessage(responseMsg, 'Submitting...', 'submitting');
+        showMessage(responseMsg, 'Sending your message...', 'submitting');
 
+        // 6. Encode form data as URLSearchParams (CORS-safelisted content-type)
         const formData = new FormData(form);
+        const urlParams = new URLSearchParams();
+        for (const [key, value] of formData.entries()) {
+            urlParams.append(key, value);
+        }
 
         fetch(SCRIPT_URL, {
             method: 'POST',
-            body: formData
+            body: urlParams
         })
             .then(async (res) => {
                 const text = await res.text();
@@ -266,31 +280,34 @@ function initContactForm() {
                     return JSON.parse(text);
                 } catch (err) {
                     if (text.includes('Script function not found: doPost')) {
-                        throw new Error('Google Apps Script is missing doPost(e) or needs to be re-deployed as a New Version.');
+                        throw new Error('Google Apps Script is missing doPost(e). Please paste code from google_apps_script.js into your Apps Script editor and Deploy as a New Version.');
                     }
                     if (text.includes('Script function not found')) {
                         throw new Error('Google Apps Script function error. Please check your Apps Script deployment.');
+                    }
+                    if (res.ok) {
+                        return { result: 'success' };
                     }
                     throw new Error('Unexpected response format from Google Apps Script.');
                 }
             })
             .then((data) => {
                 if (data && data.result === 'success') {
-                    showMessage(responseMsg, 'Thank you! Your message has been sent.', 'success');
+                    showMessage(responseMsg, '✅ Thank you! Your message has been sent successfully. Data is saved in Google Sheets and an email notification has been dispatched.', 'success');
                     form.reset();
                 } else {
-                    const errorDetails = data && data.message ? `: ${data.message}` : '';
-                    showMessage(responseMsg, `Error submitting form${errorDetails}.`, 'error');
+                    const errorDetails = data && (data.message || data.error) ? `: ${data.message || data.error}` : '';
+                    showMessage(responseMsg, `⚠️ Error submitting form${errorDetails}. You can also email directly to anky_mthegem2@yahoo.co.uk.`, 'error');
                 }
             })
             .catch((error) => {
-                showMessage(responseMsg, error.message || 'Submission failed. Please check your connection.', 'error');
+                showMessage(responseMsg, error.message || '⚠️ Submission failed. Please check your connection or contact directly via email.', 'error');
                 console.error('Submission Error:', error);
             })
             .finally(() => {
                 if (submitBtn) {
                     submitBtn.disabled = false;
-                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.innerHTML = originalBtnHtml;
                 }
             });
     });

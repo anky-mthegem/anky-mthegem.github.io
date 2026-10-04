@@ -2304,6 +2304,22 @@ textarea.form-control {
     border: 1px solid rgba(6, 182, 212, 0.3);
 }
 
+.btn-spinner {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: btnSpin 0.75s linear infinite;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+@keyframes btnSpin {
+    to { transform: rotate(360deg); }
+}
+
 /* ==========================================================================
    FOOTER
    ========================================================================== */

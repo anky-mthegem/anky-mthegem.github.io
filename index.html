@@ -28,7 +28,7 @@
     <meta name="twitter:description" content="Associate Manager in Projects &amp; Automation at Godrej &amp; Boyce. Industrial Robotics, Siemens PLC &amp; Digital Manufacturing.">
     <meta name="twitter:image" content="https://anky-mthegem.github.io/profile_logo.png">
 
-    <link rel="stylesheet" href="styles.css?v=3.6">
+    <link rel="stylesheet" href="styles.css?v=3.8">
     <!-- Google Fonts Fast Non-Blocking Preconnect & Preload -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,6 +37,61 @@
     <noscript>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
     </noscript>
+
+    <!-- Google Structured Data / Rich Snippets (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Amandeep Singh",
+      "alternateName": "Anky",
+      "url": "https://anky-mthegem.github.io/",
+      "image": "https://anky-mthegem.github.io/profile_logo.png",
+      "jobTitle": "Associate Manager — Projects & Automation",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Godrej & Boyce Mfg. Co. Ltd",
+        "url": "https://www.godrej.com/"
+      },
+      "alumniOf": [
+        {
+          "@type": "EducationalOrganization",
+          "name": "BITS Pilani",
+          "description": "M.Tech in Digital Manufacturing"
+        },
+        {
+          "@type": "EducationalOrganization",
+          "name": "Punjab Technical University",
+          "description": "B.Tech in Mechatronics Engineering"
+        }
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Ludhiana",
+        "addressRegion": "Punjab",
+        "postalCode": "141002",
+        "addressCountry": "India"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/in/anky-mthegem/",
+        "https://github.com/anky-mthegem/"
+      ],
+      "knowsAbout": [
+        "Industrial Automation",
+        "Robotic Cell Deployment",
+        "KUKA Robotics",
+        "ABB Robotics",
+        "Fanuc Robotics",
+        "Siemens S7-1200 PLC",
+        "SCADA Systems",
+        "Computer Vision & YOLO",
+        "Digital Manufacturing",
+        "Industry 4.0 & IoT",
+        "Greenfield & Brownfield Plant Commissioning"
+      ]
+    }
+    </script>
+
     <!-- Instant Theme Init to prevent Flash of Unstyled Theme -->
     <script>(function(){try{var t=localStorage.getItem('portfolio-theme');if(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)t='dark';if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 </head>
@@ -108,7 +163,10 @@
             <!-- Harley Rider Enthusiast Badge with Official Logo -->
             <div>
                 <a href="harley.html" class="harley-badge-pill" title="Learn more in About Me">
-                    <img src="Harley_davidson_logo.jpg" alt="Harley-Davidson Logo" class="harley-thumb" />
+                    <picture>
+                        <source srcset="Harley_davidson_logo.webp" type="image/webp">
+                        <img src="Harley_davidson_logo.jpg" alt="Harley-Davidson Logo" class="harley-thumb" width="42" height="42" loading="lazy" />
+                    </picture>
                     <div class="harley-badge-text">
                         <span>Passionate Rider</span>
                         <strong>Harley Rider &amp; 5x Marathoner</strong>
@@ -342,7 +400,7 @@
         </button>
     </div>
 
-    <script src="script.js?v=3.6" defer></script>
+    <script src="script.js?v=3.8" defer></script>
 </body>
 
 </html>
